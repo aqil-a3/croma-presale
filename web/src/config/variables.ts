@@ -1,0 +1,1 @@
+export const mainGradientFont= "bg-clip-text bg-gradient-to-r from-[#B72204] to-[#FC6400] text-transparent"

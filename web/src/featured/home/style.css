@@ -1,0 +1,30 @@
+.gradient-1 {
+  background: linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.11));
+}
+
+.main-border-1 {
+  border: 1px solid;
+  border-image-source: linear-gradient(
+    108.32deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.4) 3.95%,
+    rgba(255, 255, 255, 0.03) 98.74%
+  );
+}
+
+.croma-border-2 {
+  border: 1px solid;
+
+  border-image-source: linear-gradient(
+    108.32deg,
+    #fc6400 0%,
+    rgba(255, 148, 77, 0.4) 3.95%,
+    rgba(252, 100, 0, 0.03) 98.74%
+  );
+}
+
+.backdrop-filter-blur {
+  backdrop-filter: blur(20px);
+}
