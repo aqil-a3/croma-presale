@@ -1,6 +1,6 @@
 "use client";
 import { Background } from "@/featured/home/components/misc/background";
-import { MainContainer } from "../layout/MainContainer";
+import { MainContainer } from "../../layout/MainContainer";
 import { HeroSection } from "@/featured/home/components/HeroSection";
 import { Decor1 } from "@/featured/home/components/misc/decor-1";
 import { PresaleProgressSection } from "@/featured/home/components/PresaleProgressSection";

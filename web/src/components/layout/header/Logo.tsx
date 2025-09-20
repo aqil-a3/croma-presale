@@ -5,7 +5,7 @@ import Link from "next/link";
 export function HeaderLogo() {
   return (
     <Link
-      href={"/"}
+      href={"/home"}
       className="inline-flex items-center gap-2 relative flex-[0_0_auto]"
     >
       <Image
