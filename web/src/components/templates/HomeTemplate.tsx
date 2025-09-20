@@ -3,10 +3,11 @@ import { MainContainer } from "../layout/MainContainer";
 import { HeroSection } from "@/featured/home/components/HeroSection";
 import { Decor1 } from "@/featured/home/components/misc/decor-1";
 import { PresaleProgressSection } from "@/featured/home/components/PresaleProgressSection";
+import { HowToBuySection } from "@/featured/home/components/HowToBuySection";
 
 export default function HomeTemplate() {
   return (
-    <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center">
+    <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
       <>
         <Decor1 />
         <Background />
@@ -14,6 +15,7 @@ export default function HomeTemplate() {
 
       <HeroSection />
       <PresaleProgressSection />
+      <HowToBuySection />
     </MainContainer>
   );
 }
