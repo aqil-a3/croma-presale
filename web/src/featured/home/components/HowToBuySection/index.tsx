@@ -5,6 +5,7 @@ import { useState } from "react";
 import { TabsTriggerComp } from "./TabsTrigger";
 import { TabsContentComp } from "./TabsContent";
 import { Indicator } from "./Indicator";
+import { PANEL_BG } from "@/config/variables";
 
 export type TabsTriggerLabel = "firtStep" | "secondStep" | "thirdStep";
 
@@ -19,12 +20,7 @@ export function HowToBuySection() {
         <Tabs
           value={step}
           onValueChange={(e) => setStep(e as TabsTriggerLabel)}
-          style={{
-            background:
-              "linear-gradient(0deg,rgba(40,50,65,0),rgba(40,50,65,0))," +
-              "linear-gradient(0deg,rgba(0,0,0,0.34),rgba(0,0,0,0.34))," +
-              "linear-gradient(0deg,rgba(255,255,255,0.11),rgba(255,255,255,0.11))",
-          }}
+          style={{ background: PANEL_BG }}
           className="w-full rounded-2xl border border-orange-500/50 p-4 space-y-4"
         >
           <TabsTriggerComp currValue={step} />

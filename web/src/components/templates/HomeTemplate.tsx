@@ -4,6 +4,7 @@ import { HeroSection } from "@/featured/home/components/HeroSection";
 import { Decor1 } from "@/featured/home/components/misc/decor-1";
 import { PresaleProgressSection } from "@/featured/home/components/PresaleProgressSection";
 import { HowToBuySection } from "@/featured/home/components/HowToBuySection";
+import { FrequentlyAskedSection } from "@/featured/home/components/FrequentlyAskedSection";
 
 export default function HomeTemplate() {
   return (
@@ -16,6 +17,7 @@ export default function HomeTemplate() {
       <HeroSection />
       <PresaleProgressSection />
       <HowToBuySection />
+      <FrequentlyAskedSection />
     </MainContainer>
   );
 }

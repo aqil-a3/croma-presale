@@ -4,6 +4,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { TabsTriggerLabel } from ".";
+import { CTA_BG, PANEL_BG } from "@/config/variables";
 
 interface ContentData {
   title: string;
@@ -12,12 +13,6 @@ interface ContentData {
   CTAComp?: React.ReactNode;
 }
 
-const PANEL_BG =
-  "linear-gradient(0deg, rgba(40,50,65,0), rgba(40,50,65,0))," +
-  "linear-gradient(0deg, rgba(0,0,0,0.34), rgba(0,0,0,0.34))," +
-  "linear-gradient(0deg, rgba(255,255,255,0.11), rgba(255,255,255,0.11))";
-
-const CTA_BG = "linear-gradient(90deg, #B72204 0%, #FC6400 100%)";
 
 const dataContent: Record<TabsTriggerLabel, ContentData> = {
   firtStep: {
