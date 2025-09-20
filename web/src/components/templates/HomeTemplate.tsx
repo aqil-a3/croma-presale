@@ -1,3 +1,4 @@
+"use client";
 import { Background } from "@/featured/home/components/misc/background";
 import { MainContainer } from "../layout/MainContainer";
 import { HeroSection } from "@/featured/home/components/HeroSection";
