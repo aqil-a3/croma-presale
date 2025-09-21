@@ -13,7 +13,7 @@ export function LeaderboardTable() {
   return (
     <div
       style={{ background: PANEL_BG }}
-      className="border border-orange-500 rounded-2xl p-4 space-y-4"
+      className="border border-orange-500 rounded-2xl p-4 space-y-4 backdrop-blur-2xl"
     >
       <TableTitle />
       <Tabs
