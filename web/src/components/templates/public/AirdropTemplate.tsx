@@ -1,13 +1,13 @@
 "use client";
 import { Decor } from "@/components/atoms/Decor";
 import { BalloonImage } from "@/components/atoms/image-decorations/BalloonImage";
-import { MainContainer } from "@/components/layout/MainContainer";
+import { MainContainer } from "@/components/layout/container/MainContainer";
 import { HeroSection } from "@/featured/airdrop/components/HeroSection";
 import { StayUpdatedSection } from "@/featured/airdrop/components/StayUpdatedSection";
 
 export default function AirdropTemplate() {
   return (
-    <MainContainer className="relative pt-52 pb-12 min-h-screen bg-center bg-cover bg-black bg-[url(/images/background/dashboard/bg-01.png)] text-white space-y-8 overflow-hidden">
+    <MainContainer className="relative pt-52 pb-12 min-h-screen bg-center bg-cover bg-[url(/images/background/dashboard/bg-01.png)] text-white space-y-8 overflow-hidden">
       <Decor
         width={472}
         height={472}
