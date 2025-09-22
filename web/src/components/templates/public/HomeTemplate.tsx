@@ -1,11 +1,11 @@
 "use client";
-import { Background } from "@/featured/home/components/misc/background";
+import { Background } from "@/featured/public/home/components/misc/background";
 import { MainContainer } from "../../layout/container/MainContainer";
-import { HeroSection } from "@/featured/home/components/HeroSection";
-import { Decor1 } from "@/featured/home/components/misc/decor-1";
-import { PresaleProgressSection } from "@/featured/home/components/PresaleProgressSection";
-import { HowToBuySection } from "@/featured/home/components/HowToBuySection";
-import { FrequentlyAskedSection } from "@/featured/home/components/FrequentlyAskedSection";
+import { HeroSection } from "@/featured/public/home/components/HeroSection";
+import { Decor1 } from "@/featured/public/home/components/misc/decor-1";
+import { PresaleProgressSection } from "@/featured/public/home/components/PresaleProgressSection";
+import { HowToBuySection } from "@/featured/public/home/components/HowToBuySection";
+import { FrequentlyAskedSection } from "@/featured/public/home/components/FrequentlyAskedSection";
 
 export default function HomeTemplate() {
   return (

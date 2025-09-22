@@ -2,8 +2,8 @@
 import { Decor } from "@/components/atoms/Decor";
 import { BalloonImage } from "@/components/atoms/image-decorations/BalloonImage";
 import { MainContainer } from "@/components/layout/container/MainContainer";
-import { HeroSection } from "@/featured/airdrop/components/HeroSection";
-import { StayUpdatedSection } from "@/featured/airdrop/components/StayUpdatedSection";
+import { HeroSection } from "@/featured/public/airdrop/components/HeroSection";
+import { StayUpdatedSection } from "@/featured/public/airdrop/components/StayUpdatedSection";
 
 export default function AirdropTemplate() {
   return (

@@ -2,11 +2,11 @@ import { Decor } from "@/components/atoms/Decor";
 import { ShieldReferralImage } from "@/components/atoms/image-decorations/ShieldReferralImage";
 import { TwoFireImage } from "@/components/atoms/image-decorations/TwoFireImage";
 import { MainContainer } from "@/components/layout/container/MainContainer";
-import { EstimationProgresSectionInteractive } from "@/featured/referral/components/EstimationProgresSection";
-import { HowItWorksSection } from "@/featured/referral/components/HowItWorks";
-import { ReferralStatisticSection } from "@/featured/referral/components/ReferralStatisticSection";
-import { ReferralTierSection } from "@/featured/referral/components/ReferralTierSection";
-import { Title } from "@/featured/referral/components/Title";
+import { EstimationProgresSectionInteractive } from "@/featured/public/referral/components/EstimationProgresSection";
+import { HowItWorksSection } from "@/featured/public/referral/components/HowItWorks";
+import { ReferralStatisticSection } from "@/featured/public/referral/components/ReferralStatisticSection";
+import { ReferralTierSection } from "@/featured/public/referral/components/ReferralTierSection";
+import { Title } from "@/featured/public/referral/components/Title";
 
 export default function ReferralTemplate() {
   return (

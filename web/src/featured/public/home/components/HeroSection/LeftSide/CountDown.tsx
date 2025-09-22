@@ -1,7 +1,7 @@
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
-import { CountdownType } from "@/featured/home/interface";
 import { CSSProperties } from "react";
+import { CountdownType } from "../../../interface";
 
 const cardBg: CSSProperties = {
   background: `linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)),

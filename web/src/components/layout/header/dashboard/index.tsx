@@ -13,7 +13,7 @@ export function DashboardHeader() {
     <header
       style={{ background: PANEL_BG }}
       className={cn(
-        "absolute w-[calc(100vw-4rem)] flex justify-between items-center px-8 z-10 backdrop-blur-3xl min-h-16", open && "w-[calc(100vw-14rem)]"
+        "absolute w-[calc(100vw-3.5rem)] flex justify-between items-center px-8 z-20 backdrop-blur-3xl min-h-16", open && "w-[calc(100vw-13.5rem)]"
       )}
     >
       <Button

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { GRADIENT_MAIN_COLOR_TW, mainGradientFont } from "@/config/variables";
-import { referralLink } from "@/featured/referral/dummy/referralLink";
+import { referralLink } from "@/featured/public/referral/dummy/referralLink";
 
 const REFERRAL_LINK_BG =
   "linear-gradient(88.3deg, rgba(255, 255, 255, 0.0581) 0%, rgba(255, 255, 255, 0.0308) 99.66%)";

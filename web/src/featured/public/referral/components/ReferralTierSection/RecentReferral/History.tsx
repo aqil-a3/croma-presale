@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import { mainGradientFont, PANEL_BG } from "@/config/variables";
-import { dummyReferralHistories } from "@/featured/referral/dummy/referralHistory";
+import { dummyReferralHistories } from "@/featured/public/referral/dummy/referralHistory";
 import { formatDate } from "@/utils/formatDate";
 import { shortenAddress } from "@/utils/shortenAddress";
 

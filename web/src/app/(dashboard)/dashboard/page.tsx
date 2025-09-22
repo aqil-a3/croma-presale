@@ -1,4 +1,4 @@
-import { DashboardContainer } from "@/components/layout/container/DashboardContainer";
+import DashboardTemplate from "@/components/templates/dashboard/DashboardTemplate";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
-  return <DashboardContainer>OK</DashboardContainer>;
+  return <DashboardTemplate />
 }

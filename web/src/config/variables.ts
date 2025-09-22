@@ -10,6 +10,11 @@ export const PANEL_BG =
 export const GRADIENT_MAIN_COLOR =
   "linear-gradient(90deg, #B72204 0%, #FC6400 100%)";
 
+export const GRADIENT_ORANGE =
+  "linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0))," +
+  "linear-gradient(0deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34))," +
+  "linear-gradient(0deg, rgba(252, 100, 0, 0.08), rgba(252, 100, 0, 0.08))";
+
 // TAILWIND
 
 export const PANEL_BG_TW =

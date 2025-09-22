@@ -3,10 +3,10 @@ import { Decor } from "@/components/atoms/Decor";
 import { TrophyImage } from "@/components/atoms/image-decorations/TrophyImage";
 import { TwoFireImage } from "@/components/atoms/image-decorations/TwoFireImage";
 import { MainContainer } from "@/components/layout/container/MainContainer";
-import { LeaderboardTable } from "@/featured/leaderboard/components/Table";
-import { Title } from "@/featured/leaderboard/components/Title";
-import { dummyTopBuyers } from "@/featured/leaderboard/dummy";
-import { LeaderboardProvider } from "@/featured/leaderboard/provider";
+import { LeaderboardTable } from "@/featured/public/leaderboard/components/Table";
+import { Title } from "@/featured/public/leaderboard/components/Title";
+import { dummyTopBuyers } from "@/featured/public/leaderboard/dummy";
+import { LeaderboardProvider } from "@/featured/public/leaderboard/provider";
 
 export default function LeaderboardTemplate() {
   return (
