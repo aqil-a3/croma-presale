@@ -1,4 +1,5 @@
 import { fontOrbitron } from "@/config/fonts";
+import { mainGradientFont } from "@/config/variables";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,11 +18,11 @@ export function HeaderLogo() {
       />
 
       <div
-        className={`relative w-fit bg-[linear-gradient(90deg,rgba(183,34,4,1)_0%,rgba(252,100,0,1)_100%)] [-webkit-background-clip:text] bg-clip-text [-webkit-text-fill-color:transparent] [text-fill-color:transparent] ${fontOrbitron.className} font-normal text-transparent text-xl tracking-[0] leading-[normal]`}
+        className={`${mainGradientFont} ${fontOrbitron.className}`}
       >
-        <span className="text-black">CROMA</span>
+        <span>CROMA</span>
 
-        <span className="font-bold text-black">CHAIN</span>
+        <span className="font-bold">CHAIN</span>
       </div>
     </Link>
   );

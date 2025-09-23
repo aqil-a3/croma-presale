@@ -66,11 +66,11 @@ export function FAQ() {
         {faqData.map((data, idx) => (
           <AccordionItem
             key={data.value}
-            value={data.value} // <-- samakan dengan state
+            value={data.value}
             className={[
               "rounded-2xl border border-white/15 px-4",
-              PANEL_BG_TW, // state closed
-              // state open → gradient oranye + hilangkan border abu
+              PANEL_BG_TW,
+
               "data-[state=open]:border-transparent",
               "data-[state=open]:[background:linear-gradient(90deg,#B72204_0%,#FC6400_100%)]",
             ].join(" ")}
@@ -83,7 +83,7 @@ export function FAQ() {
                   {(idx + 1).toString().padStart(2, "0")}
                 </span>
                 <p
-                  className={`${fontPoppins.className} font-semibold text-white text-[20px]`}
+                  className={`${fontPoppins.className} font-semibold text-white text-lg lg:text-xl`}
                 >
                   {data.title}
                 </p>

@@ -3,9 +3,9 @@ import { mainGradientFont } from "@/config/variables";
 
 export function LeftSideText() {
   return (
-    <div>
+    <div className="space-y-4">
       <h1
-        className={`${mainGradientFont} ${fontOrbitron.className} font-extrabold  text-7xl`}
+        className={`${mainGradientFont} ${fontOrbitron.className} font-extrabold text-5xl lg:text-7xl`}
       >
         CROMACOIN <br /> PRESALE
       </h1>

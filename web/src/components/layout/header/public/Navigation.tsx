@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navigationItems = [
+export const navigationItems = [
   { label: "Home", href: "/home" },
   { label: "Leaderboard", href: "/leaderboard" },
   { label: "Airdrop", href: "/airdrop" },
@@ -13,7 +13,7 @@ export function HeaderNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="inline-flex items-center gap-[34px] relative flex-[0_0_auto]">
+    <nav className="hidden md:inline-flex items-center gap-[34px] relative flex-[0_0_auto]">
       {navigationItems.map((item, index) => {
         const isActive = item.href === pathname;
         return (

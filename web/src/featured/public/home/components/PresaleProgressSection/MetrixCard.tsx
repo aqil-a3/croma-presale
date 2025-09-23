@@ -1,5 +1,5 @@
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
-import { mainGradientFont } from "@/config/variables";
+import { GRADIENT_ORANGE, mainGradientFont } from "@/config/variables";
 
 const values: { value: string; label: string }[] = [
   {
@@ -22,15 +22,14 @@ const values: { value: string; label: string }[] = [
 
 export function MetrixCard() {
   return (
-    <div className={`grid grid-cols-4 gap-4`}>
+    <div className={`grid grid-cols-2 md:grid-cols-4 gap-4`}>
       {values.map((val, index) => (
         <div
           style={{
-            background: `linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)), linear-gradient(0deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)), linear-gradient(0deg, rgba(252, 100, 0, 0.08), rgba(252, 100, 0, 0.08))`,
-            backdropFilter: "blur(20px)"
+            background: GRADIENT_ORANGE,
           }}
           key={index}
-          className="text-center p-4 border border-orange-500 rounded-2xl"
+          className="text-center p-4 border border-orange-500 rounded-2xl backdrop-blur-lg"
         >
           <p
             className={`${mainGradientFont} ${fontOrbitron.className} text-[40px] font-bold`}

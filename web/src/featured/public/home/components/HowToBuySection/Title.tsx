@@ -4,11 +4,11 @@ export function Title() {
   return (
     <>
       <h3
-        className={`${fontOrbitron.className} text-[40px] text-white text-center font-bold`}
+        className={`${fontOrbitron.className} text-3xl lg:text-4xl text-white text-center font-bold`}
       >
         How to buy
       </h3>
-      <p className={`${fontPoppins.className} text-[#A6A6A6] text-[20px] text-center font-medium`}>Buying TICS with ETH, BNB, USDT, USDC or BUSD</p>
+      <p className={`${fontPoppins.className} text-[#A6A6A6] text-base lg:text-xl text-center font-medium`}>Buying TICS with ETH, BNB, USDT, USDC or BUSD</p>
     </>
   );
 }

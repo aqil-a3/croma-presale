@@ -4,15 +4,15 @@ import { CTA_BG } from "@/config/variables";
 
 export function Title() {
   return (
-    <div className="relative flex justify-between z-10">
+    <div className="relative flex flex-col lg:flex-row gap-4 justify-between z-10">
       <div className="space-y-2">
         <h3
-          className={`${fontOrbitron.className} text-white text-[40px] font-bold`}
+          className={`${fontOrbitron.className} text-white text-2xl lg:text-4xl font-bold`}
         >
           Frequently Asked Questions
         </h3>
         <p
-          className={`${fontPoppins.className} text-[#A6A6A6] text-xl font-medium `}
+          className={`${fontPoppins.className} text-[#A6A6A6] lg:text-xl font-medium `}
         >
           Still have questions? Don&apos;t worry
         </p>

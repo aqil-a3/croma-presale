@@ -1,13 +1,6 @@
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
-import { mainGradientFont } from "@/config/variables";
-import { CSSProperties } from "react";
+import { GRADIENT_ORANGE, mainGradientFont } from "@/config/variables";
 import { CountdownType } from "../../../interface";
-
-const cardBg: CSSProperties = {
-  background: `linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)),
-linear-gradient(0deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)),
-linear-gradient(0deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.11))`,
-};
 
 export function LeftSideCountdown() {
   return (
@@ -21,16 +14,16 @@ export function LeftSideCountdown() {
 const PresaleEndComp = () => {
   return (
     <div
-      style={cardBg}
-      className="flex justify-between items-center px-8 py-4 mt-4 rounded-2xl border border-white/50"
+      style={{ background: GRADIENT_ORANGE }}
+      className="flex justify-between items-center px-2 lg:px-8 py-4 mt-4 rounded-2xl border border-white/50 backdrop-blur-2xl"
     >
       <p
-        className={`${fontPoppins.className} text-white text-[24px] font-medium`}
+        className={`${fontPoppins.className} text-white text-xl lg:text-2xl font-medium`}
       >
         Presale Ends In
       </p>
       <p
-        className={`${mainGradientFont} ${fontPoppins.className} text-lg font-semibold`}
+        className={`${mainGradientFont} ${fontPoppins.className} text-base lg:text-lg font-semibold`}
       >
         Oct 16, 2025 23:59:00 UTC
       </p>
@@ -62,11 +55,11 @@ const CountDownComp = () => {
       {dummy.map((dum, i) => (
         <div
           key={i}
-          style={cardBg}
-          className="py-4 px-8 shadow-2xl rounded-2xl border border-white/50 text-center"
+          style={{ background: GRADIENT_ORANGE }}
+          className="py-4 px-4 lg:px-8 lg:py-8 shadow-2xl rounded-2xl border border-white/50 text-center backdrop-blur-2xl"
         >
           <p
-            className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-[40px]`}
+            className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-4xl`}
           >
             {dum.time.toString().padStart(2, "0")}
           </p>
@@ -78,4 +71,3 @@ const CountDownComp = () => {
     </div>
   );
 };
-

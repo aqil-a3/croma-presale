@@ -18,7 +18,7 @@ export function TabsTriggerComp({
   currValue: TabsTriggerLabel;
 }) {
   return (
-    <TabsList className="bg-transparent gap-4 mx-auto h-[80px] p-0">
+    <TabsList className="bg-transparent flex-col lg:flex-row gap-4 mx-auto h-auto lg:h-[80px] p-0">
       {stepArray.map((step) => {
         const isActive = step === currValue;
         return (
@@ -30,7 +30,7 @@ export function TabsTriggerComp({
           >
             <Button
               className={cn(
-                "h-[80px] px-4 text-2xl font-semibold text-white bg-black/80 border-orange-500",
+                "h-auto lg:h-[80px] w-full py-4 px-4 text-2xl font-semibold text-white bg-black/80 border-orange-500",
                 fontPoppins.className,
                 isActive &&
                   "[background:_linear-gradient(90deg,_#b72204_0%,_#fc6400_100%)] border-none"

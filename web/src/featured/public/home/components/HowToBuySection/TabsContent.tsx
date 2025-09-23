@@ -13,7 +13,6 @@ interface ContentData {
   CTAComp?: React.ReactNode;
 }
 
-
 const dataContent: Record<TabsTriggerLabel, ContentData> = {
   firtStep: {
     title: "Step 1 - Wallet Setup",
@@ -24,8 +23,7 @@ const dataContent: Record<TabsTriggerLabel, ContentData> = {
   },
   secondStep: {
     title: "Step 2 - Purchase Process",
-    description:
-      `Simply select your preferred currency on our website, enter the number of tokens you'd like to purchase, and click “Buy Now.”
+    description: `Simply select your preferred currency on our website, enter the number of tokens you'd like to purchase, and click “Buy Now.”
 
 Your wallet will prompt you to confirm the transaction`,
     imageSrc: "/images/dashboard/how-to-buy-step-2.png",
@@ -52,14 +50,18 @@ export function TabsContentComp() {
             key={`${step}-data`}
             value={step}
             style={{ background: PANEL_BG }}
-            className="w-full p-6 rounded-2xl border border-orange-500/60 grid grid-cols-1 lg:grid-cols-2 gap-6"
+            className="w-full p-6 rounded-2xl border border-orange-500/60 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-6"
           >
             <div className="my-auto space-y-4">
-              <h3 className={`${fontOrbitron.className} text-4xl font-semibold text-white`}>
+              <h3
+                className={`${fontOrbitron.className} text-2xl lg:text-4xl font-semibold text-white`}
+              >
                 {data.title}
               </h3>
 
-              <p className={`${fontPoppins.className} text-lg font-medium leading-8 text-white whitespace-pre-line`}>
+              <p
+                className={`${fontPoppins.className} text-base lg:text-lg font-medium leading-8 text-white whitespace-pre-line`}
+              >
                 {data.description}
               </p>
 

@@ -10,7 +10,7 @@ export function MainContainer({
   ...props
 }: MainContainerProps) {
   return (
-    <div className={cn("px-40 py-4", className)} {...props}>
+    <div className={cn("px-4 lg:px-40 py-4", className)} {...props}>
       {children}
     </div>
   );

@@ -14,7 +14,7 @@ export function HowToBuySection() {
 
   return (
     <section className="relative z-10 w-full mt-8">
-      <div className="mx-auto max-w-[1200px] px-6 space-y-6">
+      <div className="mx-auto max-w-[1200px] px-2 lg:px-6 space-y-6">
         <Title />
 
         <Tabs

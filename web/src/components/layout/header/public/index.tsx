@@ -1,9 +1,7 @@
-// import { HeaderCTAButton } from "./CTAButton";
-// import { HeaderLogo } from "./Logo";
-// import { HeaderNavigation } from "./Navigation";
-
+"use client";
 import { HeaderCTAButton } from "./CTAButton";
 import { HeaderLogo } from "./Logo";
+import { MobileMenu } from "./MobileMenu";
 import { HeaderNavigation } from "./Navigation";
 
 export default function Header() {
@@ -18,6 +16,7 @@ export default function Header() {
       <HeaderLogo />
       <HeaderNavigation />
       <HeaderCTAButton />
+      <MobileMenu />
     </header>
   );
 }
