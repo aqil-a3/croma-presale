@@ -5,15 +5,18 @@ import { fontPoppins } from "@/config/fonts";
 import { PANEL_BG } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { Bell, Copy, Menu, User, Wallet } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function DashboardHeader() {
   const { toggleSidebar, open } = useSidebar();
+  const router = useRouter();
 
   return (
     <header
       style={{ background: PANEL_BG }}
       className={cn(
-        "absolute w-[calc(100vw-3.5rem)] flex justify-between items-center px-8 z-20 backdrop-blur-3xl min-h-16", open && "w-[calc(100vw-13.5rem)]"
+        "absolute w-[calc(100vw-3.5rem)] flex justify-between items-center px-8 z-20 backdrop-blur-3xl min-h-16",
+        open && "w-[calc(100vw-13.5rem)]"
       )}
     >
       <Button
@@ -45,6 +48,7 @@ export function DashboardHeader() {
         <Button
           size={"icon"}
           className="bg-white/10 border border-gray-600 rounded-xl"
+          onClick={() => router.push("/profile")}
         >
           <User />
         </Button>
