@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 import Header from "@/components/layout/header/public";
 import Footer from "@/components/layout/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function PublicLayout({
       <body className={`antialiased`}>
         <Header />
         {children}
+        <Toaster position="top-center" richColors={true} />
         <Footer />
       </body>
     </html>

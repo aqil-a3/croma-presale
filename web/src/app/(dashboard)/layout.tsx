@@ -3,6 +3,9 @@ import "../globals.css";
 import { DashboardHeader } from "@/components/layout/header/dashboard";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/layout/sidebar/dashboard";
+import { wagmiConfig } from "@/services/wagmi/wagmiConfig";
+import { getAccount } from "@wagmi/core";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -18,6 +21,9 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isConnected } = getAccount(wagmiConfig);
+
+  if (!isConnected) redirect("/home");
   return (
     <html lang="en">
       <body className={`antialiased overflow-x-hidden`}>

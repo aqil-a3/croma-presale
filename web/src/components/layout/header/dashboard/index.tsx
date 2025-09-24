@@ -5,12 +5,23 @@ import { fontPoppins } from "@/config/fonts";
 import { PANEL_BG } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { shortenAddress } from "@/utils/shortenAddress";
-import { Bell, Copy, Menu, User, Wallet } from "lucide-react";
+import { Bell, Copy, LogOut, Menu, User, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useAccount } from "wagmi";
+import { toast } from "sonner";
+import { useAccount, useDisconnect } from "wagmi";
 
 export function DashboardHeader() {
   const { toggleSidebar, open } = useSidebar();
+  const { disconnect } = useDisconnect({
+    mutation: {
+      onError: (err) => {
+        console.error(err);
+        toast.error("Something wrong");
+      },
+      onSuccess: () =>
+        toast.success("Wallet Disconnected! Thanks for Using Cromachain"),
+    },
+  });
   const { address } = useAccount();
   const router = useRouter();
 
@@ -54,6 +65,13 @@ export function DashboardHeader() {
           onClick={() => router.push("/profile")}
         >
           <User />
+        </Button>
+        <Button
+          size={"icon"}
+          className="bg-white/10 border border-gray-600 rounded-xl"
+          onClick={() => disconnect()}
+        >
+          <LogOut />
         </Button>
       </div>
     </header>
