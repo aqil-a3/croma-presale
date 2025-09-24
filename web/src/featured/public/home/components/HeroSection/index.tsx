@@ -9,7 +9,7 @@ export function HeroSection() {
         <LeftSide />
 
         {/* Panel kanan ukuran tetap + nempel kanan */}
-        <aside className="justify-self-end w-full max-w-[520px] rounded-2xl gradient-1 croma-border-2 p-6 space-y-6">
+        <aside className="justify-self-end w-full lg:max-w-[520px] rounded-2xl gradient-1 croma-border-2 py-4 lg:p-6 space-y-6">
           <RightSide />
         </aside>
       </div>

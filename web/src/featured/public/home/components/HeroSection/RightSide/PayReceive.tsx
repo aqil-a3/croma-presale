@@ -20,20 +20,20 @@ const PayComp = () => {
           "linear-gradient(88.3deg, rgba(255, 255, 255, 0.083) 0%, rgba(255, 255, 255, 0.044) 99.66%)",
         backdropFilter: "blur(64px)",
       }}
-      className="h-28 w-full rounded-2xl opacity-90 p-4"
+      className="h-28 w-full rounded-2xl opacity-90 p-2 lg:p-4"
     >
-      <p className={`${fontPoppins.className} text-white font-medium`}>
+      <p className={`${fontPoppins.className} text-sm lg:text-base text-white font-medium`}>
         You Pay (USD)
       </p>
       <div className="flex justify-between items-center">
-        <div className="space-x-0.5">
+        <div className="flex flex-col items-center justify-center">
           <p
-            className={`${fontPoppins.className} font-bold text-2xl text-white`}
+            className={`${fontPoppins.className} font-bold text-lg lg:text-2xl text-white`}
           >
             $0.00
           </p>
           <p
-            className={`${fontPoppins.className} text-[#79869B] text-base font-medium`}
+            className={`${fontPoppins.className} text-[#79869B] text-sm lg:text-base font-medium`}
           >
             0.000
           </p>

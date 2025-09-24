@@ -6,14 +6,14 @@ export function RightSideProgress() {
   return (
     <div className="space-y-2">
       <p
-        className={`${fontPoppins.className} text-base font-medium text-right text-white`}
+        className={`${fontPoppins.className} text-sm lg:text-base font-medium text-right text-white`}
       >
         Next Stage = $0.0455
       </p>
       <ProgressBar />
       <div className={`flex justify-between ${fontPoppins.className}`}>
-        <p className="text-white text-base font-medium">Total Raised</p>
-        <p className={`${mainGradientFont} text-base font-bold`}>
+        <p className="text-white text-sm lg:text-base font-medium">Total Raised</p>
+        <p className={`${mainGradientFont} text-xs lg:text-base font-bold`}>
           27,047,287 OPZ = $894,723.98
         </p>
       </div>

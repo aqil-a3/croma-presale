@@ -69,7 +69,10 @@ export function DashboardHeader() {
         <Button
           size={"icon"}
           className="bg-white/10 border border-gray-600 rounded-xl"
-          onClick={() => disconnect()}
+          onClick={() => {
+            disconnect();
+            router.replace("/home")
+          }}
         >
           <LogOut />
         </Button>

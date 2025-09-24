@@ -27,7 +27,7 @@ export function RightSide() {
         ...metrixBorder,
         backdropFilter: "blur(50px)",
       }}
-      className="w-full p-4 space-y-4"
+      className="w-full p-2 lg:p-4 space-y-4"
     >
       <RightSideTitle />
       <RightSideProgress />

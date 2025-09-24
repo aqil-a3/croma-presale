@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import { HeaderLogo } from "./Logo";
 import { navigationItems } from "./Navigation";
 import Link from "next/link";
+import { MobileCTAButton } from "./MobileCTAButton";
 
 export function MobileMenu() {
   const pathname = usePathname();
@@ -23,29 +24,31 @@ export function MobileMenu() {
       <SheetContent
         style={{ background: PANEL_BG }}
         side="left"
-        className="backdrop-blur-3xl"
+        className="backdrop-blur-3xl p-4"
       >
         <SheetHeader>
           <SheetTitle>
             <HeaderLogo />
           </SheetTitle>
-          {navigationItems.map((item, index) => {
-        const isActive = item.href === pathname;
-        return (
-          <Link href={item.href} key={index}>
-            <button
-              className={`relative w-fit mt-[-1.00px] [font-family:'Orbitron',Helvetica] ${
-                isActive
-                  ? "font-bold text-[#d73602]"
-                  : "font-normal text-[#e9e9e9]"
-              } text-lg text-center tracking-[0] leading-[normal] cursor-pointer hover:text-[#d73602] transition-colors`}
-            >
-              {item.label}
-            </button>
-          </Link>
-        );
-      })}
         </SheetHeader>
+        {navigationItems.map((item, index) => {
+          const isActive = item.href === pathname;
+          return (
+            <Link href={item.href} key={index}>
+              <button
+                className={`relative w-fit mt-[-1.00px] [font-family:'Orbitron',Helvetica] ${
+                  isActive
+                    ? "font-bold text-[#d73602]"
+                    : "font-normal text-[#e9e9e9]"
+                } text-lg text-center tracking-[0] leading-[normal] cursor-pointer hover:text-[#d73602] transition-colors`}
+              >
+                {item.label}
+              </button>
+            </Link>
+          );
+        })}
+
+        <MobileCTAButton />
       </SheetContent>
     </Sheet>
   );
