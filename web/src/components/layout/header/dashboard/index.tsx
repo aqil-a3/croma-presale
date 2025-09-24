@@ -4,11 +4,14 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { fontPoppins } from "@/config/fonts";
 import { PANEL_BG } from "@/config/variables";
 import { cn } from "@/lib/utils";
+import { shortenAddress } from "@/utils/shortenAddress";
 import { Bell, Copy, Menu, User, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 
 export function DashboardHeader() {
   const { toggleSidebar, open } = useSidebar();
+  const { address } = useAccount();
   const router = useRouter();
 
   return (
@@ -35,7 +38,7 @@ export function DashboardHeader() {
           <span
             className={`${fontPoppins.className} font-semibold text-[#FFFFFF80] text-sm`}
           >
-            0x1234...5678
+            {shortenAddress(address!)}
           </span>
           <Copy />
         </Button>
