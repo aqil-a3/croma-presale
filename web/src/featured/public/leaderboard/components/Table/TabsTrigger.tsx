@@ -19,14 +19,14 @@ const TABLIST_BACKGROUND =
 export function LeaderboardTableTriggerComp() {
   const { timeFilter } = useLeaderboardContext();
   return (
-    <TabsList style={{ background: TABLIST_BACKGROUND }} className="mx-auto w-xl h-20 rounded-full overflow-hidden boder-2 border-gray-500">
+    <TabsList style={{ background: TABLIST_BACKGROUND }} className="mx-auto w-full lg:w-xl h-14 lg:h-20 rounded-full overflow-hidden boder-2 border-gray-500">
       {options.map((opt) => {
         const isActive = opt === timeFilter;
         return (
           <TabsTrigger key={opt} value={opt} asChild>
             <Button
               className={cn(
-                `text-white bg-transparent ${fontPoppins.className} font-medium text-xl overflow-hidden`,
+                `text-white bg-transparent ${fontPoppins.className} font-medium lg:text-xl overflow-hidden`,
                 isActive && `${GRADIENT_MAIN_COLOR_TW}`
               )}
             >

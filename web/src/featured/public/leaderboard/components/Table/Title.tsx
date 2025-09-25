@@ -7,15 +7,15 @@ export function TableTitle() {
   return (
     <div className="space-y-4">
       <h3
-        className={`${fontOrbitron.className} font-semibold text-white text-center text-4xl`}
+        className={`${fontOrbitron.className} font-semibold text-white text-center text-xl lg:text-4xl`}
       >
         Rankings Top Buyers
       </h3>
       <p
-        className={`${fontPoppins.className} text-white font-medium text-xl text-center`}
+        className={`${fontPoppins.className} text-white font-medium text-base lg:text-xl text-center`}
       >
         From{" "}
-        <span className={`${mainGradientFont} font-bold text-[32px]`}>
+        <span className={`${mainGradientFont} font-bold text-2xl lg:text-3xl`}>
           {formatNumber(totalBuyers)}
         </span>{" "}
         All time Buyers

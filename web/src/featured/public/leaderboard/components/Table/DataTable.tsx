@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
-                    className={`${fontPoppins.className} text-white text-[20px] font-medium text-center`}
+                    className={`${fontPoppins.className} text-white text-sm lg:text-xl font-medium text-center`}
                   >
                     {header.isPlaceholder
                       ? null
