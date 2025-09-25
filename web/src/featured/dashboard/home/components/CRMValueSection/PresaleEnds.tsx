@@ -24,10 +24,10 @@ export function PresaleEnds() {
     },
   ];
   return (
-    <div className="flex justify-between items-center">
-      <div className={`${fontPoppins.className}`}>
-        <p className="text-[#FFFFFF99] font-medium text-xl">Presale Ends In</p>
-        <p className={`${mainGradientFont} font-semibold text-base`}>
+    <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+      <div className={`${fontPoppins.className} flex flex-row lg:flex-col justify-between mb-4 lg:mb-0`}>
+        <p className="text-[#FFFFFF99] font-medium text-sm lg:text-xl">Presale Ends In</p>
+        <p className={`${mainGradientFont} font-semibold text-xs lg:text-base`}>
           {formatDateTimeUTC(dummyDateTime)}
         </p>
       </div>
@@ -39,11 +39,11 @@ export function PresaleEnds() {
             className="p-2 rounded-2xl border border-white/50 text-center backdrop-blur-lg"
           >
             <p
-              className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-3xl`}
+              className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-2xl lg:text-3xl`}
             >
               {dum.time.toString().padStart(2, "0")}
             </p>
-            <p className={`${fontPoppins.className} text-white font-medium`}>
+            <p className={`${fontPoppins.className} text-xs lg:text-base text-white font-medium`}>
               {dum.label}
             </p>
           </div>

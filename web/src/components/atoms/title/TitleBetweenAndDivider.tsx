@@ -18,7 +18,7 @@ export function TitleBetweenAndDivider({
     <>
       <div className="flex justify-between items-center">
         <p
-          className={`${fontPoppins.className} text-[#FFFFFFCC] text-2xl font-bold`}
+          className={`${fontPoppins.className} text-[#FFFFFFCC] text-base lg:text-2xl font-bold`}
         >
           {leftSideText}
         </p>
@@ -46,7 +46,7 @@ const RightSideTextComp: React.FC<{ text: string }> = ({ text }) => {
       }}
     >
       <span
-        className={`${fontPoppins.className} ${mainGradientFont} font-semibold text-transparent bg-clip-text`}
+        className={`${fontPoppins.className} ${mainGradientFont} text-xs lg:text-base font-semibold text-transparent bg-clip-text`}
       >
         {text}
       </span>

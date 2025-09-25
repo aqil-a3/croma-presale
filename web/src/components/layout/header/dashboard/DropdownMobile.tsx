@@ -49,7 +49,15 @@ export function DropdownMenuMobile() {
         <DropdownMenuSeparator />
         {navigationItems.map((nav, i) => {
           const isActive = nav.href === pathname;
-          return <DropdownMenuItem key={i} className={cn(`text-white`, isActive && mainGradientFont)}>{nav.label}</DropdownMenuItem>;
+          return (
+            <DropdownMenuItem
+              onClick={() => router.push(nav.href)}
+              key={i}
+              className={cn(`text-white`, isActive && mainGradientFont)}
+            >
+              {nav.label}
+            </DropdownMenuItem>
+          );
         })}
         <DropdownMenuItem
           onClick={() => {

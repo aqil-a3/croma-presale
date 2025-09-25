@@ -22,10 +22,10 @@ export function PriceSection() {
         <div
           key={i}
           style={{ background: GRADIENT_ORANGE }}
-          className="border border-orange-500 backdrop-blur-lg rounded-2xl p-4 text-center space-y-2"
+          className="border border-orange-500 backdrop-blur-lg rounded-2xl p-2 lg:p-4 text-center space-y-2"
         >
           <p
-            className={`${fontOrbitron.className} ${mainGradientFont} text-2xl font-bold`}
+            className={`${fontOrbitron.className} ${mainGradientFont} text-lg lg:text-2xl font-bold`}
           >
             {data.price}
           </p>

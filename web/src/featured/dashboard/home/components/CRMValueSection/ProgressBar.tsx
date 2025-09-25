@@ -21,11 +21,11 @@ const Title = () => {
   return (
     <div className="flex justify-between items-center">
       <p
-        className={`${fontPoppins.className} ${mainGradientFont} text-2xl font-bold`}
+        className={`${fontPoppins.className} ${mainGradientFont} text-base lg:text-2xl font-bold`}
       >
         1 CRM = $0.108
       </p>
-      <p className={`${fontPoppins.className} font-medium text-xl`}>
+      <p className={`${fontPoppins.className} font-medium text-sm lg:text-xl`}>
         {" "}
         <span className="text-[#FFFFFF80]">
           Stage {currentStage}/{totalStage}
@@ -42,8 +42,8 @@ const USDTRaised = () => {
     <div
       className={`${fontPoppins.className} flex justify-between items-center`}
     >
-      <p className="text-[#FFFFFF99] font-medium text-xl">USDT RAISED</p>
-      <p className={`${mainGradientFont} text-3xl font-bold`}>
+      <p className="text-[#FFFFFF99] font-medium text-base lg:text-xl">USDT RAISED</p>
+      <p className={`${mainGradientFont} text-2xl lg:text-3xl font-bold`}>
         {formatCurrency(usdtData)}
       </p>
     </div>

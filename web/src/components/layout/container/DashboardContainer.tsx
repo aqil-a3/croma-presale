@@ -16,7 +16,7 @@ export function DashboardContainer({
     <ScrollArea className="h-screen overflow-x-hidden">
       <div
         className={cn(
-          "relative px-12 py-24 h-full bg-black text-white overflow-hidden",
+          "relative px-2 lg:px-12 py-24 h-full bg-black text-white overflow-hidden",
           className
         )}
         {...props}

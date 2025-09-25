@@ -16,18 +16,26 @@ export function CurrencyCard({ amount, currencyName, logoSrc, type }: Props) {
   return (
     <div
       style={{ background: PANEL_BG }}
-      className="rounded-2xl border-2 border-gray-500 p-4 space-y-4 backdrop-blur-xl"
+      className="rounded-2xl border-2 border-gray-500 p-2 lg:p-4 space-y-4 backdrop-blur-xl"
     >
-      <div className="flex gap-4 items-center">
-        <Image src={logoSrc} alt={currencyName} width={42} height={42} />
+      <div className="flex gap-2 lg:gap-4 items-center">
+        <div className="relative w-6 h-6 lg:w-10 lg:h-10">
+          <Image
+            src={logoSrc}
+            alt={currencyName}
+            fill
+            className="object-contain"
+          />
+        </div>
         <p
-          className={`${fontPoppins.className} font-medium text-base text-[#FFFFFFCC]`}
+          className={`${fontPoppins.className} font-medium text-xs lg:text-base text-[#FFFFFFCC]`}
         >
           {currencyName}
         </p>
       </div>
+
       <p
-        className={`${fontPoppins.className} font-semibold text-white text-4xl`}
+        className={`${fontPoppins.className} font-semibold text-white text-xl lg:text-4xl`}
       >
         {amountFormatted}
       </p>
