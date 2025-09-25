@@ -12,7 +12,7 @@ export function DashboardSidebar() {
   return (
     <aside
       className={cn(
-        "h-screen bg-gradient-to-bl py-8 from-neutral-900 to-orange-900 text-white transition-all duration-300 hidden lg:flex flex-col",
+        "min-h-screen bg-gradient-to-bl py-8 from-neutral-900 to-orange-900 text-white transition-all duration-300 hidden lg:flex flex-col",
         open ? "w-64" : "w-16"
       )}
     >

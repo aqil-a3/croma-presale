@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/table";
 import { fontPoppins } from "@/config/fonts";
 import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -37,72 +36,67 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <ScrollArea className="lg:w-full w-[300px] h-full">
-      <div className="rounded-md">
-        <Table className="w-full border-separate border-spacing-y-3">
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      className={`${fontPoppins.className} text-white text-sm lg:text-xl font-medium text-center`}
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => {
+    <div className="rounded-md">
+      <Table className="w-full border-separate border-spacing-y-3">
+        <TableHeader>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
                 return (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    className={cn(
-                      `backdrop-blur-3xl h-[60px] text-white text-center rounded-2xl`
-                    )}
+                  <TableHead
+                    key={header.id}
+                    className={`${fontPoppins.className} text-white text-sm lg:text-xl font-medium text-center`}
                   >
-                    {row.getVisibleCells().map((cell, i, arr) => (
-                      <TableCell
-                        key={cell.id}
-                        className={cn(
-                          "my-4",
-                          i === 0 && "rounded-l-2xl",
-                          i === arr.length - 1 && "rounded-r-2xl"
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
                         )}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
+                  </TableHead>
                 );
-              })
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => {
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                  className={cn(
+                    `backdrop-blur-3xl h-[60px] text-white text-center rounded-2xl`
+                  )}
                 >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+                  {row.getVisibleCells().map((cell, i, arr) => (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "my-4",
+                        i === 0 && "rounded-l-2xl",
+                        i === arr.length - 1 && "rounded-r-2xl"
+                      )}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })
+          ) : (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
       <div className="flex items-center justify-end gap-2 py-4">
         <button
           onClick={() => table.previousPage()}
@@ -138,7 +132,6 @@ export function DataTable<TData, TValue>({
           &gt;
         </button>
       </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+    </div>
   );
 }

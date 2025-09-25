@@ -1,5 +1,6 @@
 "use client";
-import { DashboardContainer } from "@/components/layout/container/DashboardContainer";
+import { Decor } from "@/components/atoms/Decor";
+import { HorizontalFireImage } from "@/components/atoms/image-decorations/HorizontalFireImage";
 import { Separator } from "@/components/ui/separator";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { PANEL_BG } from "@/config/variables";
@@ -11,7 +12,15 @@ import { dummyTransactions } from "@/featured/dashboard/my-transactions/dummy";
 
 export default function MyTransactionTemplate() {
   return (
-    <DashboardContainer className="space-y-4">
+    // Ini sengaja ga pakek DashboardContainer. Kalo pakek, jadi berantakan. Minusnya, header ga halaman lain yang fixed
+    <div className="space-y-4 relative px-2 lg:px-12 py-24 min-h-screen h-full bg-black text-white overflow-x-hidden">
+      <Decor
+        width={812}
+        height={812}
+        className="top-0 right-0 translate-x-[40%] -translate-y-[40%]"
+      />
+      <HorizontalFireImage className="inset-0 bg-cover bg-top bg-fixed opacity-50" />
+
       <h1
         className={`${fontOrbitron.className} text-white text-xl lg:text-3xl font-semibold z-10 relative`}
       >
@@ -31,9 +40,8 @@ export default function MyTransactionTemplate() {
           <FilterButton />
           <SearchInput />
         </div>
-        {/* TODO : PR TABELNYA. SEMENTARA BEGINI. MASIH BELUM BEST PRACTICE */}
         <DataTable columns={myTransactionColumns} data={dummyTransactions} />
       </div>
-    </DashboardContainer>
+    </div>
   );
 }
