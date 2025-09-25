@@ -42,7 +42,7 @@ export function PersonalInformationForm({ onSubmit, defaultValues }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="fullName"
@@ -54,7 +54,7 @@ export function PersonalInformationForm({ onSubmit, defaultValues }: Props) {
                   placeholder="Your Full Name..."
                   {...field}
                   style={{ background: PANEL_BG }}
-                  className={`${fontPoppins.className} font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
+                  className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
                 />
               </FormControl>
               <FormMessage />
@@ -76,7 +76,7 @@ export function PersonalInformationForm({ onSubmit, defaultValues }: Props) {
           )}
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="twitterUsername"
@@ -88,7 +88,7 @@ export function PersonalInformationForm({ onSubmit, defaultValues }: Props) {
                     placeholder="Your Twitter Username..."
                     {...field}
                     style={{ background: PANEL_BG }}
-                    className={`${fontPoppins.className} font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
+                    className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
                   />
                 </FormControl>
                 <FormMessage />
@@ -106,7 +106,7 @@ export function PersonalInformationForm({ onSubmit, defaultValues }: Props) {
                     placeholder="Your Telegram Username..."
                     {...field}
                     style={{ background: PANEL_BG }}
-                    className={`${fontPoppins.className} font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
+                    className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
                   />
                 </FormControl>
                 <FormMessage />

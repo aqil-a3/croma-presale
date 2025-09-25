@@ -33,7 +33,7 @@ export function EmailVerificationForm({ onSubmit, defaultValues }: Props) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <div className="grid grid-cols-[80%_auto] gap-2 items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-[80%_auto] gap-2 items-center">
           <FormField
             control={form.control}
             name="email"
@@ -44,7 +44,7 @@ export function EmailVerificationForm({ onSubmit, defaultValues }: Props) {
                     placeholder="Your Email..."
                     {...field}
                     style={{ background: PANEL_BG }}
-                    className={`${fontPoppins.className} font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
+                    className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white border-gray-600 selection:bg-white selection:text-gray-600`}
                   />
                 </FormControl>
                 <FormMessage />

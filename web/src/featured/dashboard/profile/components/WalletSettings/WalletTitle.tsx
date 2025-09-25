@@ -5,11 +5,11 @@ export function WalletSettingsTitle() {
   return (
     <div>
       <h3
-        className={`${fontOrbitron.className} text-white font-semibold text-4xl`}
+        className={`${fontOrbitron.className} text-white font-semibold text-2xl lg:text-4xl`}
       >
         Wallet Settings
       </h3>
-      <p className={cn(fontPoppins.className, "font-medium text-[#E9E9E9CC]")}>Set your maximum investment limit for this presale to manage risk effectively</p>
+      <p className={cn(fontPoppins.className, "font-medium text-xs lg:text-base text-[#E9E9E9CC]")}>Set your maximum investment limit for this presale to manage risk effectively</p>
     </div>
   );
 }
