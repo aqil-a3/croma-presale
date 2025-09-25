@@ -13,10 +13,10 @@ export function DashboardContainer({
   ...props
 }: DashboardContainerProps) {
   return (
-    <ScrollArea className="h-screen overflow-x-hidden">
+    <ScrollArea className="h-screen">
       <div
         className={cn(
-          "relative px-2 lg:px-12 py-24 h-full bg-black text-white overflow-hidden",
+          "relative px-2 lg:px-12 py-24 min-h-screen bg-black text-white",
           className
         )}
         {...props}
