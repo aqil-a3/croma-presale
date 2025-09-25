@@ -27,7 +27,7 @@ export function ButtonSources({ setValue, value }: Props) {
   return (
     <div
       style={{ background: bgColor }}
-      className="p-1 rounded-full w-[480px] h-[80px] border border-gray-700 mx-auto"
+      className="p-1 rounded-full w-full lg:w-[480px] h-14 lg:h-[80px] border border-gray-700 mx-auto"
     >
       {buttonArrays.map((arr, i) => {
         const isActive = arr.value === value;

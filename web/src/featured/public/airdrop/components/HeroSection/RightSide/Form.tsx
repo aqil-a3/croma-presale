@@ -38,7 +38,7 @@ export function FormCheckAirdrop() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 lg:space-y-8">
         <FormField
           control={form.control}
           name="source"
@@ -59,7 +59,7 @@ export function FormCheckAirdrop() {
               <FormLabel className={`${fontPoppins.className} text-white font-medium text-xl`}>Your Address</FormLabel>
               <FormControl>
                 <Input
-                  className={`${fontPoppins.className} text-[#A8A8A8] font-medium text-2xl border border-gray-500 outline-none`}
+                  className={`${fontPoppins.className} text-[#A8A8A8] font-medium text-base lg:text-2xl border border-gray-500 outline-none`}
                   placeholder="Enter Your Address..."
                   {...field}
                 />
@@ -68,7 +68,7 @@ export function FormCheckAirdrop() {
             </FormItem>
           )}
         />
-        <Button className={`w-full ${fontOrbitron.className} ${GRADIENT_MAIN_COLOR_TW} text-white font-bold text-base py-6`} type="submit">Submit</Button>
+        <Button className={`w-full ${fontOrbitron.className} ${GRADIENT_MAIN_COLOR_TW} text-white font-bold text-base py-6`} type="submit">Check Eligibility</Button>
       </form>
     </Form>
   );

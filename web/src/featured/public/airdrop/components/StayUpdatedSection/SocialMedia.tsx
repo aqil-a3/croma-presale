@@ -42,7 +42,7 @@ const items: ItemType[] = [
 
 export function SocialMedia() {
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {items.map((item, i) => (
         <a href={item.href} key={i} target="_blank">
           <Button className="bg-white/10 border border-gray-700 w-full py-6 rounded-full">

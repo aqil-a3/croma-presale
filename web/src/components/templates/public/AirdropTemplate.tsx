@@ -13,7 +13,7 @@ export default function AirdropTemplate() {
         height={472}
         className="top-0 left-0 -translate-x-[20%] -translate-y-[60%]"
       />
-      <BalloonImage className="right-0 top-0 w-[496px] h-[744px] rotate-y-180 -translate-y-[15%] translate-x-[20%]" />
+      <BalloonImage className="hidden lg:block right-0 top-0 w-[496px] h-[744px] rotate-y-180 -translate-y-[15%] translate-x-[20%]" />
 
       <HeroSection />
       <StayUpdatedSection />
