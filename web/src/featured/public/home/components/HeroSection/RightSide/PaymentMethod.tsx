@@ -52,7 +52,7 @@ export function RightSidePaymentMethod() {
       >
         We Accepting
       </p>
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-2 lg:gap-4">
         {paymentMethodIcons.map((icon) => (
           <Image
             height={32}

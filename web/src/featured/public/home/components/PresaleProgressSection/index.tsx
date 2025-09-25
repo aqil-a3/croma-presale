@@ -27,12 +27,12 @@ export function PresaleProgressSection() {
         <Image
           src={"/images/cromacoin-1.png"}
           alt="Cromacoin"
-          width={120}
-          height={80}
-          className="block lg:hidden absolute right-0 top-0 -translate-y-[40%] translate-x-[20%]"
+          width={80}
+          height={40}
+          className="block lg:hidden absolute right-0 top-0 -translate-y-[0%] translate-x-[10%]"
         />
         <h2
-          className={`${fontOrbitron.className} text-center text-white font-semibold text-xl lg:text-4xl`}
+          className={`${fontOrbitron.className} text-center text-white font-semibold text-lg lg:text-4xl`}
         >
           Presale Progress & <br /> Metrics
         </h2>

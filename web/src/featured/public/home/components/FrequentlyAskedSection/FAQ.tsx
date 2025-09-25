@@ -70,20 +70,19 @@ export function FAQ() {
             className={[
               "rounded-2xl border border-white/15 px-4",
               PANEL_BG_TW,
-
               "data-[state=open]:border-transparent",
               "data-[state=open]:[background:linear-gradient(90deg,#B72204_0%,#FC6400_100%)]",
             ].join(" ")}
           >
-            <AccordionTrigger className="px-2 py-4">
-              <div className="flex items-center gap-4 text-left">
+            <AccordionTrigger className=" py-4">
+              <div className="flex items-center gap-2 lg:gap-4 text-left">
                 <span
-                  className={`${fontOrbitron.className} text-white font-medium text-[20px]`}
+                  className={`${fontOrbitron.className} text-white font-medium text-base lg:text-xl`}
                 >
                   {(idx + 1).toString().padStart(2, "0")}
                 </span>
                 <p
-                  className={`${fontPoppins.className} font-semibold text-white text-lg lg:text-xl`}
+                  className={`${fontPoppins.className} font-semibold text-white text-base lg:text-xl`}
                 >
                   {data.title}
                 </p>

@@ -54,13 +54,13 @@ export function TabsContentComp() {
           >
             <div className="my-auto space-y-4">
               <h3
-                className={`${fontOrbitron.className} text-2xl lg:text-4xl font-semibold text-white`}
+                className={`${fontOrbitron.className} text-xl lg:text-4xl font-semibold text-white`}
               >
                 {data.title}
               </h3>
 
               <p
-                className={`${fontPoppins.className} text-base lg:text-lg font-medium leading-8 text-white whitespace-pre-line`}
+                className={`${fontPoppins.className} text-sm lg:text-lg font-medium leading-8 text-white whitespace-pre-line`}
               >
                 {data.description}
               </p>

@@ -34,9 +34,9 @@ const links = [
 
 export function FooterNavigations() {
   return (
-    <div className="flex flex-wrap gap-x-20 gap-y-8 justify-start lg:justify-end">
+    <div className="flex flex-wrap gap-x-6 lg:gap-x-20 gap-y-8 justify-end">
       {links.map((link) => (
-        <Link href={link.href} key={link.href} className={`${fontPoppins.className} text-base lg:text-xl text-white`} >
+        <Link href={link.href} key={link.href} className={`${fontPoppins.className} text-sm lg:text-xl text-white`} >
           {link.label}
         </Link>
       ))}

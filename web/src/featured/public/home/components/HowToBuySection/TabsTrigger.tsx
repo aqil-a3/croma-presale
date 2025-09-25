@@ -30,7 +30,7 @@ export function TabsTriggerComp({
           >
             <Button
               className={cn(
-                "h-auto lg:h-[80px] w-full py-4 px-4 text-2xl font-semibold text-white bg-black/80 border-orange-500",
+                "h-auto lg:h-[80px] w-full py-4 px-4 text-base lg:text-2xl font-semibold text-white bg-black/80 border-orange-500",
                 fontPoppins.className,
                 isActive &&
                   "[background:_linear-gradient(90deg,_#b72204_0%,_#fc6400_100%)] border-none"

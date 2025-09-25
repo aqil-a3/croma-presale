@@ -5,7 +5,7 @@ export function Preset() {
 
   return (
     <p
-      className={`${fontPoppins.className} text-[#E9E9E980] text-base lg:text-xl text-center lg:text-right`}
+      className={`${fontPoppins.className} text-[#E9E9E980] text-xs lg:text-xl text-center lg:text-right`}
     >
       © {year} CromaChain Foundation. All rights reserved.
     </p>

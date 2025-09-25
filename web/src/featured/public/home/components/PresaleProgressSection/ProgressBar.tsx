@@ -14,7 +14,7 @@ export function ProgressBar() {
       <div className="flex justify-between">
         <div className={`${fontOrbitron.className}`}>
           <p className="text-white text-base lg:text-xl font-medium">Current</p>
-          <p className={`${mainGradientFont} text-xl lg:text-4xl font-bold`}>
+          <p className={`${mainGradientFont} text-base lg:text-4xl font-bold`}>
             {formatCurrency(currentValue)}
           </p>
         </div>
@@ -22,7 +22,7 @@ export function ProgressBar() {
           <p className="text-white text-base lg:text-xl font-medium text-right">
             Target Raise
           </p>
-          <p className={`${mainGradientFont} text-xl lg:text-4xl font-bold`}>
+          <p className={`${mainGradientFont} text-base lg:text-4xl font-bold`}>
             {formatCurrency(targetValue)}
           </p>
         </div>

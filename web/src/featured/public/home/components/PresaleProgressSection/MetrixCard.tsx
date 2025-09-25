@@ -22,7 +22,7 @@ const values: { value: string; label: string }[] = [
 
 export function MetrixCard() {
   return (
-    <div className={`grid grid-cols-2 md:grid-cols-4 gap-4`}>
+    <div className={`grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4`}>
       {values.map((val, index) => (
         <div
           style={{
@@ -32,11 +32,11 @@ export function MetrixCard() {
           className="text-center p-4 border border-orange-500 rounded-2xl backdrop-blur-lg"
         >
           <p
-            className={`${mainGradientFont} ${fontOrbitron.className} text-[40px] font-bold`}
+            className={`${mainGradientFont} ${fontOrbitron.className} text-2xl lg:text-4xl font-bold`}
           >
             {val.value}
           </p>
-          <p className={`${fontPoppins.className} font-semibold text-white`}>
+          <p className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white`}>
             {val.label}
           </p>
         </div>
