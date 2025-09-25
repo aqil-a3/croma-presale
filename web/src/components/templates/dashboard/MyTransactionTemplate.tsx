@@ -31,7 +31,7 @@ export default function MyTransactionTemplate() {
           <FilterButton />
           <SearchInput />
         </div>
-        {/* TODO : PR TABELNYA */}
+        {/* TODO : PR TABELNYA. SEMENTARA BEGINI. MASIH BELUM BEST PRACTICE */}
         <DataTable columns={myTransactionColumns} data={dummyTransactions} />
       </div>
     </DashboardContainer>

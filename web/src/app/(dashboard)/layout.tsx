@@ -23,7 +23,7 @@ export default function DashboardLayout({
       <body className={`antialiased overflow-x-hidden`}>
         <SidebarProvider>
           <DashboardSidebar />
-          <main className="w-full max-w-screen min-h-screen overflow-hidden">
+          <main className="w-full max-w-screen min-h-screen">
             <DashboardHeader />
             {children}
           </main>

@@ -13,7 +13,7 @@ export function DashboardContainer({
   ...props
 }: DashboardContainerProps) {
   return (
-    <ScrollArea className="h-screen">
+    <ScrollArea className="h-screen max-w-screen">
       <div
         className={cn(
           "relative px-2 lg:px-12 py-24 min-h-screen bg-black text-white",
