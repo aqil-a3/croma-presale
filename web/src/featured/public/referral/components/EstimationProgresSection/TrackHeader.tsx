@@ -13,7 +13,7 @@ export function TrackHeader({ clients, income }: Props) {
       <div className={`${fontPoppins.className} text-white/85`}>
         <div className="text-sm">Total accumulated clients</div>
         <div
-          className={`${fontOrbitron.className} text-5xl text-[#FF6A00] leading-none`}
+          className={`${fontOrbitron.className} text-2xl lg:text-5xl text-[#FF6A00] leading-none`}
         >
           {formatNumber(clients)}
         </div>
@@ -22,7 +22,7 @@ export function TrackHeader({ clients, income }: Props) {
         <div className={`${fontPoppins.className} text-sm text-white/80`}>
           Your Income Per Month
         </div>
-        <div className={`${fontOrbitron.className} text-4xl text-[#FF6A00]`}>
+        <div className={`${fontOrbitron.className} text-2xl lg:text-4xl text-[#FF6A00]`}>
           {formatCurrency(income)}
         </div>
       </div>

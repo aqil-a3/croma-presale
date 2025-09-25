@@ -11,18 +11,18 @@ export function LinkAndQR() {
     <div className="space-y-4">
       <p
         style={{ background: REFERRAL_LINK_BG }}
-        className={`${fontPoppins.className} text-white text-xl py-2 px-4 rounded-2xl`}
+        className={`${fontPoppins.className} text-white text-sm lg:text-xl py-2 px-4 rounded-lg lg:rounded-2xl`}
       >
         {referralLink}
       </p>
       <div className="grid grid-cols-2 gap-4">
         <Button
-          className={`${GRADIENT_MAIN_COLOR_TW} ${fontOrbitron.className} font-bold text-base py-6`}
+          className={`${GRADIENT_MAIN_COLOR_TW} ${fontOrbitron.className} font-bold text-sm lg:text-base py-6`}
         >
           Copy Link
         </Button>
         <Button
-          className={`${mainGradientFont} ${fontOrbitron.className} font-bold text-base border border-orange-500 py-6`}
+          className={`${mainGradientFont} ${fontOrbitron.className} font-bold text-sm lg:text-base border border-orange-500 py-6`}
         >
           Generate QR
         </Button>

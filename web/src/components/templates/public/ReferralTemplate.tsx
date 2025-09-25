@@ -10,8 +10,8 @@ import { Title } from "@/featured/public/referral/components/Title";
 
 export default function ReferralTemplate() {
   return (
-    <MainContainer className="relative pt-52 pb-12 min-h-screen bg-center bg-cover bg-[url(/images/background/dashboard/bg-01.png)] text-white space-y-8 overflow-hidden">
-      <ShieldReferralImage className="w-[335px] h-[335px] right-0 rotate-z-[15deg] opacity-75 translate-x-[25%] -translate-y-[21%]" />
+    <MainContainer className="relative px-0 pt-52 pb-12 min-h-screen bg-center bg-cover bg-[url(/images/background/dashboard/bg-01.png)] text-white space-y-8 overflow-hidden">
+      <ShieldReferralImage className="hidden lg:block w-[335px] h-[335px] right-0 rotate-z-[15deg] opacity-75 translate-x-[25%] -translate-y-[21%]" />
       <Decor
         width={472}
         height={472}

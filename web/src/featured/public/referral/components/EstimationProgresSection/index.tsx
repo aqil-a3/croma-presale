@@ -41,7 +41,7 @@ export function EstimationProgresSectionInteractive({
   return (
     <PannelContainer className={className}>
       <h3
-        className={`${fontOrbitron.className} text-white font-semibold text-4xl text-center`}
+        className={`${fontOrbitron.className} text-white font-semibold text-2xl lg:text-4xl text-center`}
       >
         Estimation Progress
       </h3>

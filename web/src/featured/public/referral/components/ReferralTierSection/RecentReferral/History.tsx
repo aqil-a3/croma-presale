@@ -41,12 +41,12 @@ export function History() {
           >
             <div className="space-y-1">
               <p
-                className={`${fontPoppins.className} text-white text-xl font-semibold`}
+                className={`${fontPoppins.className} text-white text-base lg:text-xl font-semibold`}
               >
                 {shortenAddress(history.address)}
               </p>
               <p
-                className={`${fontPoppins.className} text-[#79869B] text-base font-medium`}
+                className={`${fontPoppins.className} text-[#79869B] text-sm lg:text-base font-medium`}
               >
                 {formatDate(history.date)}
               </p>
@@ -57,7 +57,7 @@ export function History() {
                 borderColor[history.status]
               } ${
                 fontPoppins.className
-              } border rounded-2xl px-4 py-2 font-semibold`}
+              } border rounded-2xl px-4 py-2 font-semibold text-sm lg:text-base`}
             >
               {statusLabel[history.status]}
             </p>

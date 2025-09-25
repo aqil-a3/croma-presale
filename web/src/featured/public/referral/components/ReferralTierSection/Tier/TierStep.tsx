@@ -40,13 +40,13 @@ export function TierStep() {
             key={i}
             style={{ background: isYourTier ? GRADIENT_MAIN_COLOR : PANEL_BG }}
             className={cn(
-              `flex justify-between px-4 py-2 rounded-2xl backdrop-blur-3xl border border-gray-600 items-center`
+              `flex justify-between px-2 lg:px-4 py-2 rounded-2xl backdrop-blur-3xl border border-gray-600 items-center`
             )}
           >
-            <div className="space-y-2">
+            <div className="space-y-0.5 lg:space-y-2">
               <div className="flex gap-2 items-center">
                 <p
-                  className={`${fontPoppins.className} font-semibold text-white text-2xl my-auto`}
+                  className={`${fontPoppins.className} font-semibold text-white text-xl lg:text-2xl my-auto`}
                 >
                   {tier.tierName}
                 </p>
@@ -58,7 +58,7 @@ export function TierStep() {
               </div>
               <p
                 className={cn(
-                  `${fontPoppins.className} font-semibold text-[#79869B] text-base`,
+                  `${fontPoppins.className} font-semibold text-[#79869B] text-xs lg:text-base`,
                   isYourTier && "text-white"
                 )}
               >
@@ -68,7 +68,7 @@ export function TierStep() {
             </div>
 
             <p
-              className={`${fontPoppins.className} text-white font-semibold text-base ${PANEL_BG_TW} border border-gray-600 px-4 py-2 rounded-full`}
+              className={`${fontPoppins.className} text-white font-semibold text-xs lg:text-base ${PANEL_BG_TW} border border-gray-600 px-2 lg:px-4 py-2 rounded-full`}
             >
               {tier.commisionPercentage}% Commision
             </p>
