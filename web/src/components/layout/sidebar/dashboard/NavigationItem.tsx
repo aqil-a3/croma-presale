@@ -4,7 +4,7 @@ import DashboardIcon from "./icons/dashboard.svg";
 import ReferralIcon from "./icons/referral.svg";
 import ProfitCalculatorIcon from "./icons/profit-calculator.svg";
 
-const navigationItems = [
+export const navigationItems = [
   { label: "Dashboard", Icon: DashboardIcon, href: "/dashboard" },
   { label: "My Transactions", Icon: TransactionIcon, href: "/my-transactions" },
   { label: "Referral", Icon: ReferralIcon, href: "/my-referral" },
