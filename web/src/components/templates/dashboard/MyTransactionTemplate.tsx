@@ -13,24 +13,25 @@ export default function MyTransactionTemplate() {
   return (
     <DashboardContainer className="space-y-4">
       <h1
-        className={`${fontOrbitron.className} text-white text-3xl font-semibold z-10 relative`}
+        className={`${fontOrbitron.className} text-white text-xl lg:text-3xl font-semibold z-10 relative`}
       >
         My Transactions
       </h1>
       <div
         style={{ background: PANEL_BG }}
-        className="backdrop-blur-xl border border-gray-600 p-4 rounded-2xl space-y-4"
+        className="backdrop-blur-xl border pver border-gray-600 p-4 rounded-2xl space-y-4 w-full"
       >
         <p
-          className={`${fontPoppins.className} font-bold text-2xl text-[#FFFFFFCC]`}
+          className={`${fontPoppins.className} font-bold text-lg lg:text-2xl text-[#FFFFFFCC]`}
         >
           All Transaction
         </p>
         <Separator className="bg-slate-600" />
-        <div className="flex justify-between items-center">
+        <div className="lg:flex lg:flex-row flex-col justify-between items-center gap-4">
           <FilterButton />
           <SearchInput />
         </div>
+        {/* TODO : PR TABELNYA */}
         <DataTable columns={myTransactionColumns} data={dummyTransactions} />
       </div>
     </DashboardContainer>

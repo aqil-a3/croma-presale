@@ -18,12 +18,12 @@ const Title: React.FC<{ value: number[] }> = ({ value }) => {
   return (
     <div className="flex justify-between items-center">
       <p
-        className={`${fontOrbitron.className} text-2xl font-medium text-[#E9E9E9]`}
+        className={`${fontOrbitron.className} text-lg lg:text-2xl font-medium text-[#E9E9E9]`}
       >
         Future Price Multiplier
       </p>
       <p
-        className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-2xl`}
+        className={`${fontOrbitron.className} ${mainGradientFont} font-bold text-lg lg:text-2xl`}
       >
         X{[value]}
       </p>

@@ -10,7 +10,7 @@ export function GradientTitleAndSeparator({ title }: Props) {
   return (
     <>
       <h3
-        className={`${fontPoppins.className} ${mainGradientFont} text-2xl font-bold text-center`}
+        className={`${fontPoppins.className} ${mainGradientFont} text-xl lg:text-2xl font-bold text-center`}
       >
         {title}
       </h3>

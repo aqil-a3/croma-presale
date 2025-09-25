@@ -8,7 +8,7 @@ export default function MyReferralTemplate() {
   return (
     <DashboardContainer className="space-y-4">
       <h1
-        className={`${fontOrbitron.className} text-white text-3xl font-semibold z-10 relative`}
+        className={`${fontOrbitron.className} text-white text-xl lg:text-3xl font-semibold z-10 relative`}
       >
         Referral Program
       </h1>

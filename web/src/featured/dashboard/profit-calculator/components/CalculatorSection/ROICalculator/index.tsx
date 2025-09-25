@@ -6,7 +6,7 @@ import { PannelContainer } from "@/components/layout/container/PanelContainer";
 
 export function ROICalculator() {
   return (
-    <PannelContainer>
+    <PannelContainer className="px-2">
       <GradientTitleAndSeparator title="Token ROI Calculator" />
 
       <Investment />

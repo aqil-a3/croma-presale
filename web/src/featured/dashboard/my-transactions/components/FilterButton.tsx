@@ -43,7 +43,7 @@ export function FilterButton() {
             type="button"
             onClick={() => setValue(arr.value)}
             className={cn(
-              `${fontPoppins} rounded-full bg-transparent text-white font-semibold text-xl`,
+              `${fontPoppins} rounded-full bg-transparent text-white font-semibold text-sm lg:text-xl`,
               isActive && GRADIENT_MAIN_COLOR_TW
             )}
           >

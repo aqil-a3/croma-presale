@@ -5,10 +5,10 @@ import { Search } from "lucide-react";
 
 export function SearchInput() {
   return (
-    <div className="relative">
+    <div className="relative mt-4 lg:mt-0">
       <Input
         placeholder="Search Your Transaction Here"
-        className={`${fontPoppins.className} text-[#B7B7B7] border-gray-600 w-[400px]`}
+        className={`${fontPoppins.className} text-[#B7B7B7] border-gray-600 w-full lg:w-[400px]`}
       />
       <Button variant={"ghost"} size={"icon"} className="text-[#B7B7B7] absolute right-0 top-0" >
         <Search />
