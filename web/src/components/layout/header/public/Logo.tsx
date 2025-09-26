@@ -7,19 +7,18 @@ export function HeaderLogo() {
   return (
     <Link
       href={"/home"}
-      className="inline-flex items-center gap-2 relative flex-[0_0_auto]"
+      className="inline-flex items-center gap-2 md:gap-1 lg:gap-2 relative flex-[0_0_auto]"
     >
       <Image
         className="relative aspect-[1.24] object-cover"
         alt="Image"
         src="/images/logo.png"
+        sizes="(max-width: 640px) 28px, (max-width: 768px) 36px, 44px"
         width={44}
         height={35}
       />
 
-      <div
-        className={`${mainGradientFont} ${fontOrbitron.className}`}
-      >
+      <div className={`${mainGradientFont} ${fontOrbitron.className}`}>
         <span>CROMA</span>
 
         <span className="font-bold">CHAIN</span>

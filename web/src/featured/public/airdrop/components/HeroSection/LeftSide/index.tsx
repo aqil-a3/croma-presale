@@ -5,7 +5,7 @@ export function LeftSide() {
   return (
     <div className="flex flex-col items-center justify-center gap-8">
       <h1
-        className={`${fontOrbitron.className} ${mainGradientFont} font-black text-center lg:text-start text-5xl lg:text-7xl leading-16 lg:leading-24`}
+        className={`${fontOrbitron.className} ${mainGradientFont} font-black text-center md:text-start text-5xl lg:text-7xl leading-16 lg:leading-24`}
       >
         Check Your Airdrop Eligibility
       </h1>

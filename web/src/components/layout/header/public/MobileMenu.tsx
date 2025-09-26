@@ -18,7 +18,7 @@ export function MobileMenu() {
 
   return (
     <Sheet>
-      <SheetTrigger className="block md:hidden">
+      <SheetTrigger className="block lg:hidden">
         <Menu className="text-orange-500" />
       </SheetTrigger>
       <SheetContent

@@ -13,7 +13,7 @@ export function HeaderNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden md:inline-flex items-center gap-[34px] relative flex-[0_0_auto]">
+    <nav className="hidden lg:flex items-center gap-4 lg:gap-[34px] relative">
       {navigationItems.map((item, index) => {
         const isActive = item.href === pathname;
         return (
@@ -23,7 +23,7 @@ export function HeaderNavigation() {
                 isActive
                   ? "font-bold text-[#d73602]"
                   : "font-normal text-[#e9e9e9]"
-              } text-lg text-center tracking-[0] leading-[normal] cursor-pointer hover:text-[#d73602] transition-colors`}
+              } text-base lg:text-lg text-center tracking-[0] leading-[normal] cursor-pointer hover:text-[#d73602] transition-colors`}
             >
               {item.label}
             </button>

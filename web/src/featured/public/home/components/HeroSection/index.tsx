@@ -5,7 +5,7 @@ import { RightSide } from "./RightSide";
 export function HeroSection() {
   return (
     <section className="relative z-10">
-      <div className="mx-auto lg:max-w-[1280px] lg:px-6 pt-[110px] block lg:grid gap-10 lg:grid-cols-[1fr_minmax(420px,520px)] items-center">
+      <div className="mx-auto lg:max-w-[1280px] lg:px-6 pt-[110px] block md:grid md:grid-cols-2 lg:grid-cols-[1fr_minmax(420px,520px)] md:gap-4 lg:gap-10 items-center">
         <LeftSide />
 
         {/* Panel kanan ukuran tetap + nempel kanan */}
