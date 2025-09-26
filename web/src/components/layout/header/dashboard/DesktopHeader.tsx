@@ -29,7 +29,7 @@ export function DesktopDashboardHeader() {
     <header
       style={{ background: PANEL_BG }}
       className={cn(
-        "absolute w-[calc(100vw-3.5rem)] hidden lg:flex justify-between items-center px-8 z-20 backdrop-blur-3xl min-h-16",
+        "absolute w-[calc(100vw-3.5rem)] hidden md:flex justify-between items-center px-8 z-20 backdrop-blur-3xl min-h-16",
         open && "w-[calc(100vw-13.5rem)]"
       )}
     >

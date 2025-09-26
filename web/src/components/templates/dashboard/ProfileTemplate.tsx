@@ -9,7 +9,7 @@ export default function   ProfileTemplate() {
   return (
     <DashboardContainer className="space-y-8">
       <ProfileTitle />
-      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4 z-10">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 z-10">
         <PersonalInformation />
         <div className="space-y-4">
           <EmailVerification />

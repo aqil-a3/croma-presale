@@ -37,7 +37,7 @@ const dummyItems: CurrencyItems[] = [
 
 export function CurrenciesSection() {
   return (
-    <section className="relative grid grid-cols-2 lg:grid-cols-4 z-10 gap-2 lg:gap-4">
+    <section className="relative grid grid-cols-2 md:grid-cols-4 z-10 gap-2 lg:gap-4">
       {dummyItems.map((item, i) => (
         <CurrencyCard {...item} key={i} />
       ))}
