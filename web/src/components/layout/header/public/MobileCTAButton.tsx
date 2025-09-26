@@ -10,7 +10,8 @@ export function MobileCTAButton() {
     mutation: {
       onError: (err) => {
         console.error(err);
-        toast.error("Something Error");
+        if (err.name === "UserRejectedRequestError") return;
+        toast.error(err.message);
       },
       onSuccess: () => {
         toast.success("Wallet Connected!");

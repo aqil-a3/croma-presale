@@ -6,8 +6,23 @@ import { Decor1 } from "@/featured/public/home/components/misc/decor-1";
 import { PresaleProgressSection } from "@/featured/public/home/components/PresaleProgressSection";
 import { HowToBuySection } from "@/featured/public/home/components/HowToBuySection";
 import { FrequentlyAskedSection } from "@/featured/public/home/components/FrequentlyAskedSection";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function HomeTemplate() {
+  const params = useSearchParams();
+  const router = useRouter();
+
+  const error = params.get("error");
+
+  useEffect(() => {
+    if (error === "must-login") {
+      toast.error("You must connect your wallet first");
+
+      router.replace("/home");
+    }
+  }, [error, router]);
   return (
     <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
       <>
