@@ -27,6 +27,7 @@ export function RightSide() {
       variants={fadeLeft}
       initial="hidden"
       animate="visible"
+      transition={{ duration: 0.6, ease: "easeInOut" }}
       style={{
         ...metrixBackground,
         ...metrixBorder,

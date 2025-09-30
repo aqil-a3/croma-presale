@@ -4,18 +4,10 @@ export const fadeUp: Variants = {
   hidden: {
     opacity: 0,
     y: 100,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
 };
 
@@ -23,18 +15,10 @@ export const fadeDown: Variants = {
   hidden: {
     opacity: 0,
     y: -100,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
 };
 
@@ -42,18 +26,10 @@ export const fadeLeft: Variants = {
   hidden: {
     opacity: 0,
     x: 100,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
 };
 
@@ -61,22 +37,14 @@ export const fadeRight: Variants = {
   hidden: {
     opacity: 0,
     x: -100,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeInOut",
-    },
   },
 };
 
-export const containerVariants:Variants = {
+export const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -87,7 +55,7 @@ export const containerVariants:Variants = {
   },
 };
 
-export const cardVariants:Variants = {
+export const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20, scale: 0.95 },
   visible: {
     opacity: 1,
@@ -100,7 +68,7 @@ export const cardVariants:Variants = {
   },
 };
 
-export const contentVariants:Variants = {
+export const contentVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

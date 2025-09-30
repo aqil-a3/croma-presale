@@ -9,6 +9,7 @@ export function LeftSide() {
       variants={fadeRight}
       initial="hidden"
       animate="visible"
+      transition={{ duration: 0.6, ease: "easeInOut" }}
     >
       <LeftSideText />
       <LeftSideCountdown />

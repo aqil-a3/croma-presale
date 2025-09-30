@@ -10,15 +10,17 @@ import {
 
 import {
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableHeader,
-  TableRow,
+  TableCell,
 } from "@/components/ui/table";
+// NOTE: kita tidak pakai TableBody/TableRow bawaan agar bisa pakai motion.tbody/tr
 import { fontPoppins } from "@/config/fonts";
 import { cn } from "@/lib/utils";
 import { TopBuyerWithRanks } from "@/@types/user";
+import { motion } from "framer-motion";
+import { cardVariants, containerVariants, fadeUp } from "@/lib/variants";
+// sesuaikan path import berikut dengan lokasi varian Anda
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -50,43 +52,58 @@ export function DataTable<TData, TValue>({
       <Table className="w-full border-separate border-spacing-y-3">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead
-                    key={header.id}
-                    className={`${fontPoppins.className} text-white text-sm lg:text-xl font-medium text-center`}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
+            <motion.tr
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              key={headerGroup.id}
+            >
+              {headerGroup.headers.map((header) => (
+                <TableHead
+                  key={header.id}
+                  className={`${fontPoppins.className} text-white text-sm lg:text-xl font-medium text-center`}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </TableHead>
+              ))}
+            </motion.tr>
           ))}
         </TableHeader>
-        <TableBody>
+
+        {/* Container untuk stagger */}
+        <motion.tbody
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          viewport={{ amount: 0.2 }}
+          className="[&_tr:last-child]:border-0"
+        >
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => {
-              const data: TopBuyerWithRanks =
-                row.original as unknown as TopBuyerWithRanks;
-              const isFirstRank = data.rank === 1;
-              const isSecondRank = data.rank === 2;
-              const isThirdRank = data.rank === 3;
+              const rowData = row.original as unknown as TopBuyerWithRanks;
+              const isFirstRank = rowData.rank === 1;
+              const isSecondRank = rowData.rank === 2;
+              const isThirdRank = rowData.rank === 3;
 
               return (
-                <TableRow
+                <motion.tr
                   key={row.id}
+                  variants={cardVariants}
                   data-state={row.getIsSelected() && "selected"}
+                  // salin gaya dasar TableRow shadcn + gaya Anda
                   className={cn(
-                    `${OTHER_RANK_BG} backdrop-blur-3xl h-[60px] text-white text-center rounded-2xl`,
-                    isThirdRank && `${THIRD_RANK_BG}`,
-                    isSecondRank && `${SECOND_RANK_BG}`,
-                    isFirstRank && `${FIRST_RANK_BG}`
+                    "border-b transition-colors hover:bg-white/5 data-[state=selected]:bg-white/10",
+                    "backdrop-blur-3xl h-[60px] text-white text-center rounded-2xl",
+                    OTHER_RANK_BG,
+                    isThirdRank && THIRD_RANK_BG,
+                    isSecondRank && SECOND_RANK_BG,
+                    isFirstRank && FIRST_RANK_BG
                   )}
                 >
                   {row.getVisibleCells().map((cell, i, arr) => (
@@ -104,18 +121,20 @@ export function DataTable<TData, TValue>({
                       )}
                     </TableCell>
                   ))}
-                </TableRow>
+                </motion.tr>
               );
             })
           ) : (
-            <TableRow>
+            <tr>
               <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
-            </TableRow>
+            </tr>
           )}
-        </TableBody>
+        </motion.tbody>
       </Table>
+
+      {/* Pagination (opsional tambahkan animasi kalau mau) */}
       <div className="flex items-center justify-end gap-2 py-4">
         <button
           onClick={() => table.previousPage()}

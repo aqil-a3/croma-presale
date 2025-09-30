@@ -20,7 +20,7 @@ export default function PublicLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className={`antialiased bg-black`}>
         <Header />
         {children}
         <Toaster position="top-center" richColors={true} />
