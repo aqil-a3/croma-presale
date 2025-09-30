@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     "The world's most advanced Layer 2 solution combining AI-powered development, quantum-resistant security, and lightning-fast performance.",
 };
 
+// TODO : https://nextjs.org/docs/pages/api-reference/config/next-config-js/headers
+
 export default async function DashboardLayout({
   children,
 }: Readonly<{

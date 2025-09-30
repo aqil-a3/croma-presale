@@ -12,7 +12,7 @@ import {
 import { AuthService } from './auth.service';
 import { SiweMessage } from 'siwe';
 import { Response } from 'express';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import { SiweForType } from './auth.interface';
 
 type VerifyBody = {
