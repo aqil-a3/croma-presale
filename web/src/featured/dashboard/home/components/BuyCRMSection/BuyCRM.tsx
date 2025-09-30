@@ -4,10 +4,10 @@ import { RightSidePayReceive } from "@/featured/public/home/components/HeroSecti
 
 export function BuyCRM() {
   return (
-    <>
+    <div className="space-y-4">
       <RightSidePayReceive />
       <RightSidePaymentMethod />
       <RightSideCTAButton />
-    </>
+    </div>
   );
 }

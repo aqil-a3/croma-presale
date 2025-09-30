@@ -1,3 +1,4 @@
+"use client";
 import { DashboardContainer } from "@/components/layout/container/DashboardContainer";
 import { fontOrbitron } from "@/config/fonts";
 import { HowItWorksSection } from "@/featured/public/referral/components/HowItWorks";

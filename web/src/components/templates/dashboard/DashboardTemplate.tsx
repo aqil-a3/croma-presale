@@ -15,7 +15,7 @@ export default function DashboardTemplate() {
     <DashboardContainer className="space-y-4">
       <CurrenciesSection />
       <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[60%_auto] z-10 gap-4">
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between gap-4">
           <CRMValueSection />
           <CRMTokenSection />
         </div>
