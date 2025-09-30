@@ -5,10 +5,18 @@ import Image from "next/image";
 import { Background } from "./Background";
 import { Decor } from "./Decor";
 import { PANEL_BG } from "@/config/variables";
+import { motion } from "motion/react";
+import { fadeUp } from "@/lib/variants";
 
 export function PresaleProgressSection() {
   return (
-    <section className="relative w-full">
+    <motion.section
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="relative w-full"
+    >
       <Background />
       <Decor />
       <div
@@ -39,6 +47,6 @@ export function PresaleProgressSection() {
         <ProgressBar />
         <MetrixCard />
       </div>
-    </section>
+    </motion.section>
   );
 }

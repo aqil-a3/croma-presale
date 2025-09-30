@@ -1,34 +1,33 @@
+"use client";
+
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { GRADIENT_ORANGE, mainGradientFont } from "@/config/variables";
+import { cardVariants, containerVariants } from "@/lib/variants";
+import { motion } from "motion/react";
 
 const values: { value: string; label: string }[] = [
-  {
-    label: "$CRM Sold",
-    value: "$1M+",
-  },
-  {
-    label: "$CMC Sold",
-    value: "$2M+",
-  },
-  {
-    label: "Potential Value (Global)",
-    value: "$18M+",
-  },
-  {
-    label: "Holders Count",
-    value: "12,453",
-  },
+  { label: "$CRM Sold", value: "$1M+" },
+  { label: "$CMC Sold", value: "$2M+" },
+  { label: "Potential Value (Global)", value: "$18M+" },
+  { label: "Holders Count", value: "12,453" },
 ];
+
+
 
 export function MetrixCard() {
   return (
-    <div className={`grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4`}>
+    <motion.div
+      className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+    >
       {values.map((val, index) => (
-        <div
-          style={{
-            background: GRADIENT_ORANGE,
-          }}
+        <motion.div
           key={index}
+          variants={cardVariants}
+          style={{ background: GRADIENT_ORANGE }}
           className="text-center p-4 border border-orange-500 rounded-2xl backdrop-blur-lg"
         >
           <p
@@ -36,11 +35,13 @@ export function MetrixCard() {
           >
             {val.value}
           </p>
-          <p className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white`}>
+          <p
+            className={`${fontPoppins.className} text-sm lg:text-base font-semibold text-white`}
+          >
             {val.label}
           </p>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

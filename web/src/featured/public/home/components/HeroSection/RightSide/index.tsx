@@ -4,6 +4,8 @@ import { RightSidePaymentMethod } from "./PaymentMethod";
 import { RightSidePayReceive } from "./PayReceive";
 import { RightSideProgress } from "./Progress";
 import { RightSideTitle } from "./Title";
+import { motion } from "motion/react";
+import { fadeLeft } from "@/lib/variants";
 
 const metrixBackground: CSSProperties = {
   background: `linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)),
@@ -21,7 +23,10 @@ const metrixBorder: CSSProperties = {
 
 export function RightSide() {
   return (
-    <div
+    <motion.div
+      variants={fadeLeft}
+      initial="hidden"
+      animate="visible"
       style={{
         ...metrixBackground,
         ...metrixBorder,
@@ -34,6 +39,6 @@ export function RightSide() {
       <RightSidePayReceive />
       <RightSidePaymentMethod />
       <RightSideCTAButton />
-    </div>
+    </motion.div>
   );
 }

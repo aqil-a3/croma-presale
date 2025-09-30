@@ -1,10 +1,18 @@
 import { Title } from "./Title";
 import { StayTunedForm } from "./Form";
 import Image from "next/image";
+import { motion } from "motion/react";
+import { fadeUp } from "@/lib/variants";
 
 export function Staytuned() {
   return (
-    <div className="relative w-[95%] lg:w-3/4 mx-auto flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 lg:gap-6 rounded-2xl p-8 lg:p-12 bg-gradient-to-r from-[#B72204] to-[#FC6400]">
+    <motion.div
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="relative w-[95%] lg:w-3/4 mx-auto flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 lg:gap-6 rounded-2xl p-8 lg:p-12 bg-gradient-to-r from-[#B72204] to-[#FC6400]"
+    >
       {/* kiri */}
       <div className="relative z-10">
         <Title />
@@ -21,6 +29,6 @@ export function Staytuned() {
           sizes="(max-width: 1024px) 100vw, 50vw"
         />
       </figure>
-    </div>
+    </motion.div>
   );
 }

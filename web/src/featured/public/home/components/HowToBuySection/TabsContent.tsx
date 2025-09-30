@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { TabsTriggerLabel } from ".";
 import { CTA_BG, PANEL_BG } from "@/config/variables";
+import { useRouter } from "next/navigation";
+import { useAccount, useConnect } from "wagmi";
+import { toast } from "sonner";
 
 interface ContentData {
   title: string;
@@ -13,13 +16,45 @@ interface ContentData {
   CTAComp?: React.ReactNode;
 }
 
+const ConnectButton = () => {
+  const router = useRouter();
+  const { connectors, connect } = useConnect({
+    mutation: {
+      onError: (err) => {
+        console.error(err);
+        if (err.name === "UserRejectedRequestError") return;
+        toast.error(err.message);
+      },
+      onSuccess: () => {
+        toast.success("Wallet Connected!");
+        router.push("/dashboard");
+      },
+    },
+  });
+  const { isConnected } = useAccount();
+  const walletConnect = connectors.find(
+    (conn) => conn.type === "walletConnect"
+  );
+
+  const connectHandler = () => {
+    if (isConnected) return router.push("/dashboard");
+    if (!walletConnect) return;
+    connect({ connector: walletConnect });
+  };
+  return (
+    <Button onClick={connectHandler} style={{ background: CTA_BG }}>
+      Connect Wallet
+    </Button>
+  );
+};
+
 const dataContent: Record<TabsTriggerLabel, ContentData> = {
   firtStep: {
     title: "Step 1 - Wallet Setup",
     description:
       "Welcome aboard! First, make sure you have a browser wallet (like MetaMask) or any wallet that supports WalletConnect. This will allow you to easily connect and start transacting.",
     imageSrc: "/images/dashboard/how-to-buy-step-1.png",
-    CTAComp: <Button style={{ background: CTA_BG }}>Connect Wallet</Button>,
+    CTAComp: <ConnectButton />,
   },
   secondStep: {
     title: "Step 2 - Purchase Process",
