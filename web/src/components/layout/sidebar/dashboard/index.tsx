@@ -6,7 +6,11 @@ import { LogoSidebar } from "./Logo";
 import { DashboardNavigationItem } from "./NavigationItem";
 import { DashboardSidebarFooter } from "./SidebarFooter";
 
-export function DashboardSidebar() {
+interface Props {
+  isAdmin: boolean;
+}
+
+export function DashboardSidebar({ isAdmin }: Props) {
   const { open } = useSidebar();
 
   return (
@@ -18,7 +22,7 @@ export function DashboardSidebar() {
     >
       <div className="flex flex-col gap-2 p-2">
         <LogoSidebar open={open} />
-        <DashboardNavigationItem open={open} />
+        <DashboardNavigationItem open={open} isAdmin={isAdmin} />
         {open && <DashboardSidebarFooter />}
       </div>
     </aside>

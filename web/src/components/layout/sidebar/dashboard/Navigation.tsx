@@ -3,9 +3,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, SVGProps } from "react";
+import type { LucideIcon } from "lucide-react";
 
 type SidebarItemProps = {
-  Icon: FC<SVGProps<SVGElement>>;
+  Icon: FC<SVGProps<SVGElement>> | LucideIcon;
   label: string;
   href: string;
   open: boolean;

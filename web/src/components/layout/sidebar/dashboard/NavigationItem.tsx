@@ -3,6 +3,7 @@ import TransactionIcon from "./icons/sidebar-my-transaction.svg";
 import DashboardIcon from "./icons/dashboard.svg";
 import ReferralIcon from "./icons/referral.svg";
 import ProfitCalculatorIcon from "./icons/profit-calculator.svg";
+import { ShieldUser } from "lucide-react";
 
 export const navigationItems = [
   { label: "Dashboard", Icon: DashboardIcon, href: "/dashboard" },
@@ -15,9 +16,10 @@ export const navigationItems = [
   },
 ];
 
-export function DashboardNavigationItem({ open }: { open: boolean }) {
+export function DashboardNavigationItem({ open, isAdmin }: { open: boolean, isAdmin:boolean }) {
   return (
     <div className="flex flex-col gap-2">
+      {isAdmin && <SidebarItem Icon={ShieldUser} href="/admin" label="Admin Dashboard" open={open} />}
       {navigationItems.map((item, i) => (
         <SidebarItem
           key={i}

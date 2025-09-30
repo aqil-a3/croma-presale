@@ -25,6 +25,11 @@ export function DesktopDashboardHeader() {
   const { address } = useAccount();
   const router = useRouter();
 
+  const copyHandler = async () => {
+    await navigator.clipboard.writeText(address!);
+    toast.success("Your address have copied!");
+  };
+
   return (
     <header
       style={{ background: PANEL_BG }}
@@ -45,7 +50,7 @@ export function DesktopDashboardHeader() {
           <Wallet />
           <span className={`${fontPoppins.className}`}>Wallet Connected</span>
         </div>
-        <Button className="bg-white/10 border border-gray-600 rounded-xl">
+        <Button className="bg-white/10 border border-gray-600 rounded-xl" onClick={copyHandler}>
           <span
             className={`${fontPoppins.className} font-semibold text-[#FFFFFF80] text-sm`}
           >
@@ -71,7 +76,7 @@ export function DesktopDashboardHeader() {
           className="bg-white/10 border border-gray-600 rounded-xl"
           onClick={() => {
             disconnect();
-            router.replace("/home")
+            router.replace("/home");
           }}
         >
           <LogOut />

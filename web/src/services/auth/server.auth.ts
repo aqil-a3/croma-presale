@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { verify } from "jsonwebtoken";
-import { Session } from "@/@types/auth";
+import { AdminTokenPayload, Session } from "@/@types/auth";
 
 export async function getServerSession() {
   const cookieStore = await cookies();
@@ -15,5 +15,19 @@ export async function getServerSession() {
     console.log(error);
     throw error;
   }
+}
 
+export async function getDashboardSession() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("croma_presale_dashboard")?.value;
+
+  if (!token) return null;
+
+  try {
+    const payload = verify(token, process.env.JWT_SECRET ?? "");
+    return payload as AdminTokenPayload;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
