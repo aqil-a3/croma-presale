@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { cardVariants, containerVariants } from "@/lib/variants";
+import { motion } from "motion/react";
 import Image from "next/image";
 import React from "react";
 
@@ -42,15 +44,21 @@ const items: ItemType[] = [
 
 export function SocialMedia() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      className="grid grid-cols-1 md:grid-cols-3 gap-4"
+    >
       {items.map((item, i) => (
-        <a href={item.href} key={i} target="_blank">
+        <motion.a variants={cardVariants} href={item.href} key={i} target="_blank">
           <Button className="bg-white/10 border border-gray-700 w-full py-6 rounded-full">
             {item.icon}
             {item.label}
           </Button>
-        </a>
+        </motion.a>
       ))}
-    </div>
+    </motion.div>
   );
 }
