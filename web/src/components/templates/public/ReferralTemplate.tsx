@@ -1,3 +1,4 @@
+"use client";
 import { Decor } from "@/components/atoms/Decor";
 import { ShieldReferralImage } from "@/components/atoms/image-decorations/ShieldReferralImage";
 import { TwoFireImage } from "@/components/atoms/image-decorations/TwoFireImage";

@@ -16,7 +16,7 @@ export function LeftSide() {
         Check Your Airdrop Eligibility
       </motion.h1>
       <motion.p
-      variants={fadeUp}
+        variants={fadeUp}
         initial="hidden"
         animate="visible"
         transition={{ duration: 0.6, ease: "easeInOut", delay: 0.3 }}

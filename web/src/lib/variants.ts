@@ -49,7 +49,7 @@ export const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      // anak-anak muncul satu per satu dengan delay 0.2s
+      when:"beforeChildren",
       staggerChildren: 0.2,
     },
   },
@@ -76,4 +76,18 @@ export const contentVariants: Variants = {
     transition: { duration: 0.4, ease: "easeOut" },
   },
   exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+};
+
+export const parentVariants: Variants = {
+  hidden: { opacity: 0, y: 100 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: "easeOut",
+      when: "beforeChildren",
+      staggerChildren: 0.15,
+    },
+  },
 };
