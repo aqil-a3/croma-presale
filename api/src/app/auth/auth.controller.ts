@@ -51,7 +51,6 @@ export class AuthController {
     if (!message || !signature)
       throw new BadRequestException('Missing message or signature');
 
-    const cookieDomain = process.env.COOKIE_DOMAIN;
     const isProd = process.env.NODE_ENV === 'production';
 
     // 1. Bentuk Siwe dari Body
@@ -93,7 +92,7 @@ export class AuthController {
       sameSite: isProd ? 'lax' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/',
-      domain: cookieDomain,
+      domain: siwe.domain,
     });
 
     return { ok: true, address: siwe.address };
