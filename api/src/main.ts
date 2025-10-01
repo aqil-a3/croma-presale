@@ -13,6 +13,10 @@ async function bootstrap() {
     origin: ['http://localhost:3000', 'https://croma-presale.vercel.app'],
   });
 
+  // ambil instance Express di balik Nest
+  const expressApp = app.getHttpAdapter().getInstance();
+  expressApp.set('trust proxy', 1);
+
   await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();
