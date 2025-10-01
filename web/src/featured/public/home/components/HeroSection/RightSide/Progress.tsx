@@ -14,7 +14,7 @@ export function RightSideProgress() {
       <div className={`flex justify-between ${fontPoppins.className}`}>
         <p className="text-white text-sm lg:text-base font-medium">Total Raised</p>
         <p className={`${mainGradientFont} text-xs lg:text-base font-bold`}>
-          27,047,287 OPZ = $894,723.98
+          27,047,287 CRM = $894,723.98
         </p>
       </div>
     </div>

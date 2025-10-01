@@ -10,7 +10,7 @@ export function RightSideTitle() {
         Presale $CRM
       </h2>
       <p className={`${fontPoppins.className} text-white font-medium text-base lg:text-lg text-center`}>
-        1 OPZ = $0.04511
+        1 CRM = $0.04511
       </p>
     </div>
   );

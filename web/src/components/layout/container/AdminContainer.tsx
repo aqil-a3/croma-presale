@@ -12,7 +12,7 @@ export function AdminContainer({
   return (
     <div
       className={cn(
-        "relative px-2 lg:px-12 py-24 min-h-screen bg-black text-white",
+        "relative px-2 lg:px-12 py-12 min-h-screen bg-black text-white",
         className
       )}
       {...props}

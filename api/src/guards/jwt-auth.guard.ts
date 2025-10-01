@@ -7,7 +7,6 @@ export class JwtAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    console.log(request);
     const token = request.cookies['croma_presale_token'];
     if (!token) return false;
 
