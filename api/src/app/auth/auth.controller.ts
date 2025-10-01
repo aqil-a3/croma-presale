@@ -89,10 +89,9 @@ export class AuthController {
     res.cookie(siweFor, token[siweFor], {
       httpOnly: true,
       secure: isProd,
-      sameSite: isProd ? 'lax' : 'lax',
+      sameSite: isProd ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/',
-      domain: siwe.domain,
     });
 
     return { ok: true, address: siwe.address };
