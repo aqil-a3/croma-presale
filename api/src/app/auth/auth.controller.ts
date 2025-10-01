@@ -51,7 +51,6 @@ export class AuthController {
     if (!message || !signature)
       throw new BadRequestException('Missing message or signature');
 
-    const expectedDomain = process.env.AUTH_ALLOWED_DOMAIN;
     const cookieDomain = process.env.COOKIE_DOMAIN;
     const isProd = process.env.NODE_ENV === 'production';
 
@@ -59,7 +58,7 @@ export class AuthController {
     const siwe = new SiweMessage(message);
 
     // 2. Validasi domain, chainId, siweFor
-    if (siwe.domain !== expectedDomain)
+    if (!this.auth.isAllowedDomain(siwe.domain))
       throw new BadRequestException(`Invalid domain :${siwe.domain}`);
     if (!this.auth.isAllowedChain(Number(siwe.chainId)))
       throw new BadRequestException(`Chain now allowed :${siwe.chainId}`);
@@ -69,7 +68,7 @@ export class AuthController {
     // 3. Verifikasi tanda tangan SIWE
     const result = await siwe.verify({
       signature,
-      domain: expectedDomain,
+      domain: siwe.domain,
       nonce: siwe.nonce,
     });
 

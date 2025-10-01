@@ -37,6 +37,13 @@ export class AuthService {
     return allowedChainIds.includes(chainId);
   }
 
+ isAllowedDomain(siweDomain: string) {
+  const expectedDomain = process.env.AUTH_ALLOWED_DOMAIN ?? "";
+  const arrayDomain = expectedDomain.split(",").map(d => d.trim());
+  return arrayDomain.includes(siweDomain);
+}
+
+
   isAllowedForSiweParam(siweParam: string) {
     const siweForArray = process.env.AUTH_ALLOWED_SIWE_FOR.split(',');
     return siweForArray.includes(siweParam);

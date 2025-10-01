@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:3000', 'https://your-prod-domain.com'],
+    origin: ['http://localhost:3000', 'https://croma-presale.vercel.app'],
   });
 
   await app.listen(process.env.PORT ?? 3001);
