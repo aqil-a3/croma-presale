@@ -3,15 +3,16 @@
 
 import { SiweForType } from "@/@types/auth";
 import { serverEndpoint } from "@/config/endpoint";
+import axios from "axios";
 import { SiweMessage } from "siwe";
 
 type SignInWithSiweArgs = {
   address: `0x${string}`;
   chainId: number;
-  statement:string;
+  statement: string;
   signMessageAsync: (args: { message: string }) => Promise<`0x${string}`>;
   apiBase?: string;
-  siweFor: SiweForType
+  siweFor: SiweForType;
 };
 
 export async function signInWithEtherium({
@@ -20,7 +21,7 @@ export async function signInWithEtherium({
   statement,
   signMessageAsync,
   apiBase = serverEndpoint || "",
-  siweFor
+  siweFor,
 }: SignInWithSiweArgs) {
   // 1) GET nonce
   const nonceRes = await fetch(`${apiBase}/auth/nonce`, {
@@ -50,17 +51,16 @@ export async function signInWithEtherium({
   const signature = await signMessageAsync({ message: messageToSign });
 
   // 4) POST verify (set-cookie oleh backend)
-  const verifyRes = await fetch(`${apiBase}/auth/verify/${siweFor}`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: siwe, signature }),
-  });
-
-  if (!verifyRes.ok) {
-    const text = await verifyRes.text();
-    throw new Error(`SIWE verify failed: ${text}`);
-  }
-
-  return (await verifyRes.json()) as { ok: true; address: string };
+  await axios.post(
+    "/api/auth/verify",
+    {
+      message: siwe,
+      signature,
+    },
+    {
+      headers: {
+        "siwe-for": siweFor,
+      },
+    }
+  );
 }
