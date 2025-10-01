@@ -2,6 +2,7 @@
 "use client";
 
 import { SiweForType } from "@/@types/auth";
+import { serverEndpoint } from "@/config/endpoint";
 import { SiweMessage } from "siwe";
 
 type SignInWithSiweArgs = {
@@ -18,7 +19,7 @@ export async function signInWithEtherium({
   chainId,
   statement,
   signMessageAsync,
-  apiBase = process.env.NEXT_PUBLIC_API_URL || "",
+  apiBase = serverEndpoint || "",
   siweFor
 }: SignInWithSiweArgs) {
   // 1) GET nonce
