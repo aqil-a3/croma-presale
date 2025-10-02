@@ -1,20 +1,35 @@
 import { Progress } from "@/components/ui/progress";
 import { fontPoppins } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
+import { usePublicPresaleContext } from "../../../provider";
+import { formatNumber } from "@/utils/formatNumber";
+import { formatCurrencyWithDecimals } from "@/utils/formatCurrencyWithDecimals";
 
 export function RightSideProgress() {
+  const { activePresale } = usePublicPresaleContext();
+
+  const totalRaised = formatNumber(activePresale.total_raised);
+  const raisedEqual = formatCurrencyWithDecimals(
+    activePresale.total_raised * activePresale.current_price_usd,
+    "USD",
+    "en-US",
+    2
+  );
+  const nextPriceUsd = formatCurrencyWithDecimals(activePresale.next_price_usd);
   return (
     <div className="space-y-2">
       <p
         className={`${fontPoppins.className} text-sm lg:text-base font-medium text-right text-white`}
       >
-        Next Stage = $0.0455
+        Next Stage = {nextPriceUsd}
       </p>
       <ProgressBar />
       <div className={`flex justify-between ${fontPoppins.className}`}>
-        <p className="text-white text-sm lg:text-base font-medium">Total Raised</p>
+        <p className="text-white text-sm lg:text-base font-medium">
+          Total Raised
+        </p>
         <p className={`${mainGradientFont} text-xs lg:text-base font-bold`}>
-          27,047,287 CRM = $894,723.98
+          {totalRaised} CRM = {raisedEqual}
         </p>
       </div>
     </div>
@@ -22,7 +37,10 @@ export function RightSideProgress() {
 }
 
 const ProgressBar = () => {
-  const value = 35;
+  const { activePresale } = usePublicPresaleContext();
+  const value = Math.ceil(
+    (activePresale.total_raised / activePresale.target_raised) * 100
+  );
   return (
     <div className="relative">
       <Progress value={value} className="h-[27px] bg-[#323336]" />

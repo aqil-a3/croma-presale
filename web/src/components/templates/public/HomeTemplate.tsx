@@ -9,8 +9,14 @@ import { FrequentlyAskedSection } from "@/featured/public/home/components/Freque
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { PresaleDb } from "@/featured/admin/presale/interface";
+import { PublicPresaleProvider } from "@/featured/public/home/provider";
 
-export default function HomeTemplate() {
+export default function HomeTemplate({
+  activePresale,
+}: {
+  activePresale: PresaleDb;
+}) {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -24,16 +30,18 @@ export default function HomeTemplate() {
     }
   }, [error, router]);
   return (
-    <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
-      <>
-        <Decor1 />
-        <Background />
-      </>
+    <PublicPresaleProvider activePresale={activePresale}>
+      <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
+        <>
+          <Decor1 />
+          <Background />
+        </>
 
-      <HeroSection />
-      <PresaleProgressSection />
-      <HowToBuySection />
-      <FrequentlyAskedSection />
-    </MainContainer>
+        <HeroSection />
+        <PresaleProgressSection />
+        <HowToBuySection />
+        <FrequentlyAskedSection />
+      </MainContainer>
+    </PublicPresaleProvider>
   );
 }

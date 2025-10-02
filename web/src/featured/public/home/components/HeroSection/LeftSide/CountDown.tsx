@@ -1,6 +1,10 @@
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { GRADIENT_ORANGE, mainGradientFont } from "@/config/variables";
 import { CountdownType } from "../../../interface";
+import { usePublicPresaleContext } from "../../../provider";
+import { formatDateTimeUTC } from "@/utils/formatDateTimeUTC";
+import { getCountdown } from "@/utils/getCountdown";
+import { useEffect, useState } from "react";
 
 export function LeftSideCountdown() {
   return (
@@ -12,6 +16,9 @@ export function LeftSideCountdown() {
 }
 
 const PresaleEndComp = () => {
+  const { activePresale } = usePublicPresaleContext();
+
+  const endAt = activePresale.end_at;
   return (
     <div
       style={{ background: GRADIENT_ORANGE }}
@@ -25,34 +32,31 @@ const PresaleEndComp = () => {
       <p
         className={`${mainGradientFont} ${fontPoppins.className} text-xs lg:text-lg font-semibold`}
       >
-        Oct 16, 2025 23:59:00 UTC
+        {formatDateTimeUTC(endAt)}
       </p>
     </div>
   );
 };
 
 const CountDownComp = () => {
-  const dummy: CountdownType[] = [
-    {
-      label: "Days",
-      time: 30,
-    },
-    {
-      label: "Hours",
-      time: 0,
-    },
-    {
-      label: "Minutes",
-      time: 27,
-    },
-    {
-      label: "Seconds",
-      time: 20,
-    },
-  ];
+  const { activePresale } = usePublicPresaleContext();
+  const endAt = activePresale.end_at;
+
+  const [timeCd, setTimeCd] = useState<CountdownType[]>(() =>
+    getCountdown(endAt)
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeCd(getCountdown(endAt));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [endAt]);
+
   return (
     <div className="grid grid-cols-4 gap-4">
-      {dummy.map((dum, i) => (
+      {timeCd.map((dum, i) => (
         <div
           key={i}
           style={{ background: GRADIENT_ORANGE }}
@@ -63,7 +67,9 @@ const CountDownComp = () => {
           >
             {dum.time.toString().padStart(2, "0")}
           </p>
-          <p className={`${fontPoppins.className} text-white font-medium text-xs lg:text-base`}>
+          <p
+            className={`${fontPoppins.className} text-white font-medium text-xs lg:text-base`}
+          >
             {dum.label}
           </p>
         </div>

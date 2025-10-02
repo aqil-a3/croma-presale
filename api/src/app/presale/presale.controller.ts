@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PresaleService } from './presale.service';
 import { PresaleClient } from './presale.interface';
-import { BasicResponse } from '../../interface/http';
+import { BasicResponse, ResponseWithData } from '../../interface/http';
 
 @Controller('presale')
 export class PresaleController {
@@ -11,6 +11,24 @@ export class PresaleController {
     const data = await this.presaleService.getAllPresale();
 
     return data;
+  }
+
+  @Get('/active')
+  async getActivePresale(): Promise<ResponseWithData<PresaleService | null>> {
+    const data = await this.presaleService.getActivePresale();
+
+    if (!data)
+      return {
+        data,
+        message: 'Data not found',
+        ok: false,
+      };
+
+    return {
+      data,
+      message: 'Retreive success',
+      ok: true,
+    };
   }
 
   @Post()

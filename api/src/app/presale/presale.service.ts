@@ -20,6 +20,25 @@ export class PresaleService {
 
     return data;
   }
+  
+  async getActivePresale(): Promise<PresaleService | null> {
+    const { data, error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .select('*')
+      .eq('is_active', true)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return null;
+    }
+
+    if (!data) {
+      return null;
+    }
+
+    return data as PresaleService;
+  }
 
   async createNewPresale(data: PresaleClient) {
     const { error } = await this.supabaseAdmin

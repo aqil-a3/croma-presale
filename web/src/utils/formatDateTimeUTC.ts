@@ -11,14 +11,20 @@
 export function formatDateTimeUTC(date: string | Date): string {
   const d = typeof date === "string" ? new Date(date) : date;
 
-  return d.toLocaleString("en-US", {
+  const datePart = d.toLocaleDateString("en-US", {
     timeZone: "UTC",
     year: "numeric",
-    month: "short", // Jan, Feb, Mar...
+    month: "short",
     day: "2-digit",
+  });
+
+  const timePart = d.toLocaleTimeString("en-US", {
+    timeZone: "UTC",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
     hour12: false,
-  }) + " UTC";
+  });
+
+  return `${datePart} ${timePart} UTC`;
 }

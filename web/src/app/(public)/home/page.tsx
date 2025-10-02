@@ -1,10 +1,13 @@
 import HomeTemplate from "@/components/templates/public/HomeTemplate";
+import { getActivePresale } from "@/services/db/presale";
 import { Metadata } from "next";
 
-export const metadata:Metadata = {
-  title:"Home"
-}
+export const metadata: Metadata = {
+  title: "Home",
+};
 
-export default function Home() {
-  return <HomeTemplate />;
+export default async function Home() {
+  const activePresale = await getActivePresale();
+
+  return <HomeTemplate activePresale={activePresale} />;
 }

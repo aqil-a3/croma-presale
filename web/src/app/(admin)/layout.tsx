@@ -32,7 +32,7 @@ export default async function AdminDashboardLayout({
         <SidebarProvider>
           {adminSession && <AdminDashboardSidebar />}
           <main className="w-full max-w-screen min-h-screen">
-            <AdminHeader />
+            {adminSession && <AdminHeader />}
             {children}
           </main>
           <Toaster position="top-center" richColors={true} />

@@ -6,10 +6,12 @@ import { mainGradientFont } from "@/config/variables";
 import { formatCurrency } from "@/utils/formatCurrency";
 import React, { useEffect, useState } from "react";
 import { motion, animate } from "motion/react";
+import { usePublicPresaleContext } from "../../provider";
 
 export function ProgressBar() {
-  const currentValue = 6_450_000;
-  const targetValue = 20_450_000;
+  const {activePresale} = usePublicPresaleContext()
+  const currentValue = activePresale.total_raised;
+  const targetValue = activePresale.target_raised;
   const targetPercent = Math.round((currentValue / targetValue) * 100);
 
   return (

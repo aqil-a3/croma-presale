@@ -4,6 +4,7 @@ export interface PresaleDb {
   title: string;
   end_at: string;
   current_price_usd: number;
+  next_price_usd: number;
   total_raised: number;
   target_raised: number;
   is_active: boolean;
