@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 
 interface Props {
   onSubmit: (values: PresaleFormValues) => Promise<void> | void;
@@ -23,6 +22,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
     resolver: zodResolver(presaleSchema),
     defaultValues: defaultValues ?? {
       current_price_usd: 0,
+      next_price_usd: 0,
       end_at: "",
       is_active: false,
       target_raised: 0,
@@ -48,23 +48,6 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="is_active"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is Active?</FormLabel>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={(e) => field.onChange(e)}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
 
         <FormField
@@ -85,24 +68,45 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="current_price_usd"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Current Price</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="number"
-                  placeholder="Presale Title..."
-                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="current_price_usd"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Current Price</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="number"
+                    placeholder="Presale Title..."
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="next_price_usd"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Next Price</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="number"
+                    placeholder="Presale Title..."
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}

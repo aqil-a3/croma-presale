@@ -12,7 +12,3 @@ export interface PresaleDb {
 
 export type PresaleClient = Omit<PresaleDb, "id" | "created_at">;
 
-export interface PresaleApiTypes {
-  getAllPresale: () => Promise<PresaleDb[]>;
-  createNewPresale:(data:PresaleClient) => Promise<void>
-}

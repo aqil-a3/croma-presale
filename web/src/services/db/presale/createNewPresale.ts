@@ -1,5 +1,5 @@
 import { api } from "@/services/axios/server";
-import { PresaleClient } from "../interface";
+import { PresaleClient } from "../../../featured/admin/presale/interface";
 import { serverEndpoint } from "@/config/endpoint";
 
 export async function createNewPresale(clientData:PresaleClient){

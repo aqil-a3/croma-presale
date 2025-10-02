@@ -7,7 +7,7 @@ import { adminPresaleColumns } from "@/featured/admin/presale/components/ColumnD
 import { PresaleDialog } from "@/featured/admin/presale/components/PresaleDialog";
 import { PresaleDb } from "@/featured/admin/presale/interface";
 
-export default function AdminPresaleTemplate({data}:{data:PresaleDb[]}) {
+export default function AdminPresaleTemplate({ data }: { data: PresaleDb[] }) {
   return (
     <AdminContainer className="space-y-4">
       <TitleAndSub title="Admin Presale" sub="Setting presale stage" />

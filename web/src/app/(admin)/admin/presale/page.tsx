@@ -1,5 +1,5 @@
 import AdminPresaleTemplate from "@/components/templates/admin/AdminPresaleTemplate";
-import { apiPresale } from "@/featured/admin/presale/utils";
+import { apiPresale } from "@/services/db/presale/index";
 import { getDashboardSession } from "@/services/auth/server.auth";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -15,5 +15,9 @@ export default async function AdminPresalePage() {
   if (!dashboardSession) redirect("/admin");
   const presales = await getAllPresale();
 
-  return <AdminPresaleTemplate data={presales} />;
+  const sortedPresales = [...presales].sort(
+    (a, b) => new Date(a.end_at).getTime() - new Date(b.end_at).getTime()
+  );
+
+  return <AdminPresaleTemplate data={sortedPresales} />;
 }
