@@ -60,6 +60,7 @@ const PayComp: React.FC<{
             prefix="$"
             allowDecimals={true}
             value={usd}
+            maxLength={10}
             onValueChange={(value) => {
               const numberValue = Number(value);
               setUsd(isNaN(numberValue) ? 1 : numberValue);

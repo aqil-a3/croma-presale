@@ -12,7 +12,7 @@ export function Staytuned() {
       whileInView="visible"
       transition={{ duration: 0.6, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="relative w-[95%] lg:w-3/4 mx-auto flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 lg:gap-6 rounded-2xl p-8 lg:p-12 bg-gradient-to-r from-[#B72204] to-[#FC6400]"
+      className="relative w-[95%] lg:w-3/4 mx-auto flex mt-16 flex-col-reverse lg:grid lg:grid-cols-2 gap-2 lg:gap-6 rounded-2xl p-8 lg:p-12 bg-gradient-to-r from-[#B72204] to-[#FC6400]"
     >
       {/* kiri */}
       <div className="relative z-10">

@@ -1,38 +1,41 @@
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { mainGradientFont, PANEL_BG } from "@/config/variables";
 import { CountdownType } from "@/featured/public/home/interface";
+import { usePublicPresaleContext } from "@/featured/public/home/provider";
 import { formatDateTimeUTC } from "@/utils/formatDateTimeUTC";
+import { getCountdown } from "@/utils/getCountdown";
+import { useEffect, useState } from "react";
 
 export function PresaleEnds() {
-  const dummyDateTime = "2025-10-16T23:59:00Z";
-  const dummyCoundown: CountdownType[] = [
-    {
-      label: "Days",
-      time: 30,
-    },
-    {
-      label: "Hours",
-      time: 0,
-    },
-    {
-      label: "Minutes",
-      time: 27,
-    },
-    {
-      label: "Seconds",
-      time: 20,
-    },
-  ];
+  const { activePresale } = usePublicPresaleContext();
+  const dateTime = activePresale.end_at;
+
+  const [timeCd, setTimeCd] = useState<CountdownType[]>(() =>
+      getCountdown(dateTime)
+    );
+  
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setTimeCd(getCountdown(dateTime));
+      }, 1000);
+  
+      return () => clearInterval(timer);
+    }, [dateTime]);
+
   return (
     <div className="flex flex-col lg:flex-row justify-between lg:items-center">
-      <div className={`${fontPoppins.className} flex flex-row lg:flex-col justify-between mb-4 lg:mb-0`}>
-        <p className="text-[#FFFFFF99] font-medium text-sm lg:text-xl">Presale Ends In</p>
+      <div
+        className={`${fontPoppins.className} flex flex-row lg:flex-col justify-between mb-4 lg:mb-0`}
+      >
+        <p className="text-[#FFFFFF99] font-medium text-sm lg:text-xl">
+          Presale Ends In
+        </p>
         <p className={`${mainGradientFont} font-semibold text-xs lg:text-base`}>
-          {formatDateTimeUTC(dummyDateTime)}
+          {formatDateTimeUTC(dateTime)}
         </p>
       </div>
       <div className="grid grid-cols-4 gap-2">
-        {dummyCoundown.map((dum, i) => (
+        {timeCd.map((dum, i) => (
           <div
             key={i}
             style={{ background: PANEL_BG }}
@@ -43,7 +46,9 @@ export function PresaleEnds() {
             >
               {dum.time.toString().padStart(2, "0")}
             </p>
-            <p className={`${fontPoppins.className} text-xs lg:text-base text-white font-medium`}>
+            <p
+              className={`${fontPoppins.className} text-xs lg:text-base text-white font-medium`}
+            >
               {dum.label}
             </p>
           </div>

@@ -9,7 +9,7 @@ import { motion, animate } from "motion/react";
 import { usePublicPresaleContext } from "../../provider";
 
 export function ProgressBar() {
-  const {activePresale} = usePublicPresaleContext()
+  const { activePresale } = usePublicPresaleContext();
   const currentValue = activePresale.total_raised;
   const targetValue = activePresale.target_raised;
   const targetPercent = Math.round((currentValue / targetValue) * 100);
@@ -31,7 +31,9 @@ export function ProgressBar() {
         </div>
 
         <div className={`${fontOrbitron.className} text-right`}>
-          <p className="text-white text-base lg:text-xl font-medium">Target Raise</p>
+          <p className="text-white text-base lg:text-xl font-medium">
+            Target Raise
+          </p>
           <AnimatedCurrency
             value={targetValue}
             className={`${mainGradientFont} text-base lg:text-4xl font-bold`}
