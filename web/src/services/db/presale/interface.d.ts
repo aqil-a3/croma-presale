@@ -1,4 +1,4 @@
-import { FaqClient } from "@/featured/admin/faq/interface";
+import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleDb } from "@/featured/admin/presale/interface";
 
 export interface PresaleApiTypes {
@@ -8,5 +8,6 @@ export interface PresaleApiTypes {
 }
 
 export interface FAQApiTypes {
-  getAllFAQ: () => Promise<FaqClient[]>;
+  getAllFAQ: () => Promise<FaqDb[]>;
+  createNewFAQ: (data: FaqClient) => Promise<void>;
 }

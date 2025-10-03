@@ -11,13 +11,16 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { PresaleDb } from "@/featured/admin/presale/interface";
 import { PublicPresaleProvider } from "@/featured/public/home/provider";
+import { FaqDb } from "@/featured/admin/faq/interface";
 
 export default function HomeTemplate({
   activePresale,
   cryptoPrice,
+  faqData
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
+  faqData:FaqDb[];
 }) {
   const params = useSearchParams();
   const router = useRouter();
@@ -32,7 +35,7 @@ export default function HomeTemplate({
     }
   }, [error, router]);
   return (
-    <PublicPresaleProvider activePresale={activePresale} cryptoPrice={cryptoPrice} >
+    <PublicPresaleProvider activePresale={activePresale} cryptoPrice={cryptoPrice} faqData={faqData} >
       <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
         <>
           <Decor1 />

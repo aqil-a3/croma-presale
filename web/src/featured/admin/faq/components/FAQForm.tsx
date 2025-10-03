@@ -23,7 +23,7 @@ export function FaqForm({ onSubmit, defaultValues }: Props) {
     resolver: zodResolver(faqSchema),
     defaultValues: defaultValues ?? {
       title: "",
-      descripntion: "",
+      description: "",
     },
   });
 
@@ -48,7 +48,7 @@ export function FaqForm({ onSubmit, defaultValues }: Props) {
 
         <FormField
           control={form.control}
-          name="descripntion"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Answer</FormLabel>
@@ -60,7 +60,7 @@ export function FaqForm({ onSubmit, defaultValues }: Props) {
           )}
         />
 
-        <Button type="submit">{isSubmitting ? "Submitting..." : "Submit"}</Button>
+        <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</Button>
       </form>
     </Form>
   );

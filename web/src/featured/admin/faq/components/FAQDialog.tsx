@@ -9,9 +9,26 @@ import {
 import { Plus } from "lucide-react";
 import React from "react";
 import { FaqForm } from "./FAQForm";
+import { apiFAQ } from "@/services/db/faq";
+import { toast } from "sonner";
+import { FaqFormValues } from "../schema";
+import { useRouter } from "next/navigation";
 
 export function FAQDialog() {
-  // const { createNewPresale } = apiPresale;
+  const { createNewFAQ } = apiFAQ;
+  const router = useRouter();
+
+  const handleAdd = async (data: FaqFormValues) => {
+    try {
+      await createNewFAQ(data);
+      toast.success("Add FAQ data success");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      toast.error("Something error");
+      throw error;
+    }
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -24,7 +41,7 @@ export function FAQDialog() {
           <DialogTitle>Add Faq Data</DialogTitle>
         </DialogHeader>
 
-        <FaqForm onSubmit={async (val) => console.log(val)} />
+        <FaqForm onSubmit={handleAdd} />
       </DialogContent>
     </Dialog>
   );
