@@ -1,4 +1,4 @@
-interface FAQDataType {
+export interface FAQDataType {
   value: string;
   title: string;
   description: string;
