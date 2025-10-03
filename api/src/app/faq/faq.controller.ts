@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { FaqClient } from './faq.interface';
-import { BasicResponse } from 'src/interface/http';
+import { BasicResponse } from '../../interface/http';
 
 @Controller('faq')
 export class FaqController {
