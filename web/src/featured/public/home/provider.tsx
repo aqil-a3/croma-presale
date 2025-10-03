@@ -3,6 +3,7 @@ import React, { createContext, useContext } from "react";
 
 interface PublicPresaleContextType {
   activePresale: PresaleDb;
+  cryptoPrice: Record<string, number>
 }
 
 const PublicPresaleContext = createContext<PublicPresaleContextType>(
@@ -12,14 +13,16 @@ const PublicPresaleContext = createContext<PublicPresaleContextType>(
 interface PublicPresaleProviderProps {
   children: React.ReactNode;
   activePresale: PresaleDb;
+  cryptoPrice: Record<string, number>
 }
 
 export function PublicPresaleProvider({
   activePresale,
+  cryptoPrice,
   children,
 }: PublicPresaleProviderProps) {
   return (
-    <PublicPresaleContext.Provider value={{ activePresale }}>
+    <PublicPresaleContext.Provider value={{ activePresale, cryptoPrice }}>
       {children}
     </PublicPresaleContext.Provider>
   );

@@ -14,8 +14,10 @@ import { PublicPresaleProvider } from "@/featured/public/home/provider";
 
 export default function HomeTemplate({
   activePresale,
+  cryptoPrice,
 }: {
   activePresale: PresaleDb;
+  cryptoPrice: Record<string, number>;
 }) {
   const params = useSearchParams();
   const router = useRouter();
@@ -30,7 +32,7 @@ export default function HomeTemplate({
     }
   }, [error, router]);
   return (
-    <PublicPresaleProvider activePresale={activePresale}>
+    <PublicPresaleProvider activePresale={activePresale} cryptoPrice={cryptoPrice} >
       <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
         <>
           <Decor1 />
