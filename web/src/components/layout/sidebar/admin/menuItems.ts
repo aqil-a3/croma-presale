@@ -7,4 +7,8 @@ export const menuItems = [
     value: "/admin/presale",
     label: "Presale",
   },
+  {
+    value: "/admin/faq",
+    label: "FAQ",
+  },
 ];
