@@ -15,6 +15,7 @@ export const adminPresaleColumns: ColumnDef<PresaleDb>[] = [
   {
     accessorKey: "title",
     header: "Title",
+    cell:({row}) => `Stage ${row.original.stage} - Phase ${row.original.phase}`
   },
   {
     accessorKey: "is_active",

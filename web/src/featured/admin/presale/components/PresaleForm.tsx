@@ -26,10 +26,13 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
       end_at: "",
       is_active: false,
       target_raised: 0,
-      title: "",
+      phase: 1,
+      stage: 1,
       total_raised: 0,
     },
   });
+
+  const isSubmitting = form.formState.isSubmitting;
 
   return (
     <Form {...form}>
@@ -37,12 +40,38 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="title"
+            name="stage"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Presale Title</FormLabel>
+                <FormLabel>Stage</FormLabel>
                 <FormControl>
-                  <Input placeholder="Presale Title..." {...field} />
+                  <Input
+                    disabled={isSubmitting}
+                    {...field}
+                    type="number"
+                    placeholder="Stage..."
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="phase"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phase</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={isSubmitting}
+                    {...field}
+                    type="number"
+                    placeholder="Phase..."
+                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -58,6 +87,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
               <FormLabel>End At</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isSubmitting}
                   type="datetime-local"
                   placeholder="Presale Title..."
                   {...field}
@@ -77,6 +107,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
                 <FormLabel>Current Price</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={isSubmitting}
                     {...field}
                     type="number"
                     placeholder="Presale Title..."
@@ -96,6 +127,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
                 <FormLabel>Next Price</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={isSubmitting}
                     {...field}
                     type="number"
                     placeholder="Presale Title..."
@@ -116,6 +148,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
               <FormLabel>Target Raised</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isSubmitting}
                   {...field}
                   type="number"
                   placeholder="Target Raised..."
@@ -135,6 +168,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
               <FormLabel>Total Raised</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isSubmitting}
                   {...field}
                   type="number"
                   placeholder="Total Raised..."
@@ -146,7 +180,7 @@ export function PresaleForm({ onSubmit, defaultValues }: Props) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isSubmitting}>{isSubmitting ? "Submitting..." : "Submit"}</Button>
       </form>
     </Form>
   );
