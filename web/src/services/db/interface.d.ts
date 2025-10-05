@@ -1,11 +1,12 @@
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
-import { PresaleDb } from "@/featured/admin/presale/interface";
+import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
 
 export interface PresaleApiTypes {
-  getAllPresale: () => Promise<PresaleDb[]>;
-  getActivePresale: () => Promise<PresaleDb>;
   createNewPresale: (data: PresaleClient) => Promise<void>;
-  patchPresaleStatus : (presaleId:number) => Promise<void>;
+  editPresaleData: (data: PresaleClient, presaleId: number) => Promise<void>;
+  getActivePresale: () => Promise<PresaleDb>;
+  getAllPresale: () => Promise<PresaleDb[]>;
+  patchPresaleStatus: (presaleId: number) => Promise<void>;
 }
 
 export interface FAQApiTypes {

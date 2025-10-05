@@ -9,7 +9,7 @@ import { DropdownMenuCell } from "./DropdownCell";
 export const adminPresaleColumns: ColumnDef<PresaleDb>[] = [
   {
     accessorKey: "action",
-    header: "ACtions",
+    header: "Actions",
     cell: ({ row }) => <DropdownMenuCell row={row} />,
   },
   {

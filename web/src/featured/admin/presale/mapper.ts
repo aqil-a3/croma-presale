@@ -9,7 +9,8 @@ export function mapDbDataToClienData(raw: PresaleDb): PresaleFormValues {
     is_active: raw.is_active,
     next_price_usd: raw.next_price_usd,
     target_raised: raw.target_raised,
-    title: raw.title,
+    phase: raw.phase,
+    stage: raw.stage,
     total_raised: raw.total_raised,
   };
 }

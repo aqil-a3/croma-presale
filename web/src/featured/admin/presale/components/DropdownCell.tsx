@@ -21,12 +21,11 @@ export function DropdownMenuCell({ row }: { row: Row<PresaleDb> }) {
         <Menu />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>{row.original.title}</DropdownMenuLabel>
+        <DropdownMenuLabel>Stage {row.original.stage} - Phase {row.original.phase}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => setEditForm(true)}>
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
 

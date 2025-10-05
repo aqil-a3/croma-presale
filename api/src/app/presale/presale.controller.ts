@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Put } from '@nestjs/common';
 import { PresaleService } from './presale.service';
 import { PresaleClient } from './presale.interface';
 import { BasicResponse, ResponseWithData } from '../../interface/http';
@@ -34,6 +34,19 @@ export class PresaleController {
   @Patch('/is_active')
   async patchStatusPresale(@Body() data: { presaleId: number }) {
     return await this.presaleService.patchStatusPresale(data.presaleId);
+  }
+
+  @Put()
+  async editPresale(
+    @Body() body: { data: PresaleClient; presaleId: number },
+  ): Promise<BasicResponse> {
+    try {
+      await this.presaleService.editPresale(body.data, body.presaleId);
+      return { message: 'Edit presale data success!', ok: true };
+    } catch (error) {
+      console.error(error);
+      return { message: error.message, ok: false };
+    }
   }
 
   @Post()

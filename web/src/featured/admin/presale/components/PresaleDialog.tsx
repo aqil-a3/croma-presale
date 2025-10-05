@@ -17,6 +17,8 @@ import { PresaleFormValues } from "../schema";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+// TODO : Ini waktunya bermasalah. Ga sesuai dengan yang dipilih
+
 export function PresaleDialog() {
   const { createNewPresale } = apiPresale;
   const [open, setOpen] = useState<boolean>(false);
@@ -61,9 +63,22 @@ export function PresaleEditDialog({
   setOpen: React.Dispatch<SetStateAction<boolean>>;
   row: Row<PresaleDb>;
 }) {
-  // const { createNewPresale } = apiPresale;
+  const { editPresaleData } = apiPresale;
   const defaultValues = mapDbDataToClienData(row.original);
-  console.log(defaultValues);
+  const router = useRouter();
+
+  const handleSubmit = async (val: PresaleFormValues) => {
+    try {
+      await editPresaleData(val, row.original.id);
+      toast.success("Edit Presale Success!");
+      router.refresh();
+      setOpen(false);
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
@@ -71,10 +86,7 @@ export function PresaleEditDialog({
           <DialogTitle>Edit Presale Data</DialogTitle>
         </DialogHeader>
 
-        <PresaleForm
-          defaultValues={defaultValues}
-          onSubmit={async (val) => console.log(val)}
-        />
+        <PresaleForm defaultValues={defaultValues} onSubmit={handleSubmit} />
       </DialogContent>
     </Dialog>
   );

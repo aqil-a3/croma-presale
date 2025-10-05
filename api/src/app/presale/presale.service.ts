@@ -19,6 +19,18 @@ export class PresaleService {
     }
   }
 
+  async editPresale(data: PresaleClient, presaleId: number) {
+    const { error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update(data)
+      .eq('id', presaleId);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async getActivePresale(): Promise<PresaleService | null> {
     const { data, error } = await this.supabaseAdmin
       .from(this.tableName)
