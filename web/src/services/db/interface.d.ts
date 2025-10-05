@@ -1,3 +1,4 @@
+import { InvestmentSummary } from "@/@types/investment";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
 
@@ -16,4 +17,8 @@ export interface FAQApiTypes {
 
 export interface UserApiTypes {
   createNewUser: (wallet_address: string) => Promise<void>;
+}
+
+export interface InvestmentApiTypes{
+  getInvestmentSummary : (wallet_address:string) => Promise<InvestmentSummary>;
 }

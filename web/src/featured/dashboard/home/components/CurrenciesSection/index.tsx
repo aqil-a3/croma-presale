@@ -4,6 +4,7 @@ import React from "react";
 import { CurrencyCard } from "./CurrencyCard";
 import { motion } from "framer-motion";
 import { containerVariants } from "@/lib/variants";
+import { InvestmentSummary } from "@/@types/investment";
 
 interface CurrencyItems {
   logoSrc: string;
@@ -12,14 +13,18 @@ interface CurrencyItems {
   amount: number;
 }
 
-const dummyItems: CurrencyItems[] = [
-  { currencyName: "INVESTED", amount: 514.42, type: "USD", logoSrc: "/logo/dashboard-invested.png" },
-  { currencyName: "CRM OWNED", amount: 32, type: "CRM", logoSrc: "/logo/croma.png" },
-  { currencyName: "CURRENT CRM WORTH", amount: 712.42, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
-  { currencyName: "REFERRAL EARNINGS", amount: 243.42, type: "USD", logoSrc: "/logo/dashboard-referral-earning.png" },
-];
 
-export function CurrenciesSection() {
+interface Props{
+  investment:InvestmentSummary
+}
+
+export function CurrenciesSection({investment}:Props) {
+  const items: CurrencyItems[] = [
+    { currencyName: "INVESTED", amount: investment.invested_usd, type: "USD", logoSrc: "/logo/dashboard-invested.png" },
+    { currencyName: "CRM OWNED", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/croma.png" },
+    { currencyName: "CURRENT CRM WORTH", amount: 712.42, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
+    { currencyName: "REFERRAL EARNINGS", amount: 243.42, type: "USD", logoSrc: "/logo/dashboard-referral-earning.png" },
+  ];
   return (
     <motion.section
       className="relative grid grid-cols-2 md:grid-cols-4 z-10 gap-2 lg:gap-4"
@@ -28,7 +33,7 @@ export function CurrenciesSection() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      {dummyItems.map((item, i) => (
+      {items.map((item, i) => (
         <CurrencyCard {...item} key={i} />
       ))}
     </motion.section>

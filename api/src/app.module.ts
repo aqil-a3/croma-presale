@@ -7,9 +7,10 @@ import { SupabaseModule } from './service/supabase/supabase.module';
 import { PresaleModule } from './app/presale/presale.module';
 import { FaqModule } from './app/faq/faq.module';
 import { UserModule } from './app/user/user.module';
+import { InvestmentModule } from './app/investment/investment.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule],
   controllers: [AppController],
   providers: [AppService],
 })

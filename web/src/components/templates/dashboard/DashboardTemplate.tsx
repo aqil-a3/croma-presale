@@ -1,4 +1,5 @@
 "use client";
+import { InvestmentSummary } from "@/@types/investment";
 import DashboardLoader from "@/app/(dashboard)/loader";
 import { DashboardContainer } from "@/components/layout/container/DashboardContainer";
 import { PresaleDb } from "@/featured/admin/presale/interface";
@@ -12,9 +13,11 @@ import { useHasHydrated } from "@/hooks/use-has-hydrated";
 export default function DashboardTemplate({
   activePresale,
   cryptoPrice,
+  investment
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
+  investment:InvestmentSummary
 }) {
   const hasHydrated = useHasHydrated();
 
@@ -25,7 +28,7 @@ export default function DashboardTemplate({
       cryptoPrice={cryptoPrice}
     >
       <DashboardContainer className="space-y-4">
-        <CurrenciesSection />
+        <CurrenciesSection investment={investment} />
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[60%_auto] z-10 gap-4">
           <div className="flex flex-col justify-between gap-4">
             <CRMValueSection />
