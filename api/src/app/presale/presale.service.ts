@@ -8,19 +8,17 @@ export class PresaleService {
   private readonly supabaseAdmin = this.supabase.getAdmin();
   private readonly tableName = 'presale';
 
-  async getAllPresale() {
-    const { data, error } = await this.supabaseAdmin
+  async createNewPresale(data: PresaleClient) {
+    const { error } = await this.supabaseAdmin
       .from(this.tableName)
-      .select('*');
+      .insert(data);
 
     if (error) {
       console.error(error);
       throw error;
     }
-
-    return data;
   }
-  
+
   async getActivePresale(): Promise<PresaleService | null> {
     const { data, error } = await this.supabaseAdmin
       .from(this.tableName)
@@ -40,14 +38,38 @@ export class PresaleService {
     return data as PresaleService;
   }
 
-  async createNewPresale(data: PresaleClient) {
-    const { error } = await this.supabaseAdmin
+  async getAllPresale() {
+    const { data, error } = await this.supabaseAdmin
       .from(this.tableName)
-      .insert(data);
+      .select('*');
 
     if (error) {
       console.error(error);
       throw error;
+    }
+
+    return data;
+  }
+
+  async patchStatusPresale(presaleId: number) {
+    const { error: activeError } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update({ is_active: true })
+      .eq('id', presaleId);
+
+    if (activeError) {
+      console.error(activeError);
+      throw activeError;
+    }
+
+    const { error: disactiveError } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update({ is_active: false })
+      .neq('id', presaleId);
+
+    if (disactiveError) {
+      console.error(disactiveError);
+      throw disactiveError;
     }
   }
 }
