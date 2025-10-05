@@ -6,8 +6,14 @@ import { ProgressBar } from "./ProgressBar";
 import { PresaleEnds } from "./PresaleEnds";
 import { motion } from "framer-motion";
 import { cardContainerVariants, childVariants } from "../../variants";
+import { usePublicPresaleContext } from "@/featured/public/home/provider";
 
 export function CRMValueSection() {
+  const {activePresale} = usePublicPresaleContext();
+  const {phase, stage} = activePresale;
+
+  console.log(activePresale)
+
   return (
     <motion.div
       style={{ background: PANEL_BG }}
@@ -21,7 +27,7 @@ export function CRMValueSection() {
         <TitleBetweenAndDivider
           divider={true}
           leftSideText="CRM VALUE"
-          rightSideText="Stage 27 - Phase 9"
+          rightSideText={`Stage ${stage} - Phase ${phase}`}
         />
       </motion.div>
 
