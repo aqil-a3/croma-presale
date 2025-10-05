@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { fontOrbitron } from "@/config/fonts";
+import { apiUser } from "@/services/db/users";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAccount, useConnect } from "wagmi";
 
 export function HeaderCTAButton() {
+  const { createNewUser } = apiUser;
   const router = useRouter();
   const { connectors, connect } = useConnect({
     mutation: {
@@ -13,7 +15,10 @@ export function HeaderCTAButton() {
         if (err.name === "UserRejectedRequestError") return;
         toast.error(err.message);
       },
-      onSuccess: () => {
+      onSuccess: async (data) => {
+        const walletAddress = data.accounts[0] as string;
+        await createNewUser(walletAddress);
+        
         toast.success("Wallet Connected!");
         router.push("/dashboard");
       },

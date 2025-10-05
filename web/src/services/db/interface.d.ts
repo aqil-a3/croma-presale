@@ -11,3 +11,7 @@ export interface FAQApiTypes {
   getAllFAQ: () => Promise<FaqDb[]>;
   createNewFAQ: (data: FaqClient) => Promise<void>;
 }
+
+export interface UserApiTypes {
+  createNewUser: (wallet_address: string) => Promise<void>;
+}
