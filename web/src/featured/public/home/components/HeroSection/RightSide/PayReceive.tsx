@@ -4,15 +4,21 @@ import { fontPoppins } from "@/config/fonts";
 import CurrencyInput from "react-currency-input-field";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { usePublicPresaleContext } from "../../../provider";
 import { formatNumber } from "@/utils/formatNumber";
 
-export function RightSidePayReceive() {
-  const [usd, setUsd] = useState<number>(1);
+interface Props {
+  usd: number;
+  setUsd: React.Dispatch<React.SetStateAction<number>>;
+  asset: string;
+  setAsset: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export function RightSidePayReceive({ setUsd, usd, asset, setAsset }: Props) {
   return (
     <div className="space-y-4">
-      <PayComp setUsd={setUsd} usd={usd} />
+      <PayComp setUsd={setUsd} usd={usd} asset={asset} setAsset={setAsset} />
       <RecComp usd={usd} />
     </div>
   );
@@ -31,12 +37,8 @@ const ASSETS = [
   { value: "XRP", label: "XRP", icon: "/logo/xrp.png" },
 ];
 
-const PayComp: React.FC<{
-  usd: number;
-  setUsd: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ setUsd, usd }) => {
+const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
   const { cryptoPrice } = usePublicPresaleContext();
-  const [asset, setAsset] = useState<string>("ETH");
   const cPrice = usd / cryptoPrice[asset];
 
   return (
@@ -82,7 +84,7 @@ const PayComp: React.FC<{
 const RecComp: React.FC<{ usd: number }> = ({ usd }) => {
   const { activePresale } = usePublicPresaleContext();
   const currPrice = activePresale.current_price_usd;
-  const crmValue = usd / currPrice
+  const crmValue = usd / currPrice;
 
   return (
     <div

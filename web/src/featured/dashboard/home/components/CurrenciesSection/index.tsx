@@ -20,9 +20,9 @@ interface Props{
 
 export function CurrenciesSection({investment}:Props) {
   const items: CurrencyItems[] = [
-    { currencyName: "INVESTED", amount: investment.invested_usd, type: "USD", logoSrc: "/logo/dashboard-invested.png" },
-    { currencyName: "CRM OWNED", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/croma.png" },
-    { currencyName: "CURRENT CRM WORTH", amount: 712.42, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
+    { currencyName: "$CRM BALANCE", amount: investment.invested_usd, type: "USD", logoSrc: "/logo/dashboard-invested.png" },
+    { currencyName: "$CMC BALANCE", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/croma.png" },
+    { currencyName: "CURRENT VALUE", amount: 712.42, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
     { currencyName: "REFERRAL EARNINGS", amount: 243.42, type: "USD", logoSrc: "/logo/dashboard-referral-earning.png" },
   ];
   return (

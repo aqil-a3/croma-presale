@@ -12,30 +12,39 @@ import { toast } from "sonner";
 import { PresaleDb } from "@/featured/admin/presale/interface";
 import { PublicPresaleProvider } from "@/featured/public/home/provider";
 import { FaqDb } from "@/featured/admin/faq/interface";
+import { useHasHydrated } from "@/hooks/use-has-hydrated";
 
 export default function HomeTemplate({
   activePresale,
   cryptoPrice,
-  faqData
+  faqData,
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
-  faqData:FaqDb[];
+  faqData: FaqDb[];
 }) {
   const params = useSearchParams();
   const router = useRouter();
+  const hasHydrated = useHasHydrated();
 
   const error = params.get("error");
-
+  
   useEffect(() => {
     if (error === "must-login") {
       toast.error("You must connect your wallet first");
-
+      
       router.replace("/home");
     }
   }, [error, router]);
+  
+  if (!hasHydrated) return null;
+  
   return (
-    <PublicPresaleProvider activePresale={activePresale} cryptoPrice={cryptoPrice} faqData={faqData} >
+    <PublicPresaleProvider
+      activePresale={activePresale}
+      cryptoPrice={cryptoPrice}
+      faqData={faqData}
+    >
       <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
         <>
           <Decor1 />

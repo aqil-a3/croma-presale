@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { RightSideCTAButton } from "./CTAButton";
 import { RightSidePaymentMethod } from "./PaymentMethod";
 import { RightSidePayReceive } from "./PayReceive";
@@ -22,6 +22,9 @@ const metrixBorder: CSSProperties = {
 };
 
 export function RightSide() {
+  const [asset, setAsset] = useState<string>("ETH");
+  const [usd, setUsd] = useState<number>(1);
+
   return (
     <motion.div
       variants={fadeLeft}
@@ -37,9 +40,9 @@ export function RightSide() {
     >
       <RightSideTitle />
       <RightSideProgress />
-      <RightSidePayReceive />
+      <RightSidePayReceive usd={usd} setUsd={setUsd} asset={asset} setAsset={setAsset} />
       <RightSidePaymentMethod />
-      <RightSideCTAButton />
+      <RightSideCTAButton amountBuy={usd} payCurrency={asset} />
     </motion.div>
   );
 }
