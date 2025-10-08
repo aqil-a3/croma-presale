@@ -10,7 +10,12 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     credentials: true,
-    origin: ['http://localhost:3000', 'https://croma-presale.vercel.app'],
+    origin: [
+      'http://localhost:3000',
+      'https://croma-presale.vercel.app',
+      'https://cromaart.vercel.app/',
+      'https://cromaart.io/',
+    ],
   });
 
   // ambil instance Express di balik Nest
