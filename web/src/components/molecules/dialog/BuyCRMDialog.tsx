@@ -86,6 +86,9 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { PaymentQR } from "../QR/PaymentQR";
+import { useSendTransaction } from "wagmi";
+import { parseEther } from "viem";
+import { buildCryptoPaymentURI } from "@/utils/buildCryptoPaymentURI";
 
 interface Props {
   open: boolean;
@@ -101,9 +104,15 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
   const [paymentData, setPaymentData] = useState<CreatePaymentResponse | null>(
     null
   );
-  const [activeTab, setActiveTab] = useState<StatusPayment>(
-    "confirm"
-  );
+  const { sendTransaction } = useSendTransaction({
+    mutation:{
+      onSettled:(data) => console.log(`Settled : ${data}`),
+      onSuccess:(data) => console.log(`Success : ${data}`),
+      onError:(error) => console.log(error)
+    }
+  });
+
+  const [activeTab, setActiveTab] = useState<StatusPayment>("confirm");
 
   const payload: CreatePaymentRequest = {
     pay_currency: payCurrency,
@@ -118,7 +127,7 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
       setIsLoading(true);
       const { data } = await api.post("/investment/payments", payload);
       setPaymentData(data);
-      setActiveTab("payment"); // pindah ke tab pembayaran
+      setActiveTab("payment");
     } catch (error) {
       console.error(error);
       if (isAxiosError(error)) {
@@ -144,6 +153,14 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
     }
   };
 
+  const sendTransactionHandler = () => {
+    if (!paymentData) return;
+    
+    const uri = buildCryptoPaymentURI(paymentData);
+
+    window.location.href = uri;
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
@@ -155,7 +172,10 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as StatusPayment)}>
+        <Tabs
+          value={activeTab}
+          onValueChange={(v) => setActiveTab(v as StatusPayment)}
+        >
           <TabsList className="grid grid-cols-3 w-full">
             <TabsTrigger value="confirm">Confirm</TabsTrigger>
             <TabsTrigger value="payment">Payment</TabsTrigger>
@@ -181,6 +201,9 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
             {paymentData ? (
               <div className="flex flex-col items-center space-y-3 py-4">
                 <PaymentQR payment={paymentData} />
+                <Button onClick={sendTransactionHandler}>
+                  Send Transaction
+                </Button>
                 <Button onClick={handleCheckStatus}>
                   Check Payment Status
                 </Button>

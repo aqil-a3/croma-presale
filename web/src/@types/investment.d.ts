@@ -131,7 +131,7 @@ export interface CreatePaymentRequest {
 export interface CreatePaymentResponse {
   payment_id: number;
   payment_status: 'waiting' | 'confirming' | 'confirmed' | 'finished' | 'failed' | 'expired';
-  pay_address: string;
+  pay_address: `0x${string}`;
   pay_amount: number;
   pay_currency: string;
   actually_paid: string;
