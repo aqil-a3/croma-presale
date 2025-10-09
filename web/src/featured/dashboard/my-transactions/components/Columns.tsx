@@ -4,15 +4,17 @@ import { formatNumber } from "@/utils/formatNumber";
 import { Badge } from "@/components/ui/badge";
 
 export const textColorStatus: Record<TransactionHistory["status"], string> = {
-  Failed: "text-[#FF4D4F]", //
-  Pending: "text-[#FAAD14]",
-  Success: "text-[#16BA00]",
+  failed: "text-[#FF4D4F]",
+  waiting: "text-[#FAAD14]",
+  success: "text-[#16BA00]",
+  expired: "text-[#8C8C8C]",
 };
 
 export const borderColorStatus: Record<TransactionHistory["status"], string> = {
-  Failed: "border-[#FF4D4F]",
-  Pending: "border-[#FAAD14]",
-  Success: "border-[#16BA00]",
+  failed: "border-[#FF4D4F]",
+  waiting: "border-[#FAAD14]",
+  success: "border-[#16BA00]",
+  expired: "border-[#8C8C8C]",
 };
 
 export const myTransactionColumns: ColumnDef<TransactionHistory>[] = [

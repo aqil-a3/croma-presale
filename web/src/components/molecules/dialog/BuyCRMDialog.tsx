@@ -71,7 +71,7 @@
 import {
   CreatePaymentRequest,
   CreatePaymentResponse,
-} from "@/@types/investment";
+} from "@/services/nowpayments/interface";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -86,9 +86,12 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 import { isAxiosError } from "axios";
 import { PaymentQR } from "../QR/PaymentQR";
-import { useSendTransaction } from "wagmi";
-import { parseEther } from "viem";
 import { buildCryptoPaymentURI } from "@/utils/buildCryptoPaymentURI";
+import { apiNowPayments } from "@/services/nowpayments";
+import { buildInvestmentData } from "@/utils/buildInvestmentData";
+import { useAccount } from "wagmi";
+import { usePublicPresaleContext } from "@/featured/public/home/provider";
+import { createNewInvestment } from "@/services/db/investment/createNewInvestment";
 
 interface Props {
   open: boolean;
@@ -100,17 +103,12 @@ interface Props {
 type StatusPayment = "confirm" | "payment" | "status";
 
 export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
+  const { address } = useAccount();
+  const { activePresale } = usePublicPresaleContext();
   const [isLoading, setIsLoading] = useState(false);
   const [paymentData, setPaymentData] = useState<CreatePaymentResponse | null>(
     null
   );
-  const { sendTransaction } = useSendTransaction({
-    mutation:{
-      onSettled:(data) => console.log(`Settled : ${data}`),
-      onSuccess:(data) => console.log(`Success : ${data}`),
-      onError:(error) => console.log(error)
-    }
-  });
 
   const [activeTab, setActiveTab] = useState<StatusPayment>("confirm");
 
@@ -122,10 +120,16 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
     is_fixed_rate: true,
   };
 
+  const { createNewPayment } = apiNowPayments;
+
   const payHandler = async () => {
+    if (!address) return;
     try {
       setIsLoading(true);
-      const { data } = await api.post("/investment/payments", payload);
+      const data = await createNewPayment(payload);
+      const investmentData = buildInvestmentData(address, activePresale, data);
+      await createNewInvestment(investmentData);
+
       setPaymentData(data);
       setActiveTab("payment");
     } catch (error) {
@@ -155,7 +159,7 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
 
   const sendTransactionHandler = () => {
     if (!paymentData) return;
-    
+
     const uri = buildCryptoPaymentURI(paymentData);
 
     window.location.href = uri;

@@ -29,7 +29,7 @@ type AssetSelectProps = {
   value?: string;
   onChange?: (val: string) => void;
   placeholder?: string;
-  className?: string;   
+  className?: string;
 };
 
 export function AssetSelect({

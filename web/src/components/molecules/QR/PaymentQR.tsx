@@ -1,6 +1,6 @@
 import React from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { CreatePaymentResponse } from "@/@types/investment";
+import { CreatePaymentResponse } from "@/services/nowpayments/interface";
 
 interface PaymentQRProps {
   payment: CreatePaymentResponse | null;

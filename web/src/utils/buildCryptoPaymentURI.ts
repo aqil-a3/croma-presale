@@ -1,4 +1,4 @@
-import { CreatePaymentResponse } from "@/@types/investment";
+import { CreatePaymentResponse } from "@/services/nowpayments/interface";
 
 /**
  * Membuat crypto payment URI (deeplink) dari data CreatePaymentResponse.

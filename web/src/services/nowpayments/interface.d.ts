@@ -1,29 +1,3 @@
-export interface InvestmentDb {
-  id: string; // UUID
-  user_id: string | null;
-  order_id: string | null;
-  status: "waiting" | "confirming" | "finished" | "failed" | "expired" | string; 
-  invested_usd: number; // numeric(18,2)
-  pay_currency: string | null; // ex: "eth", "usdt", etc.
-  pay_amount: number | null; // numeric(38,18)
-  receive_currency: string; // default 'CRM'
-  crm_amount: number; // numeric(18,6)
-  network: string | null; // ex: "eth", "bsc"
-  stage: number | null; // presale stage
-  phase: number | null; // phase number
-  created_at: string; // ISO timestamp
-  updated_at: string; // ISO timestamp
-  wallet_address: string; // foreign key ke users.wallet_address
-}
-
-export type InvestmentClient = Omit<InvestmentDb, "id" | "created_at" | "updated_at">
-
-export interface InvestmentSummary {
-  invested_usd: number;
-  crm_owned: number;
-}
-
-
 export interface CreatePaymentRequest {
   /** The fiat equivalent price (NOT actual fiat payment). Example: 10 */
   price_amount: number;
@@ -64,20 +38,33 @@ export interface CreatePaymentRequest {
 
 export interface CreatePaymentResponse {
   payment_id: number;
-  payment_status: 'waiting' | 'confirming' | 'confirmed' | 'finished' | 'failed' | 'expired';
-  pay_address: string;
-  pay_amount: string;
+  payment_status:
+    | "waiting"
+    | "confirming"
+    | "confirmed"
+    | "finished"
+    | "failed"
+    | "expired";
+  pay_address: `0x${string}`;
+  pay_amount: number;
   pay_currency: string;
   actually_paid: string;
   payin_extra_id?: string | null;
   order_id?: string;
   order_description?: string;
-  price_amount: string;
+  price_amount: number;
   price_currency: string;
   created_at: string;
   updated_at: string;
   is_fixed_rate: boolean;
   is_fee_paid_by_user: boolean;
   purchase_id?: string;
+  network: string;
+  expiration_estimate_date: string;
 }
 
+export interface NOWPaymentsApi {
+  createNewPayment: (
+    request: CreatePaymentRequest
+  ) => Promise<CreatePaymentResponse>;
+}
