@@ -120,6 +120,7 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
     order_description: "Buy Cromachain Coin",
     is_fixed_rate: true,
     ipn_callback_url: `${serverEndpoint}/investment/payments/webhook`,
+    // ipn_callback_url: "https://webhook.site/8e85f2ae-0d2b-4751-949d-72f912b7d3b1",
   };
 
   const { createNewPayment } = apiNowPayments;
