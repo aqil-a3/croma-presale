@@ -92,6 +92,7 @@ import { buildInvestmentData } from "@/utils/buildInvestmentData";
 import { useAccount } from "wagmi";
 import { usePublicPresaleContext } from "@/featured/public/home/provider";
 import { createNewInvestment } from "@/services/db/investment/createNewInvestment";
+import { serverEndpoint } from "@/config/endpoint";
 
 interface Props {
   open: boolean;
@@ -118,6 +119,7 @@ export function BuyCRMDialog({ open, setOpen, amountBuy, payCurrency }: Props) {
     price_currency: "usd",
     order_description: "Buy Cromachain Coin",
     is_fixed_rate: true,
+    ipn_callback_url: `${serverEndpoint}/investment/payments/webhook`,
   };
 
   const { createNewPayment } = apiNowPayments;
