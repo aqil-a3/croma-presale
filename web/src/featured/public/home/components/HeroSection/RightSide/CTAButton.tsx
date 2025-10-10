@@ -9,7 +9,7 @@ interface Props {
 }
 
 export function RightSideCTAButton({ amountBuy, payCurrency }: Props) {
-  const { clickHandler, isLoading, payHandler } = useRightSideCTAButton(amountBuy, payCurrency);
+  const { isLoading, payHandler } = useRightSideCTAButton(amountBuy, payCurrency);
 
   return (
     <>
