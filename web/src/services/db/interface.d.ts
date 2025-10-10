@@ -1,4 +1,8 @@
-import { InvestmentSummary } from "@/@types/investment";
+import {
+  GetInvestmentLeaderboardRequest,
+  InvestmentLeaderboardItem,
+  InvestmentSummary,
+} from "@/@types/investment";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
 
@@ -19,6 +23,11 @@ export interface UserApiTypes {
   createNewUser: (wallet_address: string) => Promise<void>;
 }
 
-export interface InvestmentApiTypes{
-  getInvestmentSummary : (wallet_address:string) => Promise<InvestmentSummary>;
+export interface InvestmentApiTypes {
+  getInvestmentSummary(wallet_address: string): Promise<InvestmentSummary>;
+  getInvestmentLeaderboard(
+    config: GetInvestmentLeaderboardRequest
+  ): Promise<InvestmentLeaderboardItem[]>;
+  getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
+  createNewInvestment(payload: InvestmentClient): Promise<void>;
 }

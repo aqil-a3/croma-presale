@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import { motion } from "framer-motion";
 import { cardVariants, containerVariants } from "@/lib/variants";
+import { useRouter } from "next/navigation";
 
 const tabLabel: Record<TimeFilter, string> = {
   "all-time": "All Time",
   "this-month": "This Month",
-  "this-week": "This Week", // buang spasi di depan
+  "this-week": "This Week",
 };
 
 const options: TimeFilter[] = ["all-time", "this-week", "this-month"];
@@ -20,6 +21,7 @@ const TABLIST_BACKGROUND =
 
 export function LeaderboardTableTriggerComp() {
   const { timeFilter } = useLeaderboardContext();
+  const router = useRouter();
 
   return (
     <motion.div
@@ -44,7 +46,7 @@ export function LeaderboardTableTriggerComp() {
                   isActive && `${GRADIENT_MAIN_COLOR_TW}`,
                 )}
               >
-                <motion.button variants={cardVariants}>
+                <motion.button onClick={() => router.replace(`?period=${opt}`)} variants={cardVariants}>
                   {tabLabel[opt]}
                 </motion.button>
               </Button>

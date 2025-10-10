@@ -32,6 +32,19 @@ export class InvestmentController {
     return await this.investmentService.getInvestmentSummary(wallet_address);
   }
 
+  @Get('/leaderboard')
+  async getInvestmentLeaderboard(
+    @Query('period') period: 'all-time' | 'this-week' | 'this-month',
+    @Query('status_filter') status_filter?: string[],
+    @Query('limit_count') limit_count?: number,
+  ) {
+    return await this.investmentService.getInvestmentLeaderboard({
+      period,
+      limit_count,
+      status_filter,
+    });
+  }
+
   @Post('')
   async createNewInvestment(@Body() body: InvestmentClient) {
     return await this.investmentService.createNewInvestment(body);

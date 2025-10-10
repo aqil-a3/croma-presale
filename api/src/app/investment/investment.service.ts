@@ -2,8 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
 import {
   CreatePaymentRequest,
+  GetInvestmentLeaderboardRequest,
   InvestmentClient,
   InvestmentDb,
+  InvestmentLeaderboardItem,
   InvestmentSummary,
 } from './investment.interface';
 import axios from 'axios';
@@ -47,6 +49,24 @@ export class InvestmentService {
     const summary = data?.[0];
 
     return summary as InvestmentSummary;
+  }
+
+  async getInvestmentLeaderboard({
+    period,
+    limit_count,
+    status_filter,
+  }: GetInvestmentLeaderboardRequest): Promise<InvestmentLeaderboardItem[]> {
+    const { data, error } = await this.supabaseAdmin.rpc(
+      'get_investment_leaderboard',
+      { period, limit_count, status_filter },
+    );
+
+    if (error) {
+      console.error('Error fetching leaderboard:', error);
+      return [];
+    }
+
+    return data ?? [];
   }
 
   async getInvestmentByAddress(

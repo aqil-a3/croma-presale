@@ -114,3 +114,36 @@ export interface NowPaymentsWebhook {
   price_currency: string;
   purchase_id: string;
 }
+
+export interface GetInvestmentLeaderboardRequest {
+  /** 
+   * Pilihan periode:
+   * 'all-time' → semua data
+   * 'this-week' → minggu ini
+   * 'this-month' → bulan ini
+   */
+  period: "all-time" | "this-week" | "this-month";
+
+  /** 
+   * Jumlah maksimum data leaderboard yang dikembalikan.
+   * Default di SQL = 20 
+   */
+  limit_count?: number;
+
+  /** 
+   * Daftar status transaksi yang dihitung.
+   * Default di SQL = ['completed', 'paid'] 
+   */
+  status_filter?: string[];
+}
+
+export interface InvestmentLeaderboardItem {
+  /** Alamat wallet investor */
+  wallet_address: string;
+
+  /** Username user (bisa null jika belum diset) */
+  username: string | null;
+
+  /** Total USD yang diinvestasikan */
+  total_invested_usd: number;
+}
