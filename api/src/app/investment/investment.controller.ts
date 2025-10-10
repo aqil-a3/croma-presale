@@ -8,7 +8,11 @@ import {
   Query,
 } from '@nestjs/common';
 import { InvestmentService } from './investment.service';
-import { CreatePaymentRequest, InvestmentClient } from './investment.interface';
+import {
+  CreatePaymentRequest,
+  InvestmentClient,
+  NowPaymentsWebhook,
+} from './investment.interface';
 
 @Controller('investment')
 export class InvestmentController {
@@ -35,19 +39,21 @@ export class InvestmentController {
 
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
-    console.log(body);
     return await this.investmentService.createNewPayments(body);
   }
 
   @Post('/payments/webhook')
   async webhookNowPayments(
-    @Body() body: any,
+    @Body() body: NowPaymentsWebhook,
     @Headers() headers: Record<string, string>,
   ) {
     console.log('Headers:', headers);
     console.log('Webhook body:', body);
 
     // TODO: validasi signature dari headers['x-nowpayments-sig'] (kalau mau)
-    return 'OK';
+    return await this.investmentService.updateStatusPayments(
+      body.payment_id.toString(),
+      body.payment_status,
+    );
   }
 }

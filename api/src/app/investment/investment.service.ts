@@ -123,4 +123,16 @@ export class InvestmentService {
       throw error;
     }
   }
+
+  async updateStatusPayments(order_id: string, status: string) {
+    const { error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq('order_id', order_id);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
