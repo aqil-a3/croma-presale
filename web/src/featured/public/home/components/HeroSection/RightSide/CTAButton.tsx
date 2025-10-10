@@ -1,9 +1,7 @@
-import { BuyCRMDialog } from "@/components/molecules/dialog/BuyCRMDialog";
 import { Button } from "@/components/ui/button";
 import { fontOrbitron } from "@/config/fonts";
-import { useState } from "react";
-import { toast } from "sonner";
-import { useAccount } from "wagmi";
+import { useRightSideCTAButton } from "../../../hooks/useRightSideCTAButton";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Props {
   amountBuy: number;
@@ -11,33 +9,26 @@ interface Props {
 }
 
 export function RightSideCTAButton({ amountBuy, payCurrency }: Props) {
-  const { address } = useAccount();
-  const [open, setOpen] = useState<boolean>(false);
+  const { clickHandler, isLoading, payHandler } = useRightSideCTAButton(amountBuy, payCurrency);
 
-  const clickHandler = () => {
-    if (!address)
-      return toast.error(
-        "You have to connect your wallet to continue this action"
-      );
-    setOpen(true);
-  };
   return (
     <>
       <Button
         style={{
           background: "linear-gradient(90deg, #B72204 0%, #FC6400 100%)",
         }}
+        disabled={isLoading}
         className={`${fontOrbitron.className} text-white w-full h-[60px]`}
-        onClick={clickHandler}
+        onClick={payHandler}
       >
-        BUY NOW
+        {isLoading ? <><Spinner /> PROCESSING...</> : "BUY NOW"}
       </Button>
-      <BuyCRMDialog
+      {/* <BuyCRMDialog
         amountBuy={amountBuy}
         payCurrency={payCurrency}
         open={open}
         setOpen={setOpen}
-      />
+      /> */}
     </>
   );
 }
