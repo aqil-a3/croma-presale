@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { TabsTriggerLabel } from ".";
 import { CTA_BG, PANEL_BG } from "@/config/variables";
-import { useRouter } from "next/navigation";
-import { useAccount, useConnect } from "wagmi";
-import { toast } from "sonner";
+import { MethodConnect } from "@/components/layout/header/public/MethodConnect";
 
 interface ContentData {
   title: string;
@@ -17,34 +15,15 @@ interface ContentData {
 }
 
 const ConnectButton = () => {
-  const router = useRouter();
-  const { connectors, connect } = useConnect({
-    mutation: {
-      onError: (err) => {
-        console.error(err);
-        if (err.name === "UserRejectedRequestError") return;
-        toast.error(err.message);
-      },
-      onSuccess: () => {
-        toast.success("Wallet Connected!");
-        router.push("/dashboard");
-      },
-    },
-  });
-  const { isConnected } = useAccount();
-  const walletConnect = connectors.find(
-    (conn) => conn.type === "walletConnect"
-  );
+  const [openSheet, setOpenSheet] = useState<boolean>(false);
 
-  const connectHandler = () => {
-    if (isConnected) return router.push("/dashboard");
-    if (!walletConnect) return;
-    connect({ connector: walletConnect });
-  };
   return (
-    <Button onClick={connectHandler} style={{ background: CTA_BG }}>
-      Connect Wallet
-    </Button>
+    <>
+      <Button onClick={() => setOpenSheet(true)} style={{ background: CTA_BG }}>
+        Connect Wallet
+      </Button>
+      <MethodConnect open={openSheet} setOpen={setOpenSheet} />
+    </>
   );
 };
 
