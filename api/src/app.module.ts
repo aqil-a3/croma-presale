@@ -8,9 +8,11 @@ import { PresaleModule } from './app/presale/presale.module';
 import { FaqModule } from './app/faq/faq.module';
 import { UserModule } from './app/user/user.module';
 import { InvestmentModule } from './app/investment/investment.module';
+import { SiteSettingModule } from './app/site-setting/site-setting.module';
+import { ReferralsModule } from './app/referrals/referrals.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule],
   controllers: [AppController],
   providers: [AppService],
 })

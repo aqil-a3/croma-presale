@@ -1,8 +1,12 @@
 import { fontPoppins } from "@/config/fonts";
+import { useReferralContext } from "../../../provider";
+import { comission } from "../../../comission";
 
 export function LevelAndComission() {
-  const level = "Silver";
-  const commission = 7;
+  const { userStatistic } = useReferralContext();
+  const level = userStatistic ? userStatistic.current_tier : "Not Loged In";
+  const commission = userStatistic ? comission[userStatistic.current_tier] : 0;
+  
   return (
     <div className="space-y-4">
       <p

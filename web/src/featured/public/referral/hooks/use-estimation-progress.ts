@@ -1,4 +1,6 @@
 import { useMemo, useRef, useState } from "react";
+import { useReferralContext } from "../provider";
+import { comission } from "../comission";
 
 export function useEstimationProgress(
   max: number,
@@ -7,12 +9,17 @@ export function useEstimationProgress(
   ratePerClient: number,
   step: number
 ) {
+  const { userStatistic } = useReferralContext();
+  const comissionBonus = userStatistic ? comission[userStatistic.current_tier] : 5;
+  const comissionPercent = comissionBonus / 100;
+  
   const [clients, setClients] = useState(
     Math.min(max, Math.max(min, defaultClients))
   );
+
   const income = useMemo(
-    () => Math.max(0, Math.round(clients * ratePerClient)),
-    [clients, ratePerClient]
+    () => Math.max(0, Math.round(clients * ratePerClient * comissionPercent)),
+    [clients, ratePerClient, comissionPercent]
   );
   const pct = ((clients - min) / (max - min)) * 100;
 
@@ -35,7 +42,7 @@ export function useEstimationProgress(
     (e.target as Element).setPointerCapture?.(e.pointerId);
     setFromClientX(e.clientX);
   }
-  
+
   function onPointerMove(e: React.PointerEvent) {
     if (!draggingRef.current) return;
     setFromClientX(e.clientX);
@@ -70,6 +77,6 @@ export function useEstimationProgress(
     onPointerUp,
     onKeyDown,
     clients,
-    trackRef
+    trackRef,
   };
 }

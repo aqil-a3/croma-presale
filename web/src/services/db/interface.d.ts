@@ -1,26 +1,17 @@
+import { UserDb } from "@/@types/auth";
 import {
   GetInvestmentLeaderboardRequest,
   InvestmentLeaderboardItem,
   InvestmentSummary,
 } from "@/@types/investment";
+import { ReferralDb } from "@/@types/referrals";
+import { UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
-
-export interface PresaleApiTypes {
-  createNewPresale: (data: PresaleClient) => Promise<void>;
-  editPresaleData: (data: PresaleClient, presaleId: number) => Promise<void>;
-  getActivePresale: () => Promise<PresaleDb>;
-  getAllPresale: () => Promise<PresaleDb[]>;
-  patchPresaleStatus: (presaleId: number) => Promise<void>;
-}
 
 export interface FAQApiTypes {
   getAllFAQ: () => Promise<FaqDb[]>;
   createNewFAQ: (data: FaqClient) => Promise<void>;
-}
-
-export interface UserApiTypes {
-  createNewUser: (wallet_address: string) => Promise<void>;
 }
 
 export interface InvestmentApiTypes {
@@ -30,4 +21,28 @@ export interface InvestmentApiTypes {
   ): Promise<InvestmentLeaderboardItem[]>;
   getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
   createNewInvestment(payload: InvestmentClient): Promise<void>;
+}
+
+export interface PresaleApiTypes {
+  createNewPresale: (data: PresaleClient) => Promise<void>;
+  editPresaleData: (data: PresaleClient, presaleId: number) => Promise<void>;
+  getActivePresale: () => Promise<PresaleDb>;
+  getAllPresale: () => Promise<PresaleDb[]>;
+  patchPresaleStatus: (presaleId: number) => Promise<void>;
+}
+
+export interface ReferralApiTypes {
+  getNewestReferrals: () => Promise<ReferralDb[]>;
+}
+
+export interface SiteSettingApiTypes {
+  getReferralAverageBuyAmount: () => Promise<number>;
+}
+
+export interface UserApiTypes {
+  createNewUser: (wallet_address: string) => Promise<void>;
+  getUserByAddress: (wallet_address?: string) => Promise<UserDb | null>;
+  getUserStatisticByAddress: (
+    wallet_address?: string
+  ) => Promise<UserReferralStatistic | null>;
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { ReferralDb } from "@/@types/referrals";
 import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import { mainGradientFont, PANEL_BG } from "@/config/variables";
@@ -7,12 +8,19 @@ import { dummyReferralHistories } from "@/featured/public/referral/dummy/referra
 import { formatDate } from "@/utils/formatDate";
 import { shortenAddress } from "@/utils/shortenAddress";
 import { motion, type Variants } from "framer-motion";
+import { useReferralContext } from "../../../provider";
 
 export interface ReferralHistoryTypes {
   address: string;
   status: "completed" | "pending" | "failed";
   date: string;
 }
+
+const mapper = (raw: ReferralDb): ReferralHistoryTypes => ({
+  address: raw.wallet_addres,
+  date: raw.created_at,
+  status: raw.status,
+});
 
 const statusLabel: Record<ReferralHistoryTypes["status"], string> = {
   completed: "Confirmed",
@@ -48,7 +56,9 @@ const containerVariants: Variants = {
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 12, scale: 0.98 },
   visible: {
-    opacity: 1, y: 0, scale: 1,
+    opacity: 1,
+    y: 0,
+    scale: 1,
     transition: { duration: 0.35, ease: "easeOut" },
   },
 };
@@ -56,7 +66,9 @@ const cardVariants: Variants = {
 const pillVariants: Variants = {
   hidden: { opacity: 0, scale: 0.9, y: -2 },
   visible: {
-    opacity: 1, scale: 1, y: 0,
+    opacity: 1,
+    scale: 1,
+    y: 0,
     transition: { duration: 0.25, ease: "easeOut", delay: 0.04 },
   },
 };
@@ -64,12 +76,17 @@ const pillVariants: Variants = {
 const ctaVariants: Variants = {
   hidden: { opacity: 0, y: 6 },
   visible: {
-    opacity: 1, y: 0,
+    opacity: 1,
+    y: 0,
     transition: { duration: 0.25, ease: "easeOut" },
   },
 };
 
 export function History() {
+  const { referrals } = useReferralContext();
+
+  const recentReferral =
+    referrals.length > 3 ? referrals.map(mapper) : dummyReferralHistories;
   return (
     <motion.div
       className="space-y-4"
@@ -78,7 +95,7 @@ export function History() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
     >
-      {dummyReferralHistories.slice(0, 3).map((history, i) => (
+      {recentReferral.slice(0, 3).map((history, i) => (
         <motion.div
           key={i}
           variants={cardVariants}
@@ -103,7 +120,9 @@ export function History() {
           <motion.p
             variants={pillVariants}
             style={{ background: PANEL_BG }}
-            className={`${textColor[history.status]} ${borderColor[history.status]} ${
+            className={`${textColor[history.status]} ${
+              borderColor[history.status]
+            } ${
               fontPoppins.className
             } border rounded-2xl px-4 py-2 font-semibold text-sm lg:text-base`}
           >

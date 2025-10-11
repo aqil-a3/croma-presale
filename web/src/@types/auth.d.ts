@@ -18,6 +18,7 @@ export interface UserDb {
   username: string | null;
   email: string | null;
   referred_by: string | null;
+  referral_code:string;
 }
 
 export interface VerifConnectWallet {

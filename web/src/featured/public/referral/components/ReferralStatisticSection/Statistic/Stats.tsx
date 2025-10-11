@@ -2,13 +2,15 @@ import { PannelOrangeContainer } from "@/components/layout/container/PanelOrange
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { useReferralContext } from "../../../provider";
+import { UserReferralStatistic } from "@/@types/user";
 
 interface StatusType {
   value: string | number;
   label: string;
 }
 
-const items: StatusType[] = [
+const dummyItems: StatusType[] = [
   {
     label: "Total Referrals",
     value: "11",
@@ -27,7 +29,36 @@ const items: StatusType[] = [
   },
 ];
 
+const getItems = (
+  userStatistic: UserReferralStatistic | null
+): StatusType[] => {
+  if (!userStatistic) return dummyItems;
+
+  return [
+  {
+    label: "Total Referrals",
+    value: userStatistic.total_referrals.toString(),
+  },
+  {
+    label: "Total Earned",
+    value: userStatistic.total_earned,
+  },
+  {
+    label: "Current Tier",
+    value: userStatistic.current_tier,
+  },
+  {
+    label: "Available to Claim",
+    value: userStatistic.total_earned,
+  },
+]
+};
+
 export function Stats() {
+  const { userStatistic } = useReferralContext();
+
+  const items = getItems(userStatistic);
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {items.map((item, i) => {

@@ -1,9 +1,11 @@
 "use client";
 
+import { ReferralTier } from "@/@types/user";
 import { fontPoppins } from "@/config/fonts";
 import { GRADIENT_MAIN_COLOR, PANEL_BG, PANEL_BG_TW } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { motion, type Variants } from "framer-motion";
+import { useReferralContext } from "../../../provider";
 
 interface TierStepItemTypes {
   tierName: "Bronze" | "Silver" | "Gold";
@@ -51,7 +53,10 @@ const badgeVariants: Variants = {
 };
 
 export function TierStep() {
-  const currentTier: TierStepItemTypes["tierName"] = "Silver";
+  const { userStatistic } = useReferralContext();
+  const currentTier: ReferralTier = userStatistic
+    ? userStatistic.current_tier
+    : "Bronze";
 
   return (
     <motion.div className="space-y-4" variants={tierContainerVariants}>

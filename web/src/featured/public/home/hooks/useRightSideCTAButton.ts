@@ -32,7 +32,8 @@ export function useRightSideCTAButton(amountBuy: number, payCurrency: string) {
   };
 
   const payHandler = async () => {
-    if (!address) return;
+    if (!address) 
+      return toast.error("You have to connect your wallet to continue this action")
     try {
       setIsLoading(true);
       const data = await createNewPayment(payload);

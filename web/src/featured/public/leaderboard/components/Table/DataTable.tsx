@@ -126,8 +126,8 @@ export function DataTable<TData, TValue>({
             })
           ) : (
             <tr>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell colSpan={columns.length} className={cn(fontPoppins.className, "h-24 text-center text-white font-semibold")}>
+                No results in this period. Be the first!
               </TableCell>
             </tr>
           )}

@@ -22,11 +22,11 @@ const fmt = new Intl.NumberFormat("en-US");
 
 export function EstimationProgresSectionInteractive({
   min = 0,
-  max = 400,
+  max = 500,
   step = 1,
   ratePerClient = 37,
   defaultClients = 86,
-  ticks = [10, 50, 100, 200, 300, 400],
+  ticks = [10, 50, 100, 200, 300, 400, 500],
   className,
 }: Props) {
   const {
