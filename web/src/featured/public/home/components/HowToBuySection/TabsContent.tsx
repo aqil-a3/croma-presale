@@ -14,7 +14,7 @@ interface ContentData {
   CTAComp?: React.ReactNode;
 }
 
-const ConnectButton = () => {
+export const ConnectButton = () => {
   const [openSheet, setOpenSheet] = useState<boolean>(false);
 
   return (

@@ -4,7 +4,6 @@ import { ReferralDb } from "@/@types/referrals";
 import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import { mainGradientFont, PANEL_BG } from "@/config/variables";
-import { dummyReferralHistories } from "@/featured/public/referral/dummy/referralHistory";
 import { formatDate } from "@/utils/formatDate";
 import { shortenAddress } from "@/utils/shortenAddress";
 import { motion, type Variants } from "framer-motion";
@@ -17,7 +16,7 @@ export interface ReferralHistoryTypes {
 }
 
 const mapper = (raw: ReferralDb): ReferralHistoryTypes => ({
-  address: raw.wallet_addres,
+  address: raw.wallet_address,
   date: raw.created_at,
   status: raw.status,
 });
@@ -85,8 +84,6 @@ const ctaVariants: Variants = {
 export function History() {
   const { referrals } = useReferralContext();
 
-  const recentReferral =
-    referrals.length > 3 ? referrals.map(mapper) : dummyReferralHistories;
   return (
     <motion.div
       className="space-y-4"
@@ -95,6 +92,21 @@ export function History() {
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
     >
+      {referrals.length === 0 ? <NoData /> : <WithData />}
+    </motion.div>
+  );
+}
+
+const NoData = () => {
+  return <p className="text-white">No Referral Data. Be The first!</p>
+}
+
+const WithData = () => {
+  const { referrals } = useReferralContext();
+
+  const recentReferral = referrals.map(mapper);
+  return (
+    <>
       {recentReferral.slice(0, 3).map((history, i) => (
         <motion.div
           key={i}
@@ -131,14 +143,16 @@ export function History() {
         </motion.div>
       ))}
 
-      <motion.div variants={ctaVariants}>
-        <Button
-          variant="link"
-          className={`${fontPoppins.className} ${mainGradientFont} font-medium text-base mx-auto block`}
-        >
-          View More
-        </Button>
-      </motion.div>
-    </motion.div>
+      {referrals.length > 3 && (
+        <motion.div variants={ctaVariants}>
+          <Button
+            variant="link"
+            className={`${fontPoppins.className} ${mainGradientFont} font-medium text-base mx-auto block`}
+          >
+            View More
+          </Button>
+        </motion.div>
+      )}
+    </>
   );
-}
+};

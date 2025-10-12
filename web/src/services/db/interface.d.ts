@@ -41,7 +41,12 @@ export interface SiteSettingApiTypes {
 
 export interface UserApiTypes {
   createNewUser: (wallet_address: string) => Promise<void>;
+  createNewUserWithReferral: (
+    wallet_address: string,
+    referral_code: string
+  ) => Promise<void>;
   getUserByAddress: (wallet_address?: string) => Promise<UserDb | null>;
+  getUserByReferralCode: (referral_code?: string) => Promise<UserDb | null>;
   getUserStatisticByAddress: (
     wallet_address?: string
   ) => Promise<UserReferralStatistic | null>;

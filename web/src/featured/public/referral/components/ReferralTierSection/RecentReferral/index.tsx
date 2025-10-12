@@ -7,14 +7,14 @@ import { motion } from "motion/react";
 export function RecentReferral() {
   return (
     <motion.div
-      className="h-full"
+      className="h-full items-stretch"
       variants={parentVariants}
       initial="hidden"
       whileInView="visible"
       transition={{ duration: 0.6 }}
       viewport={{ once: true, amount: 0.25 }}
     >
-      <PannelContainer>
+      <PannelContainer className="h-full">
         <TitleAndSub
           title="Recent Referrals"
           sub="list of the latest referrals you have received"

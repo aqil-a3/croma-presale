@@ -9,7 +9,7 @@ import { motion } from "motion/react";
 export function ReferralTier() {
   return (
     <motion.div
-      className="h-full"
+      className="h-full items-stretch"
       variants={parentVariants}
       initial="hidden"
       whileInView="visible"

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
+import { ReferralInsert } from './referrals.interface';
 
 @Injectable()
 export class ReferralsService {
@@ -21,4 +22,16 @@ export class ReferralsService {
 
     return data;
   }
+
+  async createNewReferral(payload: ReferralInsert) {
+    const { error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .insert(payload);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
+  

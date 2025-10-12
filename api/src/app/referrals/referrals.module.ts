@@ -4,8 +4,9 @@ import { ReferralsService } from './referrals.service';
 import { SupabaseModule } from '../../service/supabase/supabase.module';
 
 @Module({
-  imports:[SupabaseModule],
+  imports: [SupabaseModule],
   controllers: [ReferralsController],
-  providers: [ReferralsService]
+  providers: [ReferralsService],
+  exports: [ReferralsService],
 })
 export class ReferralsModule {}

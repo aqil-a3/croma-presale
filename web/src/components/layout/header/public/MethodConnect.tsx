@@ -1,21 +1,30 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { fontPoppins } from "@/config/fonts";
 import { cn } from "@/lib/utils";
 import { apiUser } from "@/services/db/users";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Connector, CreateConnectorFn, useAccount, useConnect } from "wagmi";
 
-interface Props{
+interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function MethodConnect({open, setOpen}:Props){
-  const { createNewUser } = apiUser;
+export function MethodConnect({ open, setOpen }: Props) {
+  const { createNewUser, createNewUserWithReferral } = apiUser;
   const router = useRouter();
+  const pathname = usePathname();
   const { isConnected } = useAccount();
+
+  const isWithReferral = pathname.startsWith("/ref/CROMA");
 
   const { connect, connectors } = useConnect({
     mutation: {
@@ -26,7 +35,12 @@ export function MethodConnect({open, setOpen}:Props){
       },
       onSuccess: async (data) => {
         const walletAddress = data.accounts[0] as string;
-        await createNewUser(walletAddress);
+        if (isWithReferral) {
+          const referral_code = pathname.split("/")[2];
+          await createNewUserWithReferral(walletAddress, referral_code);
+        } else {
+          await createNewUser(walletAddress);
+        }
 
         toast.success("Wallet Connected!");
         router.push("/dashboard");
@@ -54,7 +68,10 @@ export function MethodConnect({open, setOpen}:Props){
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side="bottom"
-        className={cn(fontPoppins.className,"space-y-4 bg-black border-orange-500 p-6")}
+        className={cn(
+          fontPoppins.className,
+          "space-y-4 bg-black border-orange-500 p-6"
+        )}
       >
         <SheetHeader>
           <SheetTitle className="text-white text-center">
@@ -89,4 +106,4 @@ export function MethodConnect({open, setOpen}:Props){
       </SheetContent>
     </Sheet>
   );
-};
+}
