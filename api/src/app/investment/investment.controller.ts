@@ -64,9 +64,10 @@ export class InvestmentController {
     console.log('Webhook body:', body);
 
     // TODO: validasi signature dari headers['x-nowpayments-sig'] (kalau mau)
-    return await this.investmentService.updateStatusPayments(
+    await this.investmentService.updateStatusPayments(
       body.payment_id.toString(),
       body.payment_status,
     );
+    return;
   }
 }

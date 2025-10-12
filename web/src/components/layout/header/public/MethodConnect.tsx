@@ -48,16 +48,19 @@ export function MethodConnect({ open, setOpen }: Props) {
     },
   });
 
-  const items: { imageSrc: string; id: string }[] = [
-    {
-      imageSrc: "/logo/metamask.png",
-      id: "metaMaskSDK",
-    },
-    {
-      imageSrc: "/logo/walletconnect.png",
-      id: "walletConnect",
-    },
-  ];
+  console.log(connectors);
+
+  const items = connectors.map((connector) => ({
+    imageSrc:
+      connector.name === "MetaMask"
+        ? "/logo/metamask.png"
+        : connector.name === "WalletConnect"
+        ? "/logo/walletconnect.png"
+        : connector.name.includes("OKX")
+        ? "/logo/okx-wallet.png"
+        : connector.name ==="TrustWallet" ? "/logo/trust-wallet.png" :"/logo/unknown.png",
+    connector,
+  }));
 
   const connectHandler = (connector: Connector<CreateConnectorFn>) => {
     if (isConnected) return router.push("/dashboard");
@@ -82,22 +85,16 @@ export function MethodConnect({ open, setOpen }: Props) {
           </SheetDescription>
         </SheetHeader>
         <div className="flex gap-4 justify-center">
-          {items.map((item, i) => {
-            const connector = connectors.find((conn) => conn.id === item.id);
-            if (!connector) return null;
+          {items.map(({ imageSrc, connector }, i) => {
+            if (imageSrc === "/logo/unknown.png") return null;
 
             return (
-              <button
-                key={i}
-                className="group rounded-2xl cursor-pointer"
-                onClick={() => connectHandler(connector)}
-              >
+              <button key={i} onClick={() => connectHandler(connector)}>
                 <Image
-                  src={item.imageSrc}
-                  alt={`${item.id} logo`}
+                  src={imageSrc}
+                  alt={connector.name}
                   width={64}
                   height={64}
-                  className="group-hover:scale-110 group-active:scale-100 duration-200 aspect-auto"
                 />
               </button>
             );

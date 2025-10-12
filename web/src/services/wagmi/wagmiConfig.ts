@@ -1,6 +1,6 @@
 import { http, createConfig, createStorage, cookieStorage } from "wagmi";
 import { base, mainnet } from "wagmi/chains";
-import { walletConnect, metaMask } from "wagmi/connectors";
+import { walletConnect, metaMask, injected } from "wagmi/connectors";
 
 const projectId = `${process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}`;
 
@@ -9,9 +9,14 @@ export const wagmiConfig = createConfig({
   ssr: true,
   storage: createStorage({
     storage: cookieStorage,
-    key:"croma_presale_wallet_connect"
+    key: "croma_presale_wallet_connect",
   }),
-  connectors: [walletConnect({ projectId }), metaMask()],
+  connectors: [
+    walletConnect({ projectId }),
+    metaMask(),
+    injected({ target: "okxWallet" }),
+    injected({ target: "trustWallet" }),
+  ],
   transports: {
     [mainnet.id]: http(),
     [base.id]: http(),
