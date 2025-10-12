@@ -6,6 +6,9 @@ import { GRADIENT_MAIN_COLOR, PANEL_BG, PANEL_BG_TW } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { motion, type Variants } from "framer-motion";
 import { useReferralContext } from "../../../provider";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { comissionPercentage } from "../../../comission";
 
 interface TierStepItemTypes {
   tierName: "Bronze" | "Silver" | "Gold";
@@ -53,10 +56,20 @@ const badgeVariants: Variants = {
 };
 
 export function TierStep() {
-  const { userStatistic } = useReferralContext();
-  const currentTier: ReferralTier = userStatistic
+  const { userStatistic, setComission } = useReferralContext();
+  const pathname = usePathname();
+  const isPublic = pathname === "/referral";
+
+  const tier: ReferralTier = userStatistic
     ? userStatistic.current_tier
     : "Bronze";
+  const [currentTier, setCurrentTier] = useState<ReferralTier>(tier);
+
+  const clickHandler = (tier:ReferralTier) => {
+    if (!isPublic) return;
+    setCurrentTier(tier)
+    setComission(comissionPercentage[tier])
+  };
 
   return (
     <motion.div className="space-y-4" variants={tierContainerVariants}>
@@ -68,9 +81,10 @@ export function TierStep() {
           <motion.div
             key={i}
             variants={cardVariants}
+            onClick={() => clickHandler(tier.tierName)}
             style={{ background: isYourTier ? GRADIENT_MAIN_COLOR : PANEL_BG }}
             className={cn(
-              "flex justify-between px-2 lg:px-4 py-2 rounded-2xl",
+              "flex justify-between px-2 lg:px-4 py-2 rounded-2xl cursor-pointer",
               "backdrop-blur-3xl border border-gray-600 items-center"
             )}
             // opsional: hover feedback ringan

@@ -1,13 +1,16 @@
 import { UserDb } from "@/@types/auth";
 import { ReferralDb } from "@/@types/referrals";
 import { UserReferralStatistic } from "@/@types/user";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
+import { comissionPercentage } from "./comission";
 
 interface ReferralContextType {
   userData: UserDb | null;
-  userStatistic: UserReferralStatistic | null
-  referralBuyAverage:number;
-  referrals: ReferralDb[]
+  userStatistic: UserReferralStatistic | null;
+  referralBuyAverage: number;
+  referrals: ReferralDb[];
+  comission: number;
+  setComission: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ReferralContext = createContext<ReferralContextType>(
@@ -17,8 +20,8 @@ const ReferralContext = createContext<ReferralContextType>(
 interface ReferralProviderProps {
   userData: UserDb | null;
   userStatistic: UserReferralStatistic | null;
-  referralBuyAverage:number;
-  referrals: ReferralDb[]
+  referralBuyAverage: number;
+  referrals: ReferralDb[];
   children: React.ReactNode;
 }
 
@@ -27,13 +30,19 @@ export function ReferralProvider({
   children,
   userStatistic,
   referrals,
-  referralBuyAverage
+  referralBuyAverage,
 }: ReferralProviderProps) {
+  const currentComission = userStatistic
+    ? comissionPercentage[userStatistic.current_tier]
+    : comissionPercentage.Bronze;
+  const [comission, setComission] = useState<number>(currentComission);
   const value: ReferralContextType = {
     userData,
     referralBuyAverage,
     userStatistic,
-    referrals
+    referrals,
+    comission,
+    setComission,
   };
 
   return (
@@ -43,4 +52,4 @@ export function ReferralProvider({
   );
 }
 
-export const useReferralContext = () => useContext(ReferralContext)
+export const useReferralContext = () => useContext(ReferralContext);

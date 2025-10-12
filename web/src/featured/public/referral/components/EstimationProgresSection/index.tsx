@@ -37,6 +37,7 @@ export function EstimationProgresSectionInteractive({
     onPointerUp,
     pct,
     clients,
+    setClients,
     trackRef,
   } = useEstimationProgress(max, min, defaultClients, ratePerClient, step);
 
@@ -56,7 +57,7 @@ export function EstimationProgresSectionInteractive({
         </h3>
 
         {/* Header kecil */}
-        <TrackHeader clients={clients} income={income} />
+        <TrackHeader clients={clients} income={income} setClients={setClients}maxClients={max} />
 
         {/* Track + Fill + Knob (interaktif) */}
         <div className="mt-4">

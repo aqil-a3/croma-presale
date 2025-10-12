@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from "react";
 import { useReferralContext } from "../provider";
-import { comission } from "../comission";
 
 export function useEstimationProgress(
   max: number,
@@ -9,10 +8,9 @@ export function useEstimationProgress(
   ratePerClient: number,
   step: number
 ) {
-  const { userStatistic } = useReferralContext();
-  const comissionBonus = userStatistic ? comission[userStatistic.current_tier] : 5;
-  const comissionPercent = comissionBonus / 100;
-  
+  const { comission } = useReferralContext();
+  const comissionPercent = comission / 100;
+
   const [clients, setClients] = useState(
     Math.min(max, Math.max(min, defaultClients))
   );
@@ -78,5 +76,6 @@ export function useEstimationProgress(
     onKeyDown,
     clients,
     trackRef,
+    setClients,
   };
 }
