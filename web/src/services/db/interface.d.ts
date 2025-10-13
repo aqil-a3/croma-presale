@@ -40,6 +40,7 @@ export interface SiteSettingApiTypes {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editSiteSettings: (key: SettingAdminDbKey, value: any) => Promise<void>;
   getAllSiteSettings: () => Promise<SettingAdminDb[]>;
+  getAllAvailablePaymentMethodSettings: () => Promise<string[]>;
   getReferralAverageBuyAmount: () => Promise<number>;
 }
 

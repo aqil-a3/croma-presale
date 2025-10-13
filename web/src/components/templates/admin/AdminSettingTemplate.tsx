@@ -4,6 +4,7 @@ import { TitleAndSub } from "@/components/atoms/title/TitleAndSub";
 import { AdminContainer } from "@/components/layout/container/AdminContainer";
 import { PannelContainer } from "@/components/layout/container/PanelContainer";
 import { NumberSetting } from "@/featured/admin/site-setting/components/NumberSetting";
+import { PaymentMethod } from "@/featured/admin/site-setting/components/PaymentMethodSetting";
 import { AdminSettingProvider } from "@/featured/admin/site-setting/provider";
 
 interface Props {
@@ -17,6 +18,7 @@ export default function AdminSettingTemplate({ settings }: Props) {
         <TitleAndSub title="Admin Setting" sub="Setting" />
         <PannelContainer>
           <NumberSetting settingKey="referral_average_buy_amount" />
+          <PaymentMethod />
         </PannelContainer>
       </AdminContainer>
     </AdminSettingProvider>
