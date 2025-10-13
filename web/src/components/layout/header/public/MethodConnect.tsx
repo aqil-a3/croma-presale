@@ -48,8 +48,6 @@ export function MethodConnect({ open, setOpen }: Props) {
     },
   });
 
-  console.log(connectors);
-
   const items = connectors.map((connector) => ({
     imageSrc:
       connector.name === "MetaMask"

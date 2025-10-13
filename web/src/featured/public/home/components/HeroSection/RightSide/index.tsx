@@ -22,7 +22,7 @@ const metrixBorder: CSSProperties = {
 };
 
 export function RightSide() {
-  const [asset, setAsset] = useState<string>("ETH");
+  const [asset, setAsset] = useState<string>("eth");
   const [usd, setUsd] = useState<number>(1);
 
   return (

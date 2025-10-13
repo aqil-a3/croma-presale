@@ -1,5 +1,6 @@
 "use client";
 import { InvestmentSummary } from "@/@types/investment";
+import { PaymentSettingValue } from "@/@types/setting-admin";
 import DashboardLoader from "@/app/(dashboard)/loader";
 import { DashboardContainer } from "@/components/layout/container/DashboardContainer";
 import { PresaleDb } from "@/featured/admin/presale/interface";
@@ -13,11 +14,13 @@ import { useHasHydrated } from "@/hooks/use-has-hydrated";
 export default function DashboardTemplate({
   activePresale,
   cryptoPrice,
-  investment
+  investment,
+  paymentMethods
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
-  investment:InvestmentSummary
+  investment:InvestmentSummary;
+  paymentMethods: PaymentSettingValue
 }) {
   const hasHydrated = useHasHydrated();
 
@@ -26,6 +29,7 @@ export default function DashboardTemplate({
     <PublicPresaleProvider
       activePresale={activePresale}
       cryptoPrice={cryptoPrice}
+      paymentMethods={paymentMethods}
     >
       <DashboardContainer className="space-y-4">
         <CurrenciesSection investment={investment} />

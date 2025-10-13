@@ -12,8 +12,6 @@ export function CRMValueSection() {
   const {activePresale} = usePublicPresaleContext();
   const {phase, stage} = activePresale;
 
-  console.log(activePresale)
-
   return (
     <motion.div
       style={{ background: PANEL_BG }}

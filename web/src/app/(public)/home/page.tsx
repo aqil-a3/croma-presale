@@ -1,7 +1,9 @@
+import { PaymentSettingValue, SettingAdminDb } from "@/@types/setting-admin";
 import HomeTemplate from "@/components/templates/public/HomeTemplate";
 import { getCryptoData } from "@/services/crypto/getCryptoPrices";
 import { apiFAQ } from "@/services/db/faq";
 import { apiPresale } from "@/services/db/presale";
+import { apiSiteSettings } from "@/services/db/site-settings";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,9 +12,26 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const { getActivePresale } = apiPresale;
-  const {getAllFAQ} = apiFAQ;
+  const { getAllFAQ } = apiFAQ;
+  const { getAllSiteSettings } = apiSiteSettings;
 
-  const [cryptoData, activePresale, faqData] = await Promise.all([getCryptoData(), getActivePresale(), getAllFAQ()])
+  const [cryptoData, activePresale, faqData, siteSettings] = await Promise.all([
+    getCryptoData(),
+    getActivePresale(),
+    getAllFAQ(),
+    getAllSiteSettings(),
+  ]);
 
-  return <HomeTemplate activePresale={activePresale} cryptoPrice={cryptoData} faqData={faqData} />;
+  const paymentMethods = siteSettings.find(
+    (setting) => setting.key === "payment_methods"
+  ) as SettingAdminDb<PaymentSettingValue>;
+
+  return (
+    <HomeTemplate
+      activePresale={activePresale}
+      cryptoPrice={cryptoData}
+      faqData={faqData}
+      paymentMethods={paymentMethods.value}
+    />
+  );
 }

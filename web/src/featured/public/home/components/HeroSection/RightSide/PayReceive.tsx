@@ -24,21 +24,8 @@ export function RightSidePayReceive({ setUsd, usd, asset, setAsset }: Props) {
   );
 }
 
-const ASSETS = [
-  { value: "BNB", label: "Binance Coin", icon: "/logo/binance.png" },
-  { value: "BTC", label: "Bitcoin", icon: "/logo/bitcoin.png" },
-  { value: "COMP", label: "Compound", icon: "/logo/compound.png" },
-  { value: "ETH", label: "Ethereum", icon: "/logo/eth.png" },
-  // FABRIC tidak ada → perlu cek coin sebenarnya
-  { value: "ZRX", label: "0x", icon: "/logo/ox.png" },
-  { value: "SOL", label: "Solana", icon: "/logo/solana.png" },
-  { value: "TRX", label: "Tron", icon: "/logo/trx.png" },
-  { value: "TUSD", label: "TrueUSD", icon: "/logo/tusd.png" },
-  { value: "XRP", label: "XRP", icon: "/logo/xrp.png" },
-];
-
 const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
-  const { cryptoPrice } = usePublicPresaleContext();
+  const { cryptoPrice, paymentMethods } = usePublicPresaleContext();
   const cPrice = usd / cryptoPrice[asset];
 
   return (
@@ -61,11 +48,12 @@ const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
             className={`${fontPoppins.className} w-[200px] font-bold text-lg lg:text-2xl text-white outline-none`}
             prefix="$"
             allowDecimals={true}
+            decimalSeparator="."
+            groupSeparator=","
             value={usd}
             maxLength={10}
             onValueChange={(value) => {
-              const numberValue = Number(value);
-              setUsd(isNaN(numberValue) ? 1 : numberValue);
+              setUsd(value as unknown as number);
             }}
           />
           <p
@@ -75,7 +63,11 @@ const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
           </p>
         </div>
 
-        <AssetSelect options={ASSETS} value={asset} onChange={setAsset} />
+        <AssetSelect
+          options={paymentMethods.value}
+          value={asset}
+          onChange={setAsset}
+        />
       </div>
     </div>
   );

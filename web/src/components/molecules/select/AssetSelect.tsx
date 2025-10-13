@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -17,11 +16,18 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { TokenIcon } from "@web3icons/react";
+
+// type Option = {
+//   name: string;
+//   label: string;
+//   icon?: string;
+// };
 
 type Option = {
-  value: string;
-  label: string;
-  icon?: string;
+  currency: string;
+  name: string;
+  icon: string;
 };
 
 type AssetSelectProps = {
@@ -41,10 +47,12 @@ export function AssetSelect({
 }: AssetSelectProps) {
   const [open, setOpen] = React.useState(false);
 
-  const selected = React.useMemo(
-    () => options.find((o) => o.value === value),
-    [options, value]
-  );
+  const selected = React.useMemo(() => {
+    const result = options.find(
+      (o) => o.currency.toLowerCase() === value?.toLowerCase()
+    );
+    return result;
+  }, [options, value]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -57,15 +65,11 @@ export function AssetSelect({
           )}
           aria-label="Select asset"
         >
-          {selected?.icon ? (
-            <Image
-              width={24}
-              height={24}
-              alt={`${selected.label} Icon`}
-              src={selected.icon}
-            />
-          ) : null}
-          <span className="truncate">{selected?.label ?? placeholder}</span>
+          <TokenIcon
+            symbol={selected!.currency.toLowerCase()}
+            variant="background"
+          />
+          <span className="truncate">{selected?.name ?? placeholder}</span>
           <ChevronDown className="ml-auto h-4 w-4 opacity-80" />
         </Button>
       </PopoverTrigger>
@@ -77,27 +81,23 @@ export function AssetSelect({
             <CommandGroup>
               {options.map((opt) => (
                 <CommandItem
-                  key={opt.value}
-                  value={opt.value}
+                  key={opt.currency}
+                  value={opt.currency}
                   onSelect={() => {
-                    onChange?.(opt.value);
+                    onChange?.(opt.currency);
                     setOpen(false);
                   }}
                   className="gap-2"
                 >
-                  {opt.icon ? (
-                    <Image
-                      width={18}
-                      height={18}
-                      alt={`${opt.label} Icon`}
-                      src={opt.icon}
-                    />
-                  ) : null}
-                  <span className="flex-1">{opt.label}</span>
+                  <TokenIcon
+                    symbol={opt.currency.toLowerCase()}
+                    variant="background"
+                  />
+                  <span className="flex-1">{opt.name}</span>
                   <Check
                     className={cn(
                       "h-4 w-4",
-                      opt.value === value ? "opacity-100" : "opacity-0"
+                      opt.currency === value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

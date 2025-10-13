@@ -13,7 +13,7 @@ export async function getServerSession() {
     const payload = verify(token, process.env.JWT_SECRET ?? "");
     return payload as Session;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw error;
   }
 }

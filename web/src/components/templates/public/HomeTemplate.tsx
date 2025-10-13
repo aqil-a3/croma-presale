@@ -13,15 +13,18 @@ import { PresaleDb } from "@/featured/admin/presale/interface";
 import { PublicPresaleProvider } from "@/featured/public/home/provider";
 import { FaqDb } from "@/featured/admin/faq/interface";
 import { useHasHydrated } from "@/hooks/use-has-hydrated";
+import { PaymentSettingValue } from "@/@types/setting-admin";
 
 export default function HomeTemplate({
   activePresale,
   cryptoPrice,
   faqData,
+  paymentMethods
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
   faqData: FaqDb[];
+  paymentMethods: PaymentSettingValue
 }) {
   const params = useSearchParams();
   const router = useRouter();
@@ -44,6 +47,7 @@ export default function HomeTemplate({
       activePresale={activePresale}
       cryptoPrice={cryptoPrice}
       faqData={faqData}
+      paymentMethods={paymentMethods}
     >
       <MainContainer className="min-h-screen pt-12 relative flex flex-col items-center justify-center overflow-hidden">
         <>
