@@ -2,6 +2,7 @@ import { PaymentSettingValue, SettingAdminDb } from "@/@types/setting-admin";
 import { useAdminSetting } from "../../provider";
 import { PaymentMethodDialog } from "./PaymentMethodDialog";
 import { Badge } from "@/components/ui/badge";
+import { TokenIcon } from "@web3icons/react";
 
 export function PaymentMethod() {
   const { settings } = useAdminSetting();
@@ -16,11 +17,14 @@ export function PaymentMethod() {
   return (
     <div className="space-y-4">
       <p className="font-semibold">{paymentSetting.label}</p>
-      <div className="space-x-4">
+      <div className="flex gap-2">
         {currencies.map((d) => (
-          <Badge variant={"outline"} key={d} className="text-white">
-            {d.toUpperCase()}
-          </Badge>
+          <div key={d} className="flex gap-1">
+            <TokenIcon symbol={d.toLowerCase()} variant="branded" />
+            <Badge variant={"outline"} className="text-white">
+              {d.toUpperCase()}
+            </Badge>
+          </div>
         ))}
       </div>
       <PaymentMethodDialog initSelected={currencies} />
