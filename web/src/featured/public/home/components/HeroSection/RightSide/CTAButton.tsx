@@ -23,12 +23,6 @@ export function RightSideCTAButton({ amountBuy, payCurrency }: Props) {
       >
         {isLoading ? <><Spinner /> PROCESSING...</> : "BUY NOW"}
       </Button>
-      {/* <BuyCRMDialog
-        amountBuy={amountBuy}
-        payCurrency={payCurrency}
-        open={open}
-        setOpen={setOpen}
-      /> */}
     </>
   );
 }

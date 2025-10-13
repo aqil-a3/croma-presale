@@ -27,7 +27,7 @@ export function useRightSideCTAButton(amountBuy: number, payCurrency: string) {
     price_amount: amountBuy,
     price_currency: "usd",
     order_description: "Buy Cromachain Coin",
-    is_fixed_rate: true,
+    is_fixed_rate: false,
     ipn_callback_url: `${serverEndpoint}/investment/payments/webhook`,
   };
 

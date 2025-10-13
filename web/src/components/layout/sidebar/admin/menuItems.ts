@@ -11,4 +11,8 @@ export const menuItems = [
     value: "/admin/faq",
     label: "FAQ",
   },
+  {
+    value: "/admin/settings",
+    label: "Setting",
+  },
 ];

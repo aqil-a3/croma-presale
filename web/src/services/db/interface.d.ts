@@ -5,6 +5,7 @@ import {
   InvestmentSummary,
 } from "@/@types/investment";
 import { ReferralDb } from "@/@types/referrals";
+import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
@@ -36,6 +37,9 @@ export interface ReferralApiTypes {
 }
 
 export interface SiteSettingApiTypes {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  editSiteSettings: (key: SettingAdminDbKey, value: any) => Promise<void>;
+  getAllSiteSettings: () => Promise<SettingAdminDb[]>;
   getReferralAverageBuyAmount: () => Promise<number>;
 }
 

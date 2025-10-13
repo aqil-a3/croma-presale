@@ -52,6 +52,7 @@ export class InvestmentController {
 
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
+    console.log(body)
     return await this.investmentService.createNewPayments(body);
   }
 
