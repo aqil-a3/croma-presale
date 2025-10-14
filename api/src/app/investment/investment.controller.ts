@@ -14,7 +14,7 @@ import {
   InvestmentClient,
   NowPaymentsWebhook,
 } from './investment.interface';
-import { SharedSecretGuard } from 'src/guards/shared-secret.guard';
+import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 
 @Controller('investment')
 export class InvestmentController {

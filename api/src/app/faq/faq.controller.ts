@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { FaqService } from './faq.service';
 import { FaqClient } from './faq.interface';
 import { BasicResponse } from '../../interface/http';
-import { SharedSecretGuard } from 'src/guards/shared-secret.guard';
+import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 
 @Controller('faq')
 export class FaqController {

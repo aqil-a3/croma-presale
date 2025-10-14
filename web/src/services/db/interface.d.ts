@@ -4,6 +4,7 @@ import {
   InvestmentLeaderboardItem,
   InvestmentSummary,
 } from "@/@types/investment";
+import { FullMigrationData } from "@/@types/migration";
 import { ReferralDb } from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserReferralStatistic } from "@/@types/user";
@@ -55,4 +56,7 @@ export interface UserApiTypes {
   getUserStatisticByAddress: (
     wallet_address?: string
   ) => Promise<UserReferralStatistic | null>;
+  getMigrationDataByAddress: (
+    wallet_address: string
+  ) => Promise<FullMigrationData | null>;
 }

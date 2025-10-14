@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { SiteSettingService } from './site-setting.service';
 import { SettingAdminDbKey } from './site-setting.interface';
-import { SharedSecretGuard } from 'src/guards/shared-secret.guard';
+import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 
 @Controller('site-setting')
 export class SiteSettingController {

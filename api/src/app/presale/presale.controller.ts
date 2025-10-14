@@ -2,7 +2,7 @@ import { Body, Controller, Get, Patch, Post, Put, UseGuards } from '@nestjs/comm
 import { PresaleService } from './presale.service';
 import { PresaleClient } from './presale.interface';
 import { BasicResponse, ResponseWithData } from '../../interface/http';
-import { SharedSecretGuard } from 'src/guards/shared-secret.guard';
+import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 
 @Controller('presale')
 export class PresaleController {

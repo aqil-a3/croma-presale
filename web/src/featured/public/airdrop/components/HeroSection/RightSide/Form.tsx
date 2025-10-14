@@ -17,6 +17,11 @@ import z from "zod";
 import { ButtonSources } from "./ButtonSources";
 import { motion } from "motion/react";
 import { fadeUp } from "@/lib/variants";
+import { toast } from "sonner";
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import axios from "axios";
+import { FullMigrationData } from "@/@types/migration";
 
 const formSchema = z.object({
   source: z.enum(["galxe", "web"]),
@@ -34,8 +39,25 @@ export function FormCheckAirdrop() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [data, setData] = useState<FullMigrationData | null>(null);
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setIsLoading(true);
+      setData(null);
+      const { data } = await axios.get(
+        `/api/airdrop/address/${values.ethAddress}`
+      );
+      toast.success(`Your account found!`);
+      setData(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Something error");
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -77,6 +99,7 @@ export function FormCheckAirdrop() {
                 </FormLabel>
                 <FormControl>
                   <Input
+                    disabled={isLoading}
                     className={`${fontPoppins.className} text-[#A8A8A8] font-medium text-base lg:text-2xl border border-gray-500 outline-none`}
                     placeholder="Enter Your Address..."
                     {...field}
@@ -86,11 +109,28 @@ export function FormCheckAirdrop() {
               </FormItem>
             )}
           />
+          {data && (
+            <div className="flex flex-col justify-center items-center">
+              <p>Your total points</p>
+              <p
+                className={`${fontOrbitron.className} text-green-500 font-bold text-xl lg:text-4xl`}
+              >
+                {data.points} CRM
+              </p>
+            </div>
+          )}
           <Button
             className={`w-full ${fontOrbitron.className} ${GRADIENT_MAIN_COLOR_TW} text-white font-bold text-base py-6`}
             type="submit"
+            disabled={isLoading}
           >
-            Check Eligibility
+            {isLoading ? (
+              <>
+                <Spinner /> Checking...
+              </>
+            ) : (
+              "Check Eligibility"
+            )}
           </Button>
         </form>
       </Form>
