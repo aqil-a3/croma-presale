@@ -7,7 +7,9 @@ export async function getUserByAddress(
 ): Promise<UserDb | null> {
   if (!wallet_address) return null;
   try {
-    const { data } = await api.get(`${serverEndpoint}/user/address/${wallet_address}`);
+    const { data } = await api.get(
+      `${serverEndpoint}/user/address/${wallet_address}`
+    );
 
     return data;
   } catch (error) {

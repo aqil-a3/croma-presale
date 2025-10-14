@@ -20,7 +20,7 @@ import { fadeUp } from "@/lib/variants";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { FullMigrationData } from "@/@types/migration";
 
 const formSchema = z.object({
@@ -53,6 +53,12 @@ export function FormCheckAirdrop() {
       setData(data);
     } catch (error) {
       console.error(error);
+      if (isAxiosError(error)) {
+        const data = error.response?.data;
+
+        toast.error(data.message ?? "Something error");
+        throw error;
+      }
       toast.error("Something error");
       throw error;
     } finally {

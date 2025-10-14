@@ -8,7 +8,7 @@ export async function GET(
   const { address } = await params;
   const { getMigrationDataByAddress } = apiUser;
 
-  const data = await getMigrationDataByAddress(address);
+  const data = await getMigrationDataByAddress(address.toLowerCase());
 
   if (!data) {
     return NextResponse.json(
