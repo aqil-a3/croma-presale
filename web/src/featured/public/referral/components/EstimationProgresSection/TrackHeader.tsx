@@ -27,7 +27,7 @@ export function TrackHeader({
   return (
     <div className="mt-4 flex items-start justify-between gap-4">
       <div className={`${fontPoppins.className} text-white/85`}>
-        <div className="text-sm">Total accumulated clients</div>
+        <div className="text-sm">Users You Invite</div>
         <Input
           type="number"
           className={`${fontOrbitron.className} text-2xl lg:text-5xl text-[#FF6A00] leading-none outline-none border-none`}
@@ -39,7 +39,7 @@ export function TrackHeader({
       </div>
       <div className="text-right">
         <div className={`${fontPoppins.className} text-sm text-white/80`}>
-          Your Income Per Month
+          Total Referral Earnings
         </div>
         <div
           className={`${fontOrbitron.className} text-2xl lg:text-4xl text-[#FF6A00]`}

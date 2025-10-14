@@ -10,9 +10,10 @@ import { UserModule } from './app/user/user.module';
 import { InvestmentModule } from './app/investment/investment.module';
 import { SiteSettingModule } from './app/site-setting/site-setting.module';
 import { ReferralsModule } from './app/referrals/referrals.module';
+import { MigrationModule } from './app/migration/migration.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule, MigrationModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,10 +1,9 @@
-import { serverEndpoint } from "@/config/endpoint";
 import { PresaleDb } from "@/featured/admin/presale/interface";
-import axios from "axios";
+import { api } from "@/services/axios/server";
 
 export async function getActivePresale(): Promise<PresaleDb> {
   try {
-    const { data } = await axios.get(`${serverEndpoint}/presale/active`);
+    const { data } = await api.get(`/presale/active`);
 
     return data.data;
   } catch (error) {
