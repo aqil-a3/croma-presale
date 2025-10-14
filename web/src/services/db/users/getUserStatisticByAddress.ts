@@ -1,13 +1,12 @@
 import { UserReferralStatistic } from "@/@types/user";
-import { serverEndpoint } from "@/config/endpoint";
-import axios from "axios";
+import { api } from "@/services/axios/server";
 
 export async function getUserStatisticByAddress(
   wallet_address?: string
 ): Promise<UserReferralStatistic | null> {
   if (!wallet_address) return null;
   try {
-    const { data } = await axios.get(`${serverEndpoint}/user/address/${wallet_address}/statistic`);
+    const { data } = await api.get(`/user/address/${wallet_address}/statistic`);
 
     return data;
   } catch (error) {

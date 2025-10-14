@@ -1,13 +1,13 @@
 import { UserDb } from "@/@types/auth";
 import { serverEndpoint } from "@/config/endpoint";
-import axios from "axios";
+import { api } from "@/services/axios/server";
 
 export async function getUserByAddress(
   wallet_address?: string
 ): Promise<UserDb | null> {
   if (!wallet_address) return null;
   try {
-    const { data } = await axios.get(`${serverEndpoint}/user/address/${wallet_address}`);
+    const { data } = await api.get(`${serverEndpoint}/user/address/${wallet_address}`);
 
     return data;
   } catch (error) {
