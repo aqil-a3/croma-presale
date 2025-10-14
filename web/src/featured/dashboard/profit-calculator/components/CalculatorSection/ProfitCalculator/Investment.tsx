@@ -8,26 +8,71 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PANEL_BG, PANEL_BG_TW } from "@/config/variables";
+import { useProfitCalculatorContext } from "../../../provider";
 
-export function Investment() {
+interface Props {
+  stage: number;
+  setStage: React.Dispatch<React.SetStateAction<number>>;
+  phase: number;
+  setPhase: React.Dispatch<React.SetStateAction<number>>;
+  invest: number;
+  setInvest: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function Investment({
+  phase,
+  setPhase,
+  setStage,
+  stage,
+  invest,
+  setInvest,
+}: Props) {
+  const { presales } = useProfitCalculatorContext();
+  const phaseAndStage = presales
+    .sort((a, b) => {
+      if (a.stage === b.stage) {
+        return a.phase - b.phase;
+      }
+      return a.stage - b.stage;
+    })
+    .map((val) => ({
+      label: `Stage ${val.stage} Phase ${val.phase}`,
+      value: `stage-${val.stage}-phase-${val.phase}`,
+    }));
+
+  const [val, setVal] = useState<string>(`stage-${stage}-phase-${phase}`);
+
+  useEffect(() => {
+    const splittedVal = val.split("-");
+    const stage = Number(splittedVal[1]);
+    const phase = Number(splittedVal[3]);
+
+    setPhase(phase);
+    setStage(stage);
+  }, [setPhase, setStage, val]);
   return (
     <div className="grid grid-cols-2 gap-4 items-center">
-      <TokenInfo title="CRM Tokens You Own" value={1000} currency="CRM" />
-      <PhaseSelect />
+      <TokenInfo
+        title="Your Investment (USD)"
+        value={invest}
+        setValue={setInvest}
+        currency="USD"
+      />
+      <PhaseSelect val={val} setVal={setVal} phases={phaseAndStage} />
     </div>
   );
 }
 
-const phases = Array.from({ length: 10 }, (_, i) => ({
-  label: `Phase ${i + 1}`,
-  value: `phase-${i + 1}`,
-}));
-
-const PhaseSelect = () => {
-  const [val, setVal] = useState("phase-7");
-
+const PhaseSelect: React.FC<{
+  val: string;
+  setVal: React.Dispatch<React.SetStateAction<string>>;
+  phases: {
+    label: string;
+    value: string;
+  }[];
+}> = ({ setVal, val, phases }) => {
   return (
     <div className="space-y-2">
       <p className={`${fontPoppins.className} font-bold text-base`}>

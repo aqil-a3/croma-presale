@@ -1,25 +1,34 @@
 import { PannelOrangeContainer } from "@/components/layout/container/PanelOrangeContainer";
 import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
+import { formatCurrencyWithDecimals } from "@/utils/formatCurrencyWithDecimals";
+import { formatNumberWithDecimal } from "@/utils/formatNumberWithDecimal";
 
-const items: { value: string; label: string }[] = [
-  {
-    value: "$495.00",
-    label: "FUTURE VALUE",
-  },
-  {
-    value: "$395.00",
-    label: "FUTURE VALUE",
-  },
-  {
-    value: "395.0%",
-    label: "ROI",
-  },
-];
+interface Props {
+  price: number;
+  invest: number;
+  tokenCRM: number;
+}
+export function ROIValue({ invest, price, tokenCRM }: Props) {
+  const futureValue = tokenCRM * price;
+  const roi = ((futureValue - invest) / invest) * 100;
 
-export function ROIValue() {
+  const items: { value: string; label: string }[] = [
+    {
+      value: formatCurrencyWithDecimals(futureValue, "USD", "en-US", 2),
+      label: "FUTURE VALUE",
+    },
+    // {
+    //   value: "$395.00",
+    //   label: "FUTURE VALUE",
+    // },
+    {
+      value: `${formatNumberWithDecimal(roi)}%`,
+      label: "ROI",
+    },
+  ];
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-2 gap-4">
       {items.map((item, i) => (
         <PannelOrangeContainer className="px-0.5 py-6 lg:p-4" key={i}>
           <p

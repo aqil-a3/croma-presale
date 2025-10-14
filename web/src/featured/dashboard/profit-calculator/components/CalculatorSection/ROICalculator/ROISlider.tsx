@@ -1,15 +1,47 @@
 import { Slider } from "@/components/ui/slider";
 import { fontOrbitron } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
-import React, { useState } from "react";
+import React from "react";
+import { useProfitCalculatorContext } from "../../../provider";
+import { formatCurrencyWithDecimals } from "@/utils/formatCurrencyWithDecimals";
 
-export function ROISlider() {
-  const [val, setVal] = useState([5]);
+const getTrackValue = (currentPrice: number, multipliers: number[]) => {
+  const trackValue: string[] = [];
+
+  for (const mult of multipliers) {
+    const result = currentPrice * mult;
+    const value = `${mult}x (${formatCurrencyWithDecimals(
+      result,
+      "USD",
+      "en-US",
+      3
+    )})`;
+
+    trackValue.push(value);
+  }
+
+  return trackValue;
+};
+
+interface Props {
+  val: number[];
+  setVal: React.Dispatch<React.SetStateAction<number[]>>;
+}
+export function ROISlider({ setVal, val }: Props) {
+  const { presales } = useProfitCalculatorContext();
+
+  const activePresale = presales.find((pre) => pre.is_active);
+
+  const currentPrice = activePresale!.current_price_usd;
+
+  const trackValue = getTrackValue(currentPrice, [1, 5, 10]);
+
+  // const trackValue
   return (
     <div className="space-y-4">
       <Title value={val} />
       <Slider value={val} onValueChange={setVal} max={10} min={1} />
-      <TrackText trackValue={["1x ($0.09)", "5x ($0.45)", "10x ($0.90)"]} />
+      <TrackText trackValue={trackValue} />
     </div>
   );
 }
@@ -35,7 +67,13 @@ const TrackText: React.FC<{ trackValue: string[] }> = ({ trackValue }) => {
   return (
     <div className="flex justify-between items-center -mt-2">
       {trackValue.map((val, i) => (
-        <p key={i} className={`${fontOrbitron.className} text-white font-medium`}> {val}</p>
+        <p
+          key={i}
+          className={`${fontOrbitron.className} text-white font-medium`}
+        >
+          {" "}
+          {val}
+        </p>
       ))}
     </div>
   );
