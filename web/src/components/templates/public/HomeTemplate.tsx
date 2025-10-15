@@ -14,6 +14,7 @@ import { PublicPresaleProvider } from "@/featured/public/home/provider";
 import { FaqDb } from "@/featured/admin/faq/interface";
 import { useHasHydrated } from "@/hooks/use-has-hydrated";
 import { PaymentSettingValue } from "@/@types/setting-admin";
+import {PoweredBy} from "@/featured/public/home/components/PoweredBySection";
 
 export default function HomeTemplate({
   activePresale,
@@ -56,6 +57,7 @@ export default function HomeTemplate({
         </>
 
         <HeroSection />
+        <PoweredBy />
         <PresaleProgressSection />
         <HowToBuySection />
         <FrequentlyAskedSection />

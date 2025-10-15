@@ -2,6 +2,7 @@ import { fadeRight } from "@/lib/variants";
 import { LeftSideCountdown } from "./CountDown";
 import { LeftSideText } from "./Text";
 import { motion } from "motion/react";
+import { AuditedBy } from "./AuditedBy";
 
 export function LeftSide() {
   return (
@@ -13,6 +14,7 @@ export function LeftSide() {
     >
       <LeftSideText />
       <LeftSideCountdown />
+      <AuditedBy />
     </motion.div>
   );
 }
