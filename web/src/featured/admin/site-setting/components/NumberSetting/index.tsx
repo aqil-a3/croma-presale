@@ -9,16 +9,15 @@ import { Input } from "@/components/ui/input";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { apiSiteSettings } from "@/services/db/site-settings";
 import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface Props {
   settingKey: SettingAdminDbKey;
 }
 
 export function NumberSetting({ settingKey }: Props) {
-  const { editSiteSettings } = apiSiteSettings;
 
   const [value, setValue] = useState<number>(0);
   const [isChanging, setIsChanging] = useState<boolean>(false);
@@ -31,13 +30,14 @@ export function NumberSetting({ settingKey }: Props) {
   ) as SettingAdminDb<NumberSettingValue> | undefined;
 
   useEffect(() => {
+    console.log(currentSetting)
     if (!currentSetting) return;
-    setValue(currentSetting.value.value);
+    setValue(currentSetting.value);
   }, [currentSetting]);
 
   useEffect(() => {
     if (!currentSetting) return;
-    if (currentSetting.value.value !== value) {
+    if (currentSetting.value !== value) {
       setIsChanging(true);
       return;
     }
@@ -54,7 +54,7 @@ export function NumberSetting({ settingKey }: Props) {
   const editHandler = async () => {
     try {
       setIsLoading(true);
-      await editSiteSettings(settingKey, { value });
+      await axios.patch("/api/setting/admin", { settingKey, value });
       toast.success(`${currentSetting.label} is successfully updated`);
       router.refresh();
     } catch (error) {
@@ -97,7 +97,7 @@ export function NumberSetting({ settingKey }: Props) {
           <Button
             variant={"outline"}
             className="text-black"
-            onClick={() => setValue(currentSetting.value.value)}
+            onClick={() => setValue(currentSetting.value)}
             disabled={isLoading}
           >
             Reset

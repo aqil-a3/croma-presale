@@ -6,12 +6,16 @@ import { PannelContainer } from "@/components/layout/container/PanelContainer";
 import { NumberSetting } from "@/featured/admin/site-setting/components/NumberSetting";
 import { PaymentMethod } from "@/featured/admin/site-setting/components/PaymentMethodSetting";
 import { AdminSettingProvider } from "@/featured/admin/site-setting/provider";
+import { useHasHydrated } from "@/hooks/use-has-hydrated";
 
 interface Props {
   settings: SettingAdminDb[];
 }
 
 export default function AdminSettingTemplate({ settings }: Props) {
+  const hasHydrated = useHasHydrated;
+
+  if (!hasHydrated) return null;
   return (
     <AdminSettingProvider settings={settings}>
       <AdminContainer className="space-y-6">

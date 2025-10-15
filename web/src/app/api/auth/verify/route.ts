@@ -1,5 +1,6 @@
 import { serverEndpoint } from "@/config/endpoint";
-import axios, { isAxiosError } from "axios";
+import { api } from "@/services/axios/server";
+import { isAxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -12,7 +13,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { data } = await axios.post(
+    const { data } = await api.post(
       `${serverEndpoint}/auth/verify/${siweFor}`,
       clientData
     );

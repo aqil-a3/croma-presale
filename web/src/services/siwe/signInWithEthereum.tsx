@@ -3,8 +3,8 @@
 
 import { SiweForType } from "@/@types/auth";
 import { serverEndpoint } from "@/config/endpoint";
-import axios from "axios";
 import { SiweMessage } from "siwe";
+import { api } from "../axios/server";
 
 type SignInWithSiweArgs = {
   address: `0x${string}`;
@@ -51,7 +51,7 @@ export async function signInWithEtherium({
   const signature = await signMessageAsync({ message: messageToSign });
 
   // 4) POST verify (set-cookie oleh backend)
-  await axios.post(
+  await api.post(
     "/api/auth/verify",
     {
       message: siwe,

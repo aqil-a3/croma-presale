@@ -10,16 +10,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { apiSiteSettings } from "@/services/db/site-settings";
 import { useEffect, useMemo, useState } from "react";
 import { Check } from "lucide-react"; // ✅ ikon check dari lucide-react
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const getData = async (): Promise<string[]> => {
-  const { getAllAvailablePaymentMethodSettings } = apiSiteSettings;
-  const data = await getAllAvailablePaymentMethodSettings();
+  const { data } = await axios.get("/api/setting/admin/payments");
   return data;
 };
 
@@ -69,10 +68,12 @@ export function PaymentMethodDialog({ initSelected }: Props) {
   };
 
   const handleSubmit = async () => {
-    const { editSiteSettings } = apiSiteSettings;
     try {
       setIsLoading(true);
-      await editSiteSettings("payment_methods", selected);
+      await axios.patch("/api/setting/admin", {
+        settingKey: "payment_methods",
+        value: selected,
+      });
       toast.success(`Payment Method updated!`);
       setOpen(false);
       router.refresh();

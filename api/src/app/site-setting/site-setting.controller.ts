@@ -37,12 +37,15 @@ export class SiteSettingController {
   @Put('edit/:key')
   async editSiteSetting(
     @Param('key') key: SettingAdminDbKey,
-    @Body() value: any,
+    @Body() body: any,
   ) {
+    let value = body.value;
+
     const allowedKey: SettingAdminDbKey[] = [
       'referral_average_buy_amount',
       'payment_methods',
     ];
+
 
     if (key === 'payment_methods') {
       const paymentValues =

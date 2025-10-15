@@ -10,9 +10,7 @@ export type SettingAdminDbKey =
   | "referral_average_buy_amount"
   | "payment_methods";
 
-export type NumberSettingValue = {
-  value: number;
-};
+export type NumberSettingValue = number;
 
 export type PaymentSettingValue = {
   value: {
