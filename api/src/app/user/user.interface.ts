@@ -6,3 +6,5 @@ export interface UserDb {
   email: string | null;
   referred_by: string | null;
 }
+
+export type UserFrom = "web" | "brand-ambassador" | "croma-army" | "give-away";

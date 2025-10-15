@@ -41,7 +41,12 @@ const dataContent: Record<TabsTriggerLabel, ContentData> = {
 
 Your wallet will prompt you to confirm the transaction`,
     imageSrc: "/images/dashboard/how-to-buy-step-2.png",
-    CTAComp: <Button style={{ background: CTA_BG }}>Purchase Now</Button>,
+    CTAComp: <Button style={{ background: CTA_BG }} onClick={() => {
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      })
+    }} >Purchase Now</Button>,
   },
   thirdStep: {
     title: "Step 3 - Token Reception",

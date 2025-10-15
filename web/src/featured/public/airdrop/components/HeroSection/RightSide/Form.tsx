@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { isAddress } from "ethers";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { ButtonSources } from "./ButtonSources";
 import { motion } from "motion/react";
 import { fadeUp } from "@/lib/variants";
 import { toast } from "sonner";
@@ -22,9 +21,10 @@ import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import axios, { isAxiosError } from "axios";
 import { FullMigrationData } from "@/@types/migration";
+import { SourceSelect } from "./SourceSelect";
 
 const formSchema = z.object({
-  source: z.enum(["galxe", "web"]),
+  source: z.enum(["web", "brand-ambassador", "croma-army", "give-away"]),
   ethAddress: z.custom<string>(isAddress, "Invalid Address"),
 });
 
@@ -47,7 +47,7 @@ export function FormCheckAirdrop() {
       setIsLoading(true);
       setData(null);
       const { data } = await axios.get(
-        `/api/airdrop/address/${values.ethAddress}`
+        `/api/airdrop/address/${values.ethAddress}?source=${values.source}`
       );
       toast.success(`Your account found!`);
       setData(data);
@@ -84,10 +84,7 @@ export function FormCheckAirdrop() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <ButtonSources
-                    value={field.value}
-                    setValue={field.onChange}
-                  />
+                  <SourceSelect value={field.value} setValue={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

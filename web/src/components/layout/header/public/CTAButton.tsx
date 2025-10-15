@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { fontOrbitron } from "@/config/fonts";
+// import { fontOrbitron } from "@/config/fonts";
 import React, { useState } from "react";
 import { MethodConnect } from "./MethodConnect";
 import { useAccount } from "wagmi";
@@ -30,13 +30,13 @@ export function HeaderCTAButton() {
         </div>
       </Button>
 
-      <Button
+      {/* <Button
         className={`relative inline-flex items-center justify-center px-[2px] py-[2px] h-[51px] ${fontOrbitron.className} bg-gradient-to-l from-[#B72204] to-[#FC6400] rounded-md`}
       >
         <div className="flex items-center justify-center w-full h-full bg-black rounded-md px-4 lg:px-8 py-3.5">
           Buy Now
         </div>
-      </Button>
+      </Button> */}
       <MethodConnect open={openSheet} setOpen={setOpenSheet} />
     </div>
   );

@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { FullMigrationData } from './migration.interface';
+import { SupabaseService } from '../../service/supabase/supabase.service';
 
 @Injectable()
 export class MigrationService {
+  constructor(private readonly supabaseService: SupabaseService) {}
+
+  private readonly supabaseAdmin = this.supabaseService.getAdmin();
+  private readonly tableName = 'migration_data';
   private readonly airdropApiKey = process.env.AIRDROP_SHARED_SECRET_KEY;
   private readonly airdropBaseUrl = 'https://airdrop.cromachain.com';
 
@@ -31,5 +36,21 @@ export class MigrationService {
     );
 
     return selected;
+  }
+
+  async getCrossMigrationDataByAddress(wallet_address: string, source: string) {
+    const { data, error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .select('*')
+      .eq('wallet_address', wallet_address)
+      .eq('source', source)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data;
   }
 }

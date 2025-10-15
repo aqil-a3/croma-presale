@@ -7,7 +7,7 @@ import {
 import { FullMigrationData } from "@/@types/migration";
 import { ReferralDb } from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
-import { UserReferralStatistic } from "@/@types/user";
+import { UserFrom, UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
 
@@ -57,6 +57,7 @@ export interface UserApiTypes {
     wallet_address?: string
   ) => Promise<UserReferralStatistic | null>;
   getMigrationDataByAddress: (
-    wallet_address: string
+    wallet_address: string,
+    source: UserFrom
   ) => Promise<FullMigrationData | null>;
 }

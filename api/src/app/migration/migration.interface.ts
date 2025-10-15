@@ -1,4 +1,12 @@
-export interface MigrationDataDB {
+export interface MigrationDb {
+  id: number;
+  created_at: string;
+  wallet_address: string;
+  source: string;
+  points: number;
+}
+
+export interface AirdropMigrationDataDB {
   readonly id: number;
   readonly created_at: string;
   readonly user_id: string;
@@ -26,7 +34,7 @@ export interface TaskUser {
   };
 }
 
-export interface FullMigrationData extends MigrationDataDB {
+export interface FullMigrationData extends AirdropMigrationDataDB {
   information: {
     userId?: string;
     email: string;

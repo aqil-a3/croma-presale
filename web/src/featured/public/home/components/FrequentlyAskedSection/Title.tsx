@@ -36,6 +36,12 @@ export function Title() {
         <Button
           style={{ background: CTA_BG }}
           className={`${fontOrbitron.className} text-lg py-6 my-auto`}
+          onClick={() => {
+            window.scrollTo({
+              top: 100000,
+              behavior: "smooth",
+            });
+          }}
         >
           Contact Us
         </Button>
