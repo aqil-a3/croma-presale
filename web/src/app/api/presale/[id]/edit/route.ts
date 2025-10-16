@@ -2,7 +2,7 @@ import { apiPresale } from "@/services/db/presale";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string }>;
 }
 
 export async function PUT(req: NextRequest, { params }: Props) {
@@ -11,7 +11,7 @@ export async function PUT(req: NextRequest, { params }: Props) {
   const { id } = await params;
 
   try {
-    await editPresaleData(body, id);
+    await editPresaleData(body, Number(id));
     return NextResponse.json({ message: "OK" });
   } catch (error) {
     console.error(error);
