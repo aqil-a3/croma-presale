@@ -6,8 +6,10 @@ import { Logo } from "./Logo";
 import { BuyCRM } from "./BuyCRM";
 import { motion } from "framer-motion";
 import { cardContainerVariants, childVariants } from "../../variants";
+import { usePublicPresaleContext } from "@/featured/public/home/provider";
 
 export function BuyCRMSection() {
+  const {activePresale} = usePublicPresaleContext()
   return (
     <motion.section
       style={{ background: PANEL_BG }}
@@ -21,7 +23,7 @@ export function BuyCRMSection() {
         <TitleBetweenAndDivider
           divider={true}
           leftSideText="CRM TOKEN VALUE"
-          rightSideText="Stage 27 - Phase 9"
+          rightSideText={`Stage ${activePresale.stage} - Phase ${activePresale.phase}`}
         />
       </motion.div>
 

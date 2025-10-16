@@ -1,6 +1,10 @@
 import { Separator } from "@/components/ui/separator";
 import { fontPoppins } from "@/config/fonts";
-import { GRADIENT_MAIN_COLOR, mainGradientFont, PANEL_BG } from "@/config/variables";
+import {
+  GRADIENT_MAIN_COLOR,
+  mainGradientFont,
+  PANEL_BG,
+} from "@/config/variables";
 import React from "react";
 
 interface Props {
@@ -34,9 +38,6 @@ const RightSideTextComp: React.FC<{ text: string }> = ({ text }) => {
     <div
       className="inline-flex items-center rounded-full py-1 px-4"
       style={{
-        // 1) overlay PANEL_BG (transparan) di atas isi
-        // 2) base solid gelap agar isi tidak “ketiban” border
-        // 3) border gradient
         background: `
         ${PANEL_BG} padding-box,
         linear-gradient(0deg, rgba(40,50,65,0.9), rgba(40,50,65,0.9)) padding-box,

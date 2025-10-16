@@ -22,8 +22,7 @@ export function ProgressBar() {
 
 const Title = () => {
   const {activePresale} = usePublicPresaleContext()
-  // TODO : Ini masih statis
-  const currentStage = 1;
+  const currentStage = activePresale.global_stage;
   const totalStage = 30;
   
   const nextConvert = activePresale.next_price_usd;
