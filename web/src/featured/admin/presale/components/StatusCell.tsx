@@ -13,8 +13,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { apiPresale } from "@/services/db/presale";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export function StatusCell({ row }: { row: Row<PresaleDb> }) {
   const { presales } = useAdminPresaleContext();
@@ -60,14 +60,13 @@ const ConfirmationDialog: React.FC<{
   row: Row<PresaleDb>;
   activePresale?: PresaleDb;
 }> = ({ open, setOpen, activePresale, row }) => {
-  const { patchPresaleStatus } = apiPresale;
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const clickHandler = async () => {
     try {
       setIsLoading(true);
-      await patchPresaleStatus(row.original.id);
+      await axios.patch(`/api/presale/${row.original.id}/edit/status`)
 
       toast.success("Edit Success");
       router.refresh();

@@ -12,5 +12,14 @@ export function mapDbDataToClienData(raw: PresaleDb): PresaleFormValues {
     phase: raw.phase,
     stage: raw.stage,
     total_raised: raw.total_raised,
+    budget_estimation: raw.budget_estimation,
+    cmc_bonus_per_stage: raw.cmc_bonus_per_stage,
+    cmc_bonus_per_usd: raw.cmc_bonus_per_usd,
+    cmc_sold: raw.cmc_sold,
+    crm_allocated: raw.crm_allocated,
+    crm_sold: raw.crm_sold,
+    global_stage: raw.global_stage,
+    headers_count: raw.headers_count,
+    potential_value: raw.potential_value,
   };
 }

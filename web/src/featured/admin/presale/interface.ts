@@ -9,6 +9,15 @@ export interface PresaleDb {
   is_active: boolean;
   stage: number;
   phase: number;
+  global_stage: number;
+  crm_sold: number;
+  cmc_sold: number;
+  potential_value: number;
+  headers_count: number;
+  crm_allocated: number;
+  budget_estimation: number;
+  cmc_bonus_per_stage: number;
+  cmc_bonus_per_usd: number;
 }
 
 export type PresaleClient = Omit<PresaleDb, "id" | "created_at">;

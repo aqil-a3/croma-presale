@@ -9,6 +9,15 @@ export const presaleSchema = z.object({
   phase: z.number().positive(),
   stage: z.number().positive(),
   is_active: z.boolean(),
+  global_stage: z.number().positive(),
+  crm_sold: z.number().positive(),
+  cmc_sold: z.number().positive(),
+  potential_value: z.number().positive(),
+  headers_count: z.number().positive(),
+  crm_allocated: z.number().positive(),
+  budget_estimation: z.number().positive(),
+  cmc_bonus_per_stage: z.number().positive(),
+  cmc_bonus_per_usd: z.number().positive(),
 });
 
 export type PresaleFormValues = z.infer<typeof presaleSchema>;
