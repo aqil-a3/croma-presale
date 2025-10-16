@@ -4,17 +4,25 @@ import { fontOrbitron, fontPoppins } from "@/config/fonts";
 import { GRADIENT_ORANGE, mainGradientFont } from "@/config/variables";
 import { cardVariants, containerVariants } from "@/lib/variants";
 import { motion } from "motion/react";
-
-const values: { value: string; label: string }[] = [
-  { label: "$CRM Sold", value: "$1M+" },
-  { label: "$CMC Sold", value: "$2M+" },
-  { label: "Potential Value (Global)", value: "$18M+" },
-  { label: "Holders Count", value: "12,453" },
-];
-
-
+import { usePublicPresaleContext } from "../../provider";
+import { formatNumberShort } from "@/utils/formatNumberShort";
+import { formatNumber } from "@/utils/formatNumber";
 
 export function MetrixCard() {
+  const { activePresale } = usePublicPresaleContext();
+
+  const values: { value: string; label: string }[] = [
+    { label: "$CRM Sold", value: formatNumberShort(activePresale.crm_sold) },
+    { label: "$CMC Sold", value: formatNumberShort(activePresale.cmc_sold) },
+    {
+      label: "Potential Value (Global)",
+      value: formatNumberShort(activePresale.potential_value),
+    },
+    {
+      label: "Holders Count",
+      value: formatNumber(activePresale.headers_count),
+    },
+  ];
   return (
     <motion.div
       className="grid grid-cols-2 md:grid-cols-4 gap-2 lg:gap-4"

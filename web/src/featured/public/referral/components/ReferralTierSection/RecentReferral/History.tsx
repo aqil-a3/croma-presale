@@ -8,6 +8,8 @@ import { formatDate } from "@/utils/formatDate";
 import { shortenAddress } from "@/utils/shortenAddress";
 import { motion, type Variants } from "framer-motion";
 import { useReferralContext } from "../../../provider";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export interface ReferralHistoryTypes {
   address: string;
@@ -83,30 +85,45 @@ const ctaVariants: Variants = {
 
 export function History() {
   const { referrals } = useReferralContext();
+  const pathname = usePathname();
+  const isPublic = pathname === "/referral";
 
   return (
     <motion.div
-      className="space-y-4"
+      className="space-y-4 relative"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
     >
+      {isPublic && (
+        <p className={cn(fontPoppins.className, "absolute z-10 -translate-y-1/2 top-1/2 font-semibold text-[#E9E9E9CC]")}>
+          Go to dashboard to see your referral history
+        </p>
+      )}
+
       {referrals.length === 0 ? <NoData /> : <WithData />}
     </motion.div>
   );
 }
 
 const NoData = () => {
-  return <p className="text-white">No Referral Data. Be The first!</p>
-}
+  return <p className="text-white">No Referral Data. Be The first!</p>;
+};
 
 const WithData = () => {
+  const pathname = usePathname();
+  const isPublic = pathname === "/referral";
   const { referrals } = useReferralContext();
 
   const recentReferral = referrals.map(mapper);
   return (
-    <>
+    <div
+      className={cn(
+        "relative",
+        isPublic && "blur-xl pointer-events-none select-none"
+      )}
+    >
       {recentReferral.slice(0, 3).map((history, i) => (
         <motion.div
           key={i}
@@ -143,7 +160,7 @@ const WithData = () => {
         </motion.div>
       ))}
 
-      {referrals.length > 3 && (
+      {referrals.length > 3 && !isPublic && (
         <motion.div variants={ctaVariants}>
           <Button
             variant="link"
@@ -153,6 +170,6 @@ const WithData = () => {
           </Button>
         </motion.div>
       )}
-    </>
+    </div>
   );
 };

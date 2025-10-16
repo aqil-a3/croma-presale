@@ -17,9 +17,9 @@ interface TierStepItemTypes {
 }
 
 const tierStepItems: TierStepItemTypes[] = [
-  { tierName: "Bronze", minimumReferral: 0, commisionPercentage: 5 },
-  { tierName: "Silver", minimumReferral: 11, commisionPercentage: 7 },
-  { tierName: "Gold", minimumReferral: 20, commisionPercentage: 10 },
+  { tierName: "Bronze", minimumReferral: 0, commisionPercentage: 3 },
+  { tierName: "Silver", minimumReferral: 10, commisionPercentage: 5 },
+  { tierName: "Gold", minimumReferral: 25, commisionPercentage: 7 },
 ];
 
 const tierContainerVariants: Variants = {

@@ -9,7 +9,7 @@ import { InvestmentSummary } from "@/@types/investment";
 interface CurrencyItems {
   logoSrc: string;
   currencyName: string;
-  type: "CRM" | "USD";
+  type: "CRM" | "USD" | string;
   amount: number;
 }
 
@@ -19,12 +19,21 @@ interface Props{
 }
 
 export function CurrenciesSection({investment}:Props) {
+  const CRM_PRICE = 0.09;
+const CMC_PRICE = 0.001;
+
+const currentValueUsd =
+  (investment.crm_owned ?? 0) * CRM_PRICE +
+  (investment.cmc_owned ?? 0) * CMC_PRICE;
+
+  // TODO : Penyesuaian ini di SQL QUery
   const items: CurrencyItems[] = [
-    { currencyName: "$CRM BALANCE", amount: investment.invested_usd, type: "USD", logoSrc: "/logo/dashboard-invested.png" },
-    { currencyName: "$CMC BALANCE", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/croma.png" },
-    { currencyName: "CURRENT VALUE", amount: 712.42, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
+    { currencyName: "$CRM BALANCE", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/crm-coin.png" },
+    { currencyName: "$CMC BALANCE", amount: investment.cmc_owned, type: "CMC", logoSrc: "/logo/croma.png" },
+    { currencyName: "CURRENT VALUE", amount: currentValueUsd, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
     { currencyName: "REFERRAL EARNINGS", amount: 243.42, type: "USD", logoSrc: "/logo/dashboard-referral-earning.png" },
   ];
+  
   return (
     <motion.section
       className="relative grid grid-cols-2 md:grid-cols-4 z-10 gap-2 lg:gap-4"

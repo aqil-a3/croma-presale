@@ -10,6 +10,7 @@ export interface InvestmentDb {
   pay_amount: number
   receive_currency: string; // default 'CRM'
   crm_amount: number; // numeric(18,6)
+  cmc_amount: number; // numeric(18,6)
   network: string; // ex: "eth", "bsc"
   stage: number; // presale stage
   phase: number; // phase number
@@ -23,6 +24,7 @@ export type InvestmentClient = Omit<InvestmentDb, "id" | "user_id" | "created_at
 export interface InvestmentSummary {
   invested_usd: number;
   crm_owned: number;
+  cmc_owned: number;
 }
 
 export interface GetInvestmentLeaderboardRequest {

@@ -2,7 +2,6 @@ import { PaymentSettingValue, SettingAdminDb } from "@/@types/setting-admin";
 import { useAdminSetting } from "../../provider";
 import { PaymentMethodDialog } from "./PaymentMethodDialog";
 import { Badge } from "@/components/ui/badge";
-import { TokenIcon } from "@web3icons/react";
 import Image from "next/image";
 
 export function PaymentMethod() {
