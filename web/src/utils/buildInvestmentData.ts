@@ -19,6 +19,7 @@ export function buildInvestmentData(
 
   return {
     crm_amount: price_amount / current_price_usd,
+    cmc_amount: 0, // TODO : Ini harus dibahas lebih lanjut cmc dapetnya gimana
     invested_usd: price_amount,
     phase,
     stage,
