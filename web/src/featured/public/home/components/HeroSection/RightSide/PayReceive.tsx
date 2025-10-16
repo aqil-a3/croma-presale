@@ -100,7 +100,7 @@ const RecComp: React.FC<{ usd: number }> = ({ usd }) => {
             width={24}
             height={24}
             alt="Croma Icon"
-            src={"/logo/croma.png"}
+            src={"/logo/crm-coin.png"}
           />{" "}
           CRM
         </Button>

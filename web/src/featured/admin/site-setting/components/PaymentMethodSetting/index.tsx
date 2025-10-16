@@ -3,6 +3,7 @@ import { useAdminSetting } from "../../provider";
 import { PaymentMethodDialog } from "./PaymentMethodDialog";
 import { Badge } from "@/components/ui/badge";
 import { TokenIcon } from "@web3icons/react";
+import Image from "next/image";
 
 export function PaymentMethod() {
   const { settings } = useAdminSetting();
@@ -18,11 +19,16 @@ export function PaymentMethod() {
     <div className="space-y-4">
       <p className="font-semibold">{paymentSetting.label}</p>
       <div className="flex gap-2">
-        {currencies.map((d) => (
-          <div key={d} className="flex gap-1">
-            <TokenIcon symbol={d.toLowerCase()} variant="branded" />
+        {data.map((d) => (
+          <div key={d.name} className="flex gap-1">
+            <Image
+              src={`https://nowpayments.io${d.icon}`}
+              alt={`${d.icon} Logo`}
+              width={24}
+              height={24}
+            />
             <Badge variant={"outline"} className="text-white">
-              {d.toUpperCase()}
+              {d.name.toUpperCase()}
             </Badge>
           </div>
         ))}

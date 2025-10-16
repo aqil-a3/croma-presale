@@ -16,13 +16,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { TokenIcon } from "@web3icons/react";
-
-// type Option = {
-//   name: string;
-//   label: string;
-//   icon?: string;
-// };
+import Image from "next/image";
 
 type Option = {
   currency: string;
@@ -47,6 +41,8 @@ export function AssetSelect({
 }: AssetSelectProps) {
   const [open, setOpen] = React.useState(false);
 
+  console.log(options);
+
   const selected = React.useMemo(() => {
     const result = options.find(
       (o) => o.currency.toLowerCase() === value?.toLowerCase()
@@ -65,9 +61,11 @@ export function AssetSelect({
           )}
           aria-label="Select asset"
         >
-          <TokenIcon
-            symbol={selected!.currency.toLowerCase()}
-            variant="background"
+          <Image
+            src={`https://nowpayments.io${selected!.icon}`}
+            alt={`${selected!.name} Logo`}
+            width={24}
+            height={24}
           />
           <span className="truncate">{selected?.name ?? placeholder}</span>
           <ChevronDown className="ml-auto h-4 w-4 opacity-80" />
@@ -89,9 +87,11 @@ export function AssetSelect({
                   }}
                   className="gap-2"
                 >
-                  <TokenIcon
-                    symbol={opt.currency.toLowerCase()}
-                    variant="background"
+                  <Image
+                    src={`https://nowpayments.io${opt.icon}`}
+                    alt={`${selected!.name} Logo`}
+                    width={24}
+                    height={24}
                   />
                   <span className="flex-1">{opt.name}</span>
                   <Check
