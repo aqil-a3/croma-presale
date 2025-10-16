@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
-import { UserDb } from './user.interface';
+import { UserDb, UserReferralStatistic } from './user.interface';
 import { ReferralsService } from '../referrals/referrals.service';
 
 @Injectable()
@@ -80,6 +80,21 @@ export class UserService {
     return data;
   }
 
+  async getReferrerByReferralId(referral_id: string): Promise<string | null> {
+    const { data, error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .select('referrer_id')
+      .eq('wallet_address', referral_id)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data.referrer_id;
+  }
+
   async getUserByRefCode(referral_code: string): Promise<UserDb | null> {
     const { data, error } = await this.supabaseAdmin
       .from(this.tableName)
@@ -97,13 +112,31 @@ export class UserService {
 
   async getUserStatisticByAddress(
     wallet_address: string,
-  ): Promise<UserDb | null> {
+  ): Promise<UserReferralStatistic | null> {
     const { id } = await this.getUserByAddress(wallet_address);
 
     const { data, error } = await this.supabaseAdmin.rpc(
       'get_referral_statistics',
       {
         p_user_id: id,
+      },
+    );
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data[0];
+  }
+
+  async getUserStatisticByUserId(
+    user_id: string,
+  ): Promise<UserReferralStatistic | null> {
+    const { data, error } = await this.supabaseAdmin.rpc(
+      'get_referral_statistics',
+      {
+        p_user_id: user_id,
       },
     );
 

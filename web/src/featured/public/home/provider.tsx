@@ -7,7 +7,7 @@ interface PublicPresaleContextType {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
   paymentMethods: PaymentSettingValue;
-  faqData?: FaqDb[]
+  faqData?: FaqDb[];
 }
 
 const PublicPresaleContext = createContext<PublicPresaleContextType>(
@@ -18,8 +18,8 @@ interface PublicPresaleProviderProps {
   children: React.ReactNode;
   activePresale: PresaleDb;
   paymentMethods: PaymentSettingValue;
-  faqData?: FaqDb[]
-  cryptoPrice: Record<string, number>
+  faqData?: FaqDb[];
+  cryptoPrice: Record<string, number>;
 }
 
 export function PublicPresaleProvider({
@@ -30,7 +30,14 @@ export function PublicPresaleProvider({
   children,
 }: PublicPresaleProviderProps) {
   return (
-    <PublicPresaleContext.Provider value={{ activePresale, cryptoPrice, faqData, paymentMethods }}>
+    <PublicPresaleContext.Provider
+      value={{
+        activePresale,
+        cryptoPrice,
+        faqData,
+        paymentMethods,
+      }}
+    >
       {children}
     </PublicPresaleContext.Provider>
   );

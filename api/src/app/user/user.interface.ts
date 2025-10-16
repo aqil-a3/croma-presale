@@ -1,3 +1,5 @@
+export type ReferralTier = 'Bronze' | 'Silver' | 'Gold';
+
 export interface UserDb {
   id: string;
   created_at: string;
@@ -7,4 +9,12 @@ export interface UserDb {
   referred_by: string | null;
 }
 
-export type UserFrom = "web" | "brand-ambassador" | "croma-army" | "give-away";
+export interface UserReferralStatistic {
+  total_referrals: number;
+  total_earned: number;
+  available_to_claim: number;
+  current_tier: ReferralTier;
+  commission_rate: number;
+}
+
+export type UserFrom = 'web' | 'brand-ambassador' | 'croma-army' | 'give-away';

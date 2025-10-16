@@ -6,6 +6,7 @@ export interface UserReferralStatistic {
   total_earned: number;
   available_to_claim: number;
   current_tier: ReferralTier;
+  commission_rate: number;
 }
 
 export interface TopBuyer {

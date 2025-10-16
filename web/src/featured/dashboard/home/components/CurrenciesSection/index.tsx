@@ -5,6 +5,7 @@ import { CurrencyCard } from "./CurrencyCard";
 import { motion } from "framer-motion";
 import { containerVariants } from "@/lib/variants";
 import { InvestmentSummary } from "@/@types/investment";
+import { ReferralRewardsDB } from "@/@types/referrals";
 
 interface CurrencyItems {
   logoSrc: string;
@@ -13,27 +14,52 @@ interface CurrencyItems {
   amount: number;
 }
 
-
-interface Props{
-  investment:InvestmentSummary
+interface Props {
+  investment: InvestmentSummary;
+  referralRewards: ReferralRewardsDB[];
 }
 
-export function CurrenciesSection({investment}:Props) {
+export function CurrenciesSection({ investment, referralRewards }: Props) {
   const CRM_PRICE = 0.09;
-const CMC_PRICE = 0.001;
+  const CMC_PRICE = 0.001;
 
-const currentValueUsd =
-  (investment.crm_owned ?? 0) * CRM_PRICE +
-  (investment.cmc_owned ?? 0) * CMC_PRICE;
+  const currentValueUsd =
+    (investment.crm_owned ?? 0) * CRM_PRICE +
+    (investment.cmc_owned ?? 0) * CMC_PRICE;
+
+  const rewardAmount = referralRewards.reduce(
+    (acc, curr) => acc + curr.bonus_amount,
+    0
+  );
 
   // TODO : Penyesuaian ini di SQL QUery
   const items: CurrencyItems[] = [
-    { currencyName: "$CRM BALANCE", amount: investment.crm_owned, type: "CRM", logoSrc: "/logo/crm-coin.png" },
-    { currencyName: "$CMC BALANCE", amount: investment.cmc_owned, type: "CMC", logoSrc: "/logo/croma.png" },
-    { currencyName: "CURRENT VALUE", amount: currentValueUsd, type: "USD", logoSrc: "/logo/dashboard-crm-worth.png" },
-    { currencyName: "REFERRAL EARNINGS", amount: 243.42, type: "USD", logoSrc: "/logo/dashboard-referral-earning.png" },
+    {
+      currencyName: "$CRM BALANCE",
+      amount: investment.crm_owned,
+      type: "CRM",
+      logoSrc: "/logo/crm-coin.png",
+    },
+    {
+      currencyName: "$CMC BALANCE",
+      amount: investment.cmc_owned,
+      type: "CMC",
+      logoSrc: "/logo/croma.png",
+    },
+    {
+      currencyName: "CURRENT VALUE",
+      amount: currentValueUsd,
+      type: "USD",
+      logoSrc: "/logo/dashboard-crm-worth.png",
+    },
+    {
+      currencyName: "REFERRAL EARNINGS",
+      amount: rewardAmount,
+      type: "USD",
+      logoSrc: "/logo/dashboard-referral-earning.png",
+    },
   ];
-  
+
   return (
     <motion.section
       className="relative grid grid-cols-2 md:grid-cols-4 z-10 gap-2 lg:gap-4"

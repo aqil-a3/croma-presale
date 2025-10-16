@@ -5,7 +5,7 @@ import {
   InvestmentSummary,
 } from "@/@types/investment";
 import { FullMigrationData } from "@/@types/migration";
-import { ReferralDb } from "@/@types/referrals";
+import { ReferralDb, ReferralRewardsDB } from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserFrom, UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
@@ -35,6 +35,7 @@ export interface PresaleApiTypes {
 
 export interface ReferralApiTypes {
   getNewestReferrals: () => Promise<ReferralDb[]>;
+  getReferralRewardById: (referrer_id: string) => Promise<ReferralRewardsDB[]>;
 }
 
 export interface SiteSettingApiTypes {

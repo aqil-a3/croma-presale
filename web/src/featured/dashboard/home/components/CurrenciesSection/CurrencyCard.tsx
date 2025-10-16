@@ -1,12 +1,16 @@
 "use client";
 
 import { fontPoppins } from "@/config/fonts";
-import { PANEL_BG } from "@/config/variables";
+import { GRADIENT_MAIN_COLOR_TW, PANEL_BG } from "@/config/variables";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cardVariants } from "@/lib/variants";
 import { formatCurrency } from "@/utils/formatCurrency";
 import React from "react";
+import { Button } from "@/components/ui/button";
+import { LucideHandCoins } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface Props {
   logoSrc: string;
@@ -16,8 +20,8 @@ interface Props {
 }
 
 export function CurrencyCard({ amount, currencyName, logoSrc, type }: Props) {
-  // const amountFormatted =
-  //   type === "CRM" ? `${amount} CRM` : formatCurrency(amount);
+  const amountFormatted =
+    type === "USD" ? formatCurrency(amount) : `${amount} ${type}`;
   const isReferral = currencyName === "REFERRAL EARNINGS";
 
   return (
@@ -44,18 +48,21 @@ export function CurrencyCard({ amount, currencyName, logoSrc, type }: Props) {
         </p>
       </div>
 
-      <div>
+      <div className="flex justify-between">
         <p
           className={`${fontPoppins.className} font-semibold text-white text-xl lg:text-4xl`}
         >
-          {type === "USD" ? (
-            formatCurrency(amount)
-          ) : (
-            <>
-              {amount} {type}
-            </>
-          )}
+          {amountFormatted}
         </p>
+        {isReferral && (
+          <Button
+            size={"icon"}
+            className={cn(GRADIENT_MAIN_COLOR_TW)}
+            onClick={() => toast.info("Claim is under development")}
+          >
+            <LucideHandCoins />
+          </Button>
+        )}
       </div>
     </motion.div>
   );

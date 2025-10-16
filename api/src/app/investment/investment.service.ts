@@ -85,6 +85,21 @@ export class InvestmentService {
     return data;
   }
 
+  async getInvestmentByOrderId(order_id: number): Promise<InvestmentDb | null> {
+    const { data, error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .select('*')
+      .eq('order_id', order_id)
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data;
+  }
+
   async createNewPayments(payload: CreatePaymentRequest) {
     const apiKey = process.env.NOWPAYMENTS_API_KEY;
 
