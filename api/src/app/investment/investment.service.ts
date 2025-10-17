@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
 import {
+  AdminInvestmentQuery,
   CreatePaymentRequest,
   GetInvestmentLeaderboardRequest,
   InvestmentClient,
@@ -19,6 +20,24 @@ export class InvestmentService {
   ) {}
   private readonly supabaseAdmin = this.supabase.getAdmin();
   private readonly tableName = 'investments';
+
+  async getAdminTransactions(
+    config: AdminInvestmentQuery,
+  ): Promise<InvestmentDb[]> {
+    const { from, to } = config;
+    const { data, error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .select('*')
+      .range(from, to)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data;
+  }
 
   async getAllTransactionByAddress(
     wallet_address: string,

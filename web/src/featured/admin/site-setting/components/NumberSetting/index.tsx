@@ -30,7 +30,6 @@ export function NumberSetting({ settingKey }: Props) {
   ) as SettingAdminDb<NumberSettingValue> | undefined;
 
   useEffect(() => {
-    console.log(currentSetting)
     if (!currentSetting) return;
     setValue(currentSetting.value);
   }, [currentSetting]);

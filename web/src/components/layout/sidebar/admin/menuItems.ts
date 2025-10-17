@@ -12,6 +12,10 @@ export const menuItems = [
     label: "FAQ",
   },
   {
+    value: "/admin/transaction",
+    label: "Transaction",
+  },
+  {
     value: "/admin/settings",
     label: "Setting",
   },

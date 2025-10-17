@@ -10,6 +10,7 @@ import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserFrom, UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
 import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
+import { AdminInvestmentQuery } from "./investment/getTransactions";
 
 export interface FAQApiTypes {
   getAllFAQ: () => Promise<FaqDb[]>;
@@ -21,6 +22,7 @@ export interface InvestmentApiTypes {
   getInvestmentLeaderboard(
     config: GetInvestmentLeaderboardRequest
   ): Promise<InvestmentLeaderboardItem[]>;
+  getAllTransactions(config:AdminInvestmentQuery): Promise<InvestmentDb[]>;
   getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
   createNewInvestment(payload: InvestmentClient): Promise<void>;
 }

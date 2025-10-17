@@ -25,6 +25,15 @@ export class InvestmentController {
   ) {}
 
   @UseGuards(SharedSecretGuard)
+  @Get('/all')
+  async getAdminTransactions(
+    @Query('from') from: number,
+    @Query('to') to: number,
+  ) {
+    return await this.investmentService.getAdminTransactions({ from, to });
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Get('/user/:wallet_address/get-transaction/all')
   async getAllTransactionByAddress(
     @Param('wallet_address') wallet_address: string,

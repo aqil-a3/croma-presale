@@ -1,8 +1,13 @@
+export interface AdminInvestmentQuery {
+  from: number;
+  to: number;
+}
+
 export interface InvestmentDb {
   id: string; // UUID
   user_id: string | null;
   order_id: string | null;
-  status: "waiting" | "confirming" | "finished" | "failed" | "expired" | string; 
+  status: 'waiting' | 'confirming' | 'finished' | 'failed' | 'expired' | string;
   invested_usd: number; // numeric(18,2)
   pay_currency: string | null; // ex: "eth", "usdt", etc.
   pay_amount: number | null; // numeric(38,18)
@@ -16,13 +21,15 @@ export interface InvestmentDb {
   wallet_address: string; // foreign key ke users.wallet_address
 }
 
-export type InvestmentClient = Omit<InvestmentDb, "id" | "created_at" | "updated_at">
+export type InvestmentClient = Omit<
+  InvestmentDb,
+  'id' | 'created_at' | 'updated_at'
+>;
 
 export interface InvestmentSummary {
   invested_usd: number;
   crm_owned: number;
 }
-
 
 export interface CreatePaymentRequest {
   /** The fiat equivalent price (NOT actual fiat payment). Example: 10 */
@@ -64,7 +71,13 @@ export interface CreatePaymentRequest {
 
 export interface CreatePaymentResponse {
   payment_id: number;
-  payment_status: 'waiting' | 'confirming' | 'confirmed' | 'finished' | 'failed' | 'expired';
+  payment_status:
+    | 'waiting'
+    | 'confirming'
+    | 'confirmed'
+    | 'finished'
+    | 'failed'
+    | 'expired';
   pay_address: string;
   pay_amount: string;
   pay_currency: string;
@@ -103,12 +116,12 @@ export interface NowPaymentsWebhook {
   payment_extra_ids: string | null;
   payment_id: number;
   payment_status:
-    | "waiting"
-    | "confirming"
-    | "confirmed"
-    | "finished"
-    | "failed"
-    | "expired"
+    | 'waiting'
+    | 'confirming'
+    | 'confirmed'
+    | 'finished'
+    | 'failed'
+    | 'expired'
     | string;
   price_amount: number;
   price_currency: string;
@@ -116,23 +129,23 @@ export interface NowPaymentsWebhook {
 }
 
 export interface GetInvestmentLeaderboardRequest {
-  /** 
+  /**
    * Pilihan periode:
    * 'all-time' → semua data
    * 'this-week' → minggu ini
    * 'this-month' → bulan ini
    */
-  period: "all-time" | "this-week" | "this-month";
+  period: 'all-time' | 'this-week' | 'this-month';
 
-  /** 
+  /**
    * Jumlah maksimum data leaderboard yang dikembalikan.
-   * Default di SQL = 20 
+   * Default di SQL = 20
    */
   limit_count?: number;
 
-  /** 
+  /**
    * Daftar status transaksi yang dihitung.
-   * Default di SQL = ['completed', 'paid'] 
+   * Default di SQL = ['completed', 'paid']
    */
   status_filter?: string[];
 }

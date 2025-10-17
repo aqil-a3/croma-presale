@@ -41,8 +41,6 @@ export function AssetSelect({
 }: AssetSelectProps) {
   const [open, setOpen] = React.useState(false);
 
-  console.log(options);
-
   const selected = React.useMemo(() => {
     const result = options.find(
       (o) => o.currency.toLowerCase() === value?.toLowerCase()
