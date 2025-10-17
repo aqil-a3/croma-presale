@@ -24,7 +24,16 @@ import { FullMigrationData } from "@/@types/migration";
 import { SourceSelect } from "./SourceSelect";
 
 const formSchema = z.object({
-  source: z.enum(["web", "brand-ambassador", "croma-army", "give-away"]),
+  source: z.enum([
+    "web",
+    "brand-ambassador",
+    "croma-army",
+    "give-away",
+    "croma-visionary",
+    "croma-og",
+    "moderator",
+    "all",
+  ]),
   ethAddress: z.custom<string>(isAddress, "Invalid Address"),
 });
 
@@ -34,7 +43,7 @@ export function FormCheckAirdrop() {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      source: "web",
+      source: "all",
       ethAddress: "",
     },
   });

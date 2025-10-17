@@ -1,5 +1,13 @@
 export type ReferralTier = "Bronze" | "Silver" | "Gold";
-export type UserFrom = "web" | "brand-ambassador" | "croma-army" | "give-away";
+export type UserFrom =
+  | "all"
+  | "web"
+  | "brand-ambassador"
+  | "croma-army"
+  | "give-away"
+  | "croma-visionary"
+  | "croma-og"
+  | "moderator";
 
 export interface UserReferralStatistic {
   total_referrals: number;

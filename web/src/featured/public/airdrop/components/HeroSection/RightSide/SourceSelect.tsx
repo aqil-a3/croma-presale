@@ -14,6 +14,10 @@ interface Props {
 
 const items: BasicItem[] = [
   {
+    value: "all",
+    label: "All",
+  },
+  {
     value: "web",
     label: "Web",
   },
@@ -29,13 +33,25 @@ const items: BasicItem[] = [
     value: "give-away",
     label: "Give Away",
   },
+  {
+    value: "croma-visionary",
+    label: "Croma Visionary",
+  },
+  {
+    value: "croma-og",
+    label: "Croma OG",
+  },
+  {
+    value: "moderator",
+    label: "Moderator",
+  },
 ];
 
 export function SourceSelect({ setValue, value }: Props) {
   return (
     <Select onValueChange={setValue}>
       <SelectTrigger className="w-full border-orange-500">
-        <SelectValue defaultValue={value} />
+        <SelectValue defaultValue={"all"} />
       </SelectTrigger>
       <SelectContent className="bg-black border-orange-500">
         {items.map((item) => (

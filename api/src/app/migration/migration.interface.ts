@@ -5,6 +5,7 @@ export interface MigrationDb {
   source: string;
   points: number;
 }
+export type MigrationDbInsert = Omit<MigrationDb, 'id' | 'created_at'>;
 
 export interface AirdropMigrationDataDB {
   readonly id: number;
