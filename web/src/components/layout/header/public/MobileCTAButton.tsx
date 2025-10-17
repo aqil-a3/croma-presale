@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { fontOrbitron } from "@/config/fonts";
-import { apiUser } from "@/services/db/users";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAccount, useConnect } from "wagmi";
 
 export function MobileCTAButton() {
-  const { createNewUser } = apiUser;
   const router = useRouter();
   const { connectors, connect } = useConnect({
     mutation: {
@@ -17,7 +16,7 @@ export function MobileCTAButton() {
       },
       onSuccess: async (data) => {
         const walletAddress = data.accounts[0] as string;
-        await createNewUser(walletAddress);
+        await axios.post("/api/auth/new-user", walletAddress)
 
         toast.success("Wallet Connected!");
         router.push("/dashboard");

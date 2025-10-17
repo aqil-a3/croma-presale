@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { fontPoppins } from "@/config/fonts";
 import { cn } from "@/lib/utils";
-import { apiUser } from "@/services/db/users";
+import axios from "axios";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -19,7 +19,6 @@ interface Props {
 }
 
 export function MethodConnect({ open, setOpen }: Props) {
-  const { createNewUser, createNewUserWithReferral } = apiUser;
   const router = useRouter();
   const pathname = usePathname();
   const { isConnected } = useAccount();
@@ -37,9 +36,12 @@ export function MethodConnect({ open, setOpen }: Props) {
         const walletAddress = data.accounts[0] as string;
         if (isWithReferral) {
           const referral_code = pathname.split("/")[2];
-          await createNewUserWithReferral(walletAddress, referral_code);
+          await axios.post("/api/auth/new-user-with-referral", {
+            walletAddress,
+            referral_code,
+          });
         } else {
-          await createNewUser(walletAddress);
+          await axios.post("/api/auth/new-user", walletAddress);
         }
 
         toast.success("Wallet Connected!");
@@ -56,7 +58,9 @@ export function MethodConnect({ open, setOpen }: Props) {
         ? "/logo/walletconnect.png"
         : connector.name.includes("OKX")
         ? "/logo/okx-wallet.png"
-        : connector.name ==="TrustWallet" ? "/logo/trust-wallet.png" :"/logo/unknown.png",
+        : connector.name === "TrustWallet"
+        ? "/logo/trust-wallet.png"
+        : "/logo/unknown.png",
     connector,
   }));
 
