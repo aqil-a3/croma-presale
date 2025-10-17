@@ -5,6 +5,7 @@ import { fontPoppins } from "@/config/fonts";
 import { PANEL_BG } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { shortenAddress } from "@/utils/shortenAddress";
+import axios from "axios";
 import { Bell, Copy, LogOut, Menu, User, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -50,7 +51,10 @@ export function DesktopDashboardHeader() {
           <Wallet />
           <span className={`${fontPoppins.className}`}>Wallet Connected</span>
         </div>
-        <Button className="bg-white/10 border border-gray-600 rounded-xl" onClick={copyHandler}>
+        <Button
+          className="bg-white/10 border border-gray-600 rounded-xl"
+          onClick={copyHandler}
+        >
           <span
             className={`${fontPoppins.className} font-semibold text-[#FFFFFF80] text-sm`}
           >
@@ -74,8 +78,9 @@ export function DesktopDashboardHeader() {
         <Button
           size={"icon"}
           className="bg-white/10 border border-gray-600 rounded-xl"
-          onClick={() => {
+          onClick={async () => {
             disconnect();
+            await axios.post("/api/auth/logout");
             router.replace("/home");
           }}
         >
