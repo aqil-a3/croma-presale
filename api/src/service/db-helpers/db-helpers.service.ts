@@ -1,13 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
-import { InvestmentDb } from 'src/app/investment/investment.interface';
-import { UserDb, UserReferralStatistic } from 'src/app/user/user.interface';
+import {
+  InvestmentDb,
+  NowPaymentsWebhook,
+} from '../../app/investment/investment.interface';
+import { UserDb, UserReferralStatistic } from '../../app/user/user.interface';
+import { ReferralRewardsInsert } from '../../app/referrals/referrals.interface';
 
 @Injectable()
 export class DbHelpersService {
   constructor(private readonly supabaseService: SupabaseService) {}
 
   private supabaseAdmin = this.supabaseService.getAdmin();
+
+  async createNewReferralReward(payload: ReferralRewardsInsert) {
+    const { error } = await this.supabaseAdmin
+      .from('referral_rewards')
+      .insert(payload);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async mapToReferralRewards(
+    nowpaymentsData: NowPaymentsWebhook,
+  ): Promise<ReferralRewardsInsert> {
+    const { payment_id } = nowpaymentsData;
+    const { user_id: referral_id, crm_amount } =
+      await this.getInvestmentByOrderId(payment_id);
+
+    const referrer_id = await this.getReferrerByReferralId(referral_id);
+
+    const { commission_rate } =
+      await this.getUserStatisticByUserId(referral_id);
+
+    return {
+      investment_id: payment_id.toString(),
+      claimed: false,
+      referral_id,
+      referrer_id,
+      bonus_amount: crm_amount * commission_rate,
+    };
+  }
 
   async getInvestmentByOrderId(order_id: number): Promise<InvestmentDb | null> {
     const { data, error } = await this.supabaseAdmin

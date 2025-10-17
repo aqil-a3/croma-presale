@@ -3,10 +3,10 @@ import { InvestmentService } from './investment.service';
 import { InvestmentController } from './investment.controller';
 import { SupabaseModule } from '../../service/supabase/supabase.module';
 import { UserModule } from '../user/user.module';
-import { ReferralsModule } from '../referrals/referrals.module';
+import { DbHelpersModule } from '../../service/db-helpers/db-helpers.module';
 
 @Module({
-  imports: [SupabaseModule, UserModule, ReferralsModule],
+  imports: [SupabaseModule, UserModule, DbHelpersModule],
   providers: [InvestmentService],
   controllers: [InvestmentController],
   exports: [InvestmentService],

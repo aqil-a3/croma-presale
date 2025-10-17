@@ -15,13 +15,13 @@ import {
   NowPaymentsWebhook,
 } from './investment.interface';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
-import { ReferralsService } from '../referrals/referrals.service';
+import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
 
 @Controller('investment')
 export class InvestmentController {
   constructor(
     private readonly investmentService: InvestmentService,
-    private readonly referralsService: ReferralsService,
+    private readonly dbHelperService: DbHelpersService,
   ) {}
 
   @UseGuards(SharedSecretGuard)
@@ -81,8 +81,8 @@ export class InvestmentController {
     );
 
     if (body.payment_status === 'success') {
-      const payload = await this.referralsService.mapToReferralRewards(body);
-      await this.referralsService.createNewReferralReward(payload);
+      const payload = await this.dbHelperService.mapToReferralRewards(body);
+      await this.dbHelperService.createNewReferralReward(payload);
     }
     return;
   }
