@@ -1,12 +1,11 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ReferralsController } from './referrals.controller';
 import { ReferralsService } from './referrals.service';
 import { SupabaseModule } from '../../service/supabase/supabase.module';
-import { InvestmentModule } from '../investment/investment.module';
-import { UserModule } from '../user/user.module';
+import { DbHelpersModule } from 'src/service/db-helpers/db-helpers.module';
 
 @Module({
-  imports: [SupabaseModule],
+  imports: [SupabaseModule, DbHelpersModule],
   controllers: [ReferralsController],
   providers: [ReferralsService],
   exports: [ReferralsService],

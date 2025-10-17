@@ -22,7 +22,7 @@ SELECT
                 public.investments inv
             WHERE
                 inv.wallet_address = p_wallet_address
-                and inv.status IN ('completed', 'paid')
+                and inv.status IN ('completed', 'paid', 'success')
         )
     )
     $$;

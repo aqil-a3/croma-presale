@@ -11,9 +11,10 @@ import { InvestmentModule } from './app/investment/investment.module';
 import { SiteSettingModule } from './app/site-setting/site-setting.module';
 import { ReferralsModule } from './app/referrals/referrals.module';
 import { MigrationModule } from './app/migration/migration.module';
+import { DbHelpersModule } from './service/db-helpers/db-helpers.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule, MigrationModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule, MigrationModule, DbHelpersModule],
   controllers: [AppController],
   providers: [AppService],
 })

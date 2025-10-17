@@ -20,19 +20,12 @@ interface Props {
 }
 
 export function CurrenciesSection({ investment, referralRewards }: Props) {
-  const CRM_PRICE = 0.09;
-  const CMC_PRICE = 0.001;
-
-  const currentValueUsd =
-    (investment.crm_owned ?? 0) * CRM_PRICE +
-    (investment.cmc_owned ?? 0) * CMC_PRICE;
 
   const rewardAmount = referralRewards.reduce(
     (acc, curr) => acc + curr.bonus_amount,
     0
   );
 
-  // TODO : Penyesuaian ini di SQL QUery
   const items: CurrencyItems[] = [
     {
       currencyName: "$CRM BALANCE",
@@ -48,7 +41,7 @@ export function CurrenciesSection({ investment, referralRewards }: Props) {
     },
     {
       currencyName: "CURRENT VALUE",
-      amount: currentValueUsd,
+      amount: investment.invested_usd,
       type: "USD",
       logoSrc: "/logo/dashboard-crm-worth.png",
     },
