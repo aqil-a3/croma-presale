@@ -41,7 +41,7 @@ export function MethodConnect({ open, setOpen }: Props) {
             referral_code,
           });
         } else {
-          await axios.post("/api/auth/new-user", walletAddress);
+          await axios.post("/api/auth/new-user", { address: walletAddress });
         }
 
         toast.success("Wallet Connected!");

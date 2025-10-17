@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const data = await req.json();
 
   try {
-    await createNewUser(data);
+    await createNewUser(data.address);
     return NextResponse.json({ message: "OK" });
   } catch (error) {
     console.error(error);
