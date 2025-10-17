@@ -1,40 +1,46 @@
-import { serverEndpoint } from "@/config/endpoint";
-import { api } from "@/services/axios/server";
-import { isAxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import * as jwt from "jsonwebtoken";
+import { verifyMessage } from "viem";
 
 export async function POST(req: NextRequest) {
-  const clientData = await req.json();
-  const header = req.headers;
-  const siweFor = header.get("siwe-for");
+  const { address, siweFor, signature, message } = await req.json();
+  const allowedAddress: string[] = [
+    `${process.env.ADMIN_WALLET_ADDRESS?.toLowerCase()}`,
+    `${process.env.DEVELOPER_WALLET_ADDRESS?.toLowerCase()}`,
+  ];
 
-  if (!siweFor) {
-    return NextResponse.json({ error: "Siwe For is missing" }, { status: 400 });
-  }
+  const isValid = await verifyMessage({
+    address,
+    message,
+    signature,
+  });
 
-  try {
-    const { data } = await api.post(
-      `${serverEndpoint}/auth/verify/${siweFor}`,
-      clientData
-    );
+  if (!isValid)
+    return NextResponse.json({ message: "Invalid signature" }, { status: 401 });
 
-    const token = data.token as string;
+  const isAllowed = allowedAddress.includes(address.toLowerCase());
 
-    // Buat response & set cookie
-    const res = NextResponse.json({ ok: true, address: data.address });
-    res.cookies.set(siweFor, token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "lax" : "lax",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60,
-    });
+  if (!isAllowed)
+    return NextResponse.json({ message: "Access denied!" }, { status: 401 });
 
-    return res;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      console.error("Verify error:", error?.response?.data || error.message);
-    }
-    return NextResponse.json({ error: "Verification failed" }, { status: 400 });
-  }
+  const token = jwt.sign(
+    {
+      address,
+      isAdmin: true,
+    },
+    `${process.env.JWT_SECRET}`,
+    { expiresIn: "1d" }
+  );
+
+  const response = NextResponse.json({ message: "OK" });
+
+  response.cookies.set({
+    name: siweFor,
+    value: token,
+    httpOnly: true,
+    maxAge: 24 * 60 * 60,
+    path: "/admin",
+  });
+
+  return response;
 }

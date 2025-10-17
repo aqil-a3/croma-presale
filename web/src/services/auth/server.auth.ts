@@ -20,7 +20,7 @@ export async function getServerSession() {
 
 export async function getDashboardSession() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("croma_presale_dashboard")?.value;
+  const token = cookieStore.get("croma_presale_admin_dashboard")?.value;
 
   if (!token) return null;
 

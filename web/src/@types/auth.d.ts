@@ -9,7 +9,7 @@ export interface Session {
   exp: number;
 }
 
-export type SiweForType = "croma_presale_dashboard";
+export type SiweForType = "croma_presale_admin_dashboard";
 
 export interface UserDb {
   id: string;

@@ -1,8 +1,8 @@
 "use client";
 import { AdminContainer } from "@/components/layout/container/AdminContainer";
-import { signInWithEtherium } from "@/services/siwe/signInWithEthereum";
-import { useState } from "react";
-import { useAccount, useChainId, useSignMessage } from "wagmi";
+import axios, { isAxiosError } from "axios";
+import { toast } from "sonner";
+import { useAccount, useSignMessage } from "wagmi";
 
 export default function AdminVerifyTemplate() {
   return (
@@ -13,33 +13,41 @@ export default function AdminVerifyTemplate() {
 }
 
 export function SiweLoginButton() {
-  const { address, isConnected } = useAccount();
-  const chainId = useChainId();
-  const { signMessageAsync } = useSignMessage();
-  const [loading, setLoading] = useState(false);
+  const { isConnected, address } = useAccount();
+  const { signMessageAsync, isPending } = useSignMessage({
+    mutation: {
+      onSuccess: async (signature, { account, message }) => {
+        if (!account) throw new Error("Account is required");
+        try {
+          await axios.post("/api/auth/verify", {
+            address: account,
+            siweFor: "croma_presale_admin_dashboard",
+            signature,
+            message,
+          });
+
+          toast.success("You got permission to enter Admin Dashboard");
+        } catch (error) {
+          console.error(error);
+          if (isAxiosError(error)) {
+            const data = error.response?.data;
+
+            toast.error(data.message ?? "Something went error");
+          }
+        }
+      },
+    },
+  });
 
   const handleSiwe = async () => {
-    if (!isConnected || !address || !chainId) return;
-    try {
-      setLoading(true);
-      await signInWithEtherium({
-        address,
-        chainId,
-        statement: "Sign in to accessing Admin Dashboard",
-        signMessageAsync,
-        siweFor: "croma_presale_dashboard",
-      });
-      window.location.reload();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+    await signMessageAsync({
+      account: address,
+      message: "Permission for access admin dashboard",
+    });
   };
-
   return (
-    <button onClick={handleSiwe} disabled={!isConnected || loading}>
-      {loading ? "Signing…" : "Verify wallet"}
+    <button onClick={handleSiwe} disabled={!isConnected || isPending}>
+      {isPending ? "Signing…" : "Verify wallet"}
     </button>
   );
 }
