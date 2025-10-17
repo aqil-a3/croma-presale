@@ -8,9 +8,15 @@ import { cardVariants } from "@/lib/variants";
 import { formatCurrency } from "@/utils/formatCurrency";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { LucideHandCoins } from "lucide-react";
+import { Info, LucideHandCoins } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { formatNumberShort } from "@/utils/formatNumberShort";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface Props {
   logoSrc: string;
@@ -21,7 +27,9 @@ interface Props {
 
 export function CurrencyCard({ amount, currencyName, logoSrc, type }: Props) {
   const amountFormatted =
-    type === "USD" ? formatCurrency(amount) : `${amount} ${type}`;
+    type === "USD"
+      ? formatCurrency(amount)
+      : `${formatNumberShort(amount, { prefix: "", suffix: "" })} ${type}`;
   const isReferral = currencyName === "REFERRAL EARNINGS";
 
   return (
@@ -48,22 +56,42 @@ export function CurrencyCard({ amount, currencyName, logoSrc, type }: Props) {
         </p>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <p
           className={`${fontPoppins.className} font-semibold text-white text-xl lg:text-4xl`}
         >
           {amountFormatted}
         </p>
-        {isReferral && (
-          <Button
-            size={"icon"}
-            className={cn(GRADIENT_MAIN_COLOR_TW)}
-            onClick={() => toast.info("Claim is under development")}
-          >
-            <LucideHandCoins />
-          </Button>
-        )}
+        <div className="flex gap-2 items-center">
+          <CurrencyPopOver amount={amount} currencyName={currencyName} />
+          {isReferral && (
+            <Button
+              size={"icon"}
+              className={cn(GRADIENT_MAIN_COLOR_TW)}
+              onClick={() => toast.info("Claim is under development")}
+            >
+              <LucideHandCoins />
+            </Button>
+          )}
+        </div>
       </div>
     </motion.div>
   );
 }
+
+const CurrencyPopOver: React.FC<{ amount: number; currencyName: string }> = ({
+  amount,
+  currencyName,
+}) => {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Info />
+      </PopoverTrigger>
+      <PopoverContent className={cn(fontPoppins.className, "bg-black border-orange-500 text-white")}>
+        <p className="font-semibold">YOUR {currencyName} : </p>
+        <p>{amount}</p>
+      </PopoverContent>
+    </Popover>
+  );
+};

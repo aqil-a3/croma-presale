@@ -112,7 +112,7 @@ export function FormCheckAirdrop() {
                 <FormControl>
                   <Input
                     disabled={isLoading}
-                    className={`${fontPoppins.className} text-[#A8A8A8] font-medium text-base lg:text-2xl border border-gray-500 outline-none`}
+                    className={`${fontPoppins.className} text-[#A8A8A8] font-medium text-base lg:text-lg border border-gray-500 outline-none`}
                     placeholder="Enter Your Address..."
                     {...field}
                   />

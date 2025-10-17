@@ -44,7 +44,7 @@ export function CurrenciesSection({ investment, referralRewards }: Props) {
       currencyName: "$CMC BALANCE",
       amount: investment.cmc_owned,
       type: "CMC",
-      logoSrc: "/logo/croma.png",
+      logoSrc: "/logo/crc_token_logo.png",
     },
     {
       currencyName: "CURRENT VALUE",

@@ -50,12 +50,16 @@ const items: BasicItem[] = [
 export function SourceSelect({ setValue, value }: Props) {
   return (
     <Select onValueChange={setValue}>
-      <SelectTrigger className="w-full border-orange-500">
-        <SelectValue defaultValue={"all"} />
+      <SelectTrigger className="w-full border-orange-500" value={value}>
+        <SelectValue placeholder="Select your source" />
       </SelectTrigger>
       <SelectContent className="bg-black border-orange-500">
         {items.map((item) => (
-          <SelectItem key={item.value} value={item.value} className="focus:bg-orange-500 text-white">
+          <SelectItem
+            key={item.value}
+            value={item.value}
+            className="focus:bg-orange-500 text-white"
+          >
             {item.label}
           </SelectItem>
         ))}

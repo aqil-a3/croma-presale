@@ -12,11 +12,26 @@ export function MetrixCard() {
   const { activePresale } = usePublicPresaleContext();
 
   const values: { value: string; label: string }[] = [
-    { label: "$CRM Sold", value: formatNumberShort(activePresale.crm_sold) },
-    { label: "$CMC Sold", value: formatNumberShort(activePresale.cmc_sold) },
+    {
+      label: "$CRM Sold",
+      value: formatNumberShort(activePresale.crm_sold, {
+        prefix: "$",
+        suffix: "+",
+      }),
+    },
+    {
+      label: "$CMC Sold",
+      value: formatNumberShort(activePresale.cmc_sold, {
+        prefix: "$",
+        suffix: "+",
+      }),
+    },
     {
       label: "Potential Value (Global)",
-      value: formatNumberShort(activePresale.potential_value),
+      value: formatNumberShort(activePresale.potential_value, {
+        prefix: "$",
+        suffix: "+",
+      }),
     },
     {
       label: "Holders Count",

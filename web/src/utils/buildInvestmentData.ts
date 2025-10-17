@@ -7,7 +7,7 @@ export function buildInvestmentData(
   activePresale: PresaleDb,
   nowpayments: CreatePaymentResponse
 ): InvestmentClient {
-  const { phase, stage, current_price_usd } = activePresale;
+  const { phase, stage, current_price_usd, cmc_bonus_per_usd } = activePresale;
   const {
     network,
     pay_amount,
@@ -19,7 +19,7 @@ export function buildInvestmentData(
 
   return {
     crm_amount: price_amount / current_price_usd,
-    cmc_amount: 0, // TODO : Ini harus dibahas lebih lanjut cmc dapetnya gimana
+    cmc_amount: price_amount * cmc_bonus_per_usd,
     invested_usd: price_amount,
     phase,
     stage,
