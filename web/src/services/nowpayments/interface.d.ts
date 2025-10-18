@@ -34,6 +34,8 @@ export interface CreatePaymentRequest {
 
   /** (Optional) Make user pay the transaction fee */
   is_fee_paid_by_user?: boolean;
+
+  case?: string;
 }
 
 export interface CreatePaymentResponse {

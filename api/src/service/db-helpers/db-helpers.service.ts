@@ -31,7 +31,7 @@ export class DbHelpersService {
     const {
       user_id: referral_id,
       wallet_address,
-      pay_amount,
+      invested_usd
     } = await this.getInvestmentByOrderId(payment_id);
 
     const { referred_by: referrer_id } =
@@ -46,7 +46,7 @@ export class DbHelpersService {
       claimed: false,
       referral_id,
       referrer_id,
-      bonus_amount: pay_amount * commission_rate,
+      bonus_amount: invested_usd * commission_rate,
     };
   }
 
