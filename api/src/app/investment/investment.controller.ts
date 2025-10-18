@@ -76,6 +76,7 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
+    console.log(body);
     return await this.investmentService.createNewPayments(body);
   }
 
@@ -86,6 +87,9 @@ export class InvestmentController {
     const ipnSecret = process.env.NOWPAYMENTS_SANDBOX_IPN_SECRET!;
     const rawBody = (req as any).rawBody || JSON.stringify(req.body);
     const body: NowPaymentsWebhook = req.body;
+
+    console.log(signature);
+    console.log(ipnSecret);
 
     const computed = crypto
       .createHmac('sha512', ipnSecret)
