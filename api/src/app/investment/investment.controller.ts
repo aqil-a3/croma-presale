@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import {
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
 import crypto from 'crypto';
+import { Request } from 'express';
 
 @Controller('investment')
 export class InvestmentController {
@@ -78,36 +80,39 @@ export class InvestmentController {
   }
 
   @Post('/payments/webhook')
-  async webhookNowPayments(
-    @Body() body: NowPaymentsWebhook,
-    @Headers('x-nowpayments-sig') signature: string,
-  ) {
-    const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET;
-    const sortedBody = JSON.stringify(body, Object.keys(body).sort());
-    const computed = crypto
-      .createHmac('sha512', ipnSecret)
-      .update(sortedBody)
-      .digest('hex');
-    console.log(`IPN Secret :`, ipnSecret);
-    console.log(`computed :`, computed);
-    console.log(`sortedBody :`, sortedBody);
-    console.log('Webhook body:', body);
+async webhookNowPayments(@Req() req: Request) {
+  const signature = req.headers['x-nowpayments-sig'] as string;
+  const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+  const rawBody = req.rawBody; // ambil JSON mentah
+  const parsedBody = req.body;
 
-    if (computed !== signature) {
-      console.warn('❌ Invalid NOWPayments signature');
-      throw new UnauthorizedException('Invalid IPN Signature');
-    }
+  const computed = crypto
+    .createHmac('sha512', ipnSecret)
+    .update(rawBody) // gunakan rawBody, bukan JSON.stringify(parsedBody)
+    .digest('hex');
 
-    // TODO: validasi signature dari headers['x-nowpayments-sig'] (kalau mau)
-    await this.investmentService.updateStatusPayments(
-      body.payment_id.toString(),
-      body.payment_status,
-    );
+  console.log('IPN Secret:', ipnSecret);
+  console.log('Computed:', computed);
+  console.log('Signature:', signature);
 
-    if (body.payment_status === 'success') {
-      const payload = await this.dbHelperService.mapToReferralRewards(body);
-      await this.dbHelperService.createNewReferralReward(payload);
-    }
-    return;
+  if (computed !== signature) {
+    console.warn('❌ Invalid NOWPayments signature');
+    throw new UnauthorizedException('Invalid IPN Signature');
   }
+
+  console.log('✅ Valid signature');
+  console.log('Webhook body:', parsedBody);
+
+  await this.investmentService.updateStatusPayments(
+    parsedBody.payment_id.toString(),
+    parsedBody.payment_status,
+  );
+
+  if (parsedBody.payment_status === 'success') {
+    const payload = await this.dbHelperService.mapToReferralRewards(parsedBody);
+    await this.dbHelperService.createNewReferralReward(payload);
+  }
+
+  return;
+}
 }
