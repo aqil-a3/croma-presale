@@ -120,14 +120,18 @@ export class InvestmentService {
   }
 
   async createNewPayments(payload: CreatePaymentRequest) {
-    const apiKey = process.env.NOWPAYMENTS_API_KEY;
+    const sandboxApiKey = process.env.NOWPAYMENTS_SANDBOX_API_KEY;
+    const sandboxEndpoint = "https://api-sandbox.nowpayments.io/v1/payment";
+    const realApiKey = process.env.NOWPAYMENTS_API_KEY;
+    const realCaseEndpoint = "https://api.nowpayments.io/v1/payment";
 
     try {
       const { data } = await axios.post(
-        'https://api.nowpayments.io/v1/payment',
+        sandboxEndpoint,
         payload,
         {
-          headers: { 'x-api-key': apiKey },
+          headers: { 'x-api-key': sandboxApiKey },
+          // headers: { 'x-api-key': realApiKey },
         },
       );
 
