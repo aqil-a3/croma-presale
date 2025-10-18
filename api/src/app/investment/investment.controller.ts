@@ -76,7 +76,6 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
-    console.log(body);
     return await this.investmentService.createNewPayments(body);
   }
 
@@ -104,7 +103,6 @@ export class InvestmentController {
 
     if (body.payment_status === 'finished') {
       const payload = await this.dbHelperService.mapToReferralRewards(body);
-      console.log('Status payment finished', payload);
       if (!payload) return;
       await this.dbHelperService.createNewReferralReward(payload);
     }

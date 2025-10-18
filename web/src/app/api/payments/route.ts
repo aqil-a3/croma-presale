@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
     order_description: "Buy Cromachain Coin",
     is_fixed_rate: false,
     ipn_callback_url: `https://croma-presale-131e.vercel.app/investment/payments/webhook`,
+    // TESTING :
+    case: "success",
   };
 
   try {

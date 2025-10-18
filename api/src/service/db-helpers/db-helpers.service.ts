@@ -30,29 +30,23 @@ export class DbHelpersService {
     const { payment_id } = nowpaymentsData;
     const {
       user_id: referral_id,
-      crm_amount,
       wallet_address,
+      pay_amount,
     } = await this.getInvestmentByOrderId(payment_id);
-
-    console.log('Referral Id :', referral_id);
-    console.log('CRM AMount', crm_amount);
-    console.log('Wallet Address', wallet_address);
 
     const { referred_by: referrer_id } =
       await this.getUserByAddress(wallet_address);
-    console.log('Referrer Id', referrer_id);
     if (!referrer_id) return null;
 
     const { commission_rate } =
       await this.getUserStatisticByUserId(referrer_id);
-    console.log('comission rate', commission_rate);
 
     return {
       investment_id: payment_id.toString(),
       claimed: false,
       referral_id,
       referrer_id,
-      bonus_amount: crm_amount * commission_rate,
+      bonus_amount: pay_amount * commission_rate,
     };
   }
 
