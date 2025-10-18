@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as bodyParser from 'body-parser';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const cookieParser = require('cookie-parser');
@@ -9,12 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
-  app.use('/investment/payments/webhook', bodyParser.json({
-    verify: (req: any, res, buf) => {
-      req.rawBody = buf.toString();
-    }
-  }));
-
   app.enableCors({
     credentials: true,
     origin: [

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './app/auth/auth.module';
@@ -12,10 +12,27 @@ import { SiteSettingModule } from './app/site-setting/site-setting.module';
 import { ReferralsModule } from './app/referrals/referrals.module';
 import { MigrationModule } from './app/migration/migration.module';
 import { DbHelpersModule } from './service/db-helpers/db-helpers.module';
+import { RawBodyMiddleware } from './middleware/raw-body.middleware';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), AuthModule, SupabaseModule, PresaleModule, FaqModule, UserModule, InvestmentModule, SiteSettingModule, ReferralsModule, MigrationModule, DbHelpersModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    AuthModule,
+    SupabaseModule,
+    PresaleModule,
+    FaqModule,
+    UserModule,
+    InvestmentModule,
+    SiteSettingModule,
+    ReferralsModule,
+    MigrationModule,
+    DbHelpersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RawBodyMiddleware).forRoutes('*');
+  }
+}
