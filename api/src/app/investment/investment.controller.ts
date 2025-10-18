@@ -82,7 +82,8 @@ export class InvestmentController {
   @Post('/payments/webhook')
   async webhookNowPayments(@Req() req: Request) {
     const signature = req.headers['x-nowpayments-sig'] as string;
-    const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+    // const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+    const ipnSecret = process.env.NOWPAYMENTS_SANDBOX_IPN_SECRET!;
     const rawBody = (req as any).rawBody || JSON.stringify(req.body);
     const body: NowPaymentsWebhook = req.body;
 
