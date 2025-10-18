@@ -1,3 +1,14 @@
+export type InvestmentPayStatus =
+  | 'waiting'
+  | 'confirming'
+  | 'confirmed'
+  | 'sending'
+  | 'partially_paid'
+  | 'finished'
+  | 'failed'
+  | 'refunded'
+  | 'expired';
+
 export interface AdminInvestmentQuery {
   from: number;
   to: number;
@@ -7,7 +18,7 @@ export interface InvestmentDb {
   id: string; // UUID
   user_id: string | null;
   order_id: string | null;
-  status: 'waiting' | 'confirming' | 'finished' | 'failed' | 'expired' | string;
+  status: InvestmentPayStatus;
   invested_usd: number; // numeric(18,2)
   pay_currency: string | null; // ex: "eth", "usdt", etc.
   pay_amount: number | null; // numeric(38,18)
