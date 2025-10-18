@@ -88,9 +88,6 @@ export class InvestmentController {
     const rawBody = (req as any).rawBody || JSON.stringify(req.body);
     const body: NowPaymentsWebhook = req.body;
 
-    console.log(signature);
-    console.log(ipnSecret);
-
     const computed = crypto
       .createHmac('sha512', ipnSecret)
       .update(rawBody)
@@ -107,6 +104,8 @@ export class InvestmentController {
 
     if (body.payment_status === 'finished') {
       const payload = await this.dbHelperService.mapToReferralRewards(body);
+      console.log('Status payment finished', payload);
+      if (!payload) return;
       await this.dbHelperService.createNewReferralReward(payload);
     }
     return;

@@ -26,15 +26,26 @@ export class DbHelpersService {
 
   async mapToReferralRewards(
     nowpaymentsData: NowPaymentsWebhook,
-  ): Promise<ReferralRewardsInsert> {
+  ): Promise<ReferralRewardsInsert | null> {
     const { payment_id } = nowpaymentsData;
-    const { user_id: referral_id, crm_amount } =
-      await this.getInvestmentByOrderId(payment_id);
+    const {
+      user_id: referral_id,
+      crm_amount,
+      wallet_address,
+    } = await this.getInvestmentByOrderId(payment_id);
 
-    const referrer_id = await this.getReferrerByReferralId(referral_id);
+    console.log('Referral Id :', referral_id);
+    console.log('CRM AMount', crm_amount);
+    console.log('Wallet Address', wallet_address);
+
+    const { referred_by: referrer_id } =
+      await this.getUserByAddress(wallet_address);
+    console.log('Referrer Id', referrer_id);
+    if (!referrer_id) return null;
 
     const { commission_rate } =
-      await this.getUserStatisticByUserId(referral_id);
+      await this.getUserStatisticByUserId(referrer_id);
+    console.log('comission rate', commission_rate);
 
     return {
       investment_id: payment_id.toString(),
@@ -63,16 +74,21 @@ export class DbHelpersService {
   async getReferrerByReferralId(referral_id: string): Promise<string | null> {
     const { data, error } = await this.supabaseAdmin
       .from('referrals')
-      .select('referrer_id')
-      .eq('wallet_address', referral_id)
+      .select('wallet_address')
+      .eq('referred_by', referral_id)
       .maybeSingle();
 
     if (error) {
       console.error(error);
       throw error;
     }
+    const wallet_address = data?.wallet_address;
 
-    return data.referrer_id;
+    if (!wallet_address) return null;
+
+    const { id } = await this.getUserByAddress(wallet_address);
+
+    return id;
   }
 
   async getUserStatisticByUserId(
