@@ -79,31 +79,28 @@ export class InvestmentController {
     return await this.investmentService.createNewPayments(body);
   }
 
-@Post('/payments/webhook')
-async webhookNowPayments(@Req() req: Request) {
-  const signature = req.headers['x-nowpayments-sig'] as string;
-  const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
-  const rawBody = (req as any).rawBody || JSON.stringify(req.body);
-  const body = req.body;
+  @Post('/payments/webhook')
+  async webhookNowPayments(@Req() req: Request) {
+    const signature = req.headers['x-nowpayments-sig'] as string;
+    const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+    const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+    const body: NowPaymentsWebhook = req.body;
 
-  console.log(body)
+    const computed = crypto
+      .createHmac('sha512', ipnSecret)
+      .update(rawBody)
+      .digest('hex');
 
-  const computed = crypto
-    .createHmac('sha512', ipnSecret)
-    .update(rawBody)
-    .digest('hex');
+    if (computed !== signature) {
+      throw new UnauthorizedException('Invalid IPN Signature');
+    }
 
-  if (computed !== signature) {
-    throw new UnauthorizedException('Invalid IPN Signature');
-  }
-
-    // TODO: validasi signature dari headers['x-nowpayments-sig'] (kalau mau)
     await this.investmentService.updateStatusPayments(
       body.payment_id.toString(),
       body.payment_status,
     );
 
-    if (body.payment_status === 'success') {
+    if (body.payment_status === 'finished') {
       const payload = await this.dbHelperService.mapToReferralRewards(body);
       await this.dbHelperService.createNewReferralReward(payload);
     }

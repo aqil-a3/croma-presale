@@ -105,6 +105,7 @@ export interface CreatePaymentResponse {
   purchase_id?: string;
 }
 
+
 export interface NowPaymentsWebhook {
   actually_paid: number;
   actually_paid_at_fiat: number;
@@ -126,14 +127,7 @@ export interface NowPaymentsWebhook {
   payin_extra_id: string | null;
   payment_extra_ids: string | null;
   payment_id: number;
-  payment_status:
-    | 'waiting'
-    | 'confirming'
-    | 'confirmed'
-    | 'finished'
-    | 'failed'
-    | 'expired'
-    | string;
+  payment_status: InvestmentPayStatus;
   price_amount: number;
   price_currency: string;
   purchase_id: string;

@@ -127,11 +127,11 @@ export class InvestmentService {
 
     try {
       const { data } = await axios.post(
-        realCaseEndpoint,
+        sandboxEndpoint,
         payload,
         {
-          // headers: { 'x-api-key': sandboxApiKey },
-          headers: { 'x-api-key': realApiKey },
+          headers: { 'x-api-key': sandboxApiKey },
+          // headers: { 'x-api-key': realApiKey },
         },
       );
 
