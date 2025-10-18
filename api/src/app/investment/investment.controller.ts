@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ import {
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
 import crypto from 'crypto';
+import { Request } from 'express';
 
 @Controller('investment')
 export class InvestmentController {
@@ -77,25 +79,23 @@ export class InvestmentController {
     return await this.investmentService.createNewPayments(body);
   }
 
-  @Post('/payments/webhook')
-  async webhookNowPayments(
-    @Body() body: NowPaymentsWebhook,
-    @Headers('x-nowpayments-sig') signature: string,
-  ) {
-    const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET;
-    const sortedBody = JSON.stringify(body, Object.keys(body).sort());
-    const computed = crypto
-      .createHmac('sha512', ipnSecret)
-      .update(sortedBody)
-      .digest('hex');
-    console.log(`IPN Secret :`, ipnSecret);
-    console.log(`IPN Secret :`, ipnSecret);
-    console.log('Webhook body:', body);
+@Post('/payments/webhook')
+async webhookNowPayments(@Req() req: Request) {
+  const signature = req.headers['x-nowpayments-sig'] as string;
+  const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+  const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+  const body = req.body;
 
-    if (computed !== signature) {
-      console.warn('❌ Invalid NOWPayments signature');
-      throw new UnauthorizedException('Invalid IPN Signature');
-    }
+  console.log(body)
+
+  const computed = crypto
+    .createHmac('sha512', ipnSecret)
+    .update(rawBody)
+    .digest('hex');
+
+  if (computed !== signature) {
+    throw new UnauthorizedException('Invalid IPN Signature');
+  }
 
     // TODO: validasi signature dari headers['x-nowpayments-sig'] (kalau mau)
     await this.investmentService.updateStatusPayments(
