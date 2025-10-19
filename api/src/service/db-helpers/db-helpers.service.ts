@@ -144,7 +144,7 @@ export class DbHelpersService {
 
   async getUserById(user_id: string): Promise<UserDb | null> {
     const { data, error } = await this.supabaseAdmin
-      .from('referrals')
+      .from('users')
       .select('*')
       .eq('id', user_id)
       .maybeSingle();
