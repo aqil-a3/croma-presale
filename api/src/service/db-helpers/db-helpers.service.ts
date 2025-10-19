@@ -34,17 +34,19 @@ export class DbHelpersService {
       .eq('buyer_wallet', payload.buyer_wallet);
 
     if (errorCheck) {
+      console.error("Error when checking...")
       console.error(errorCheck);
       throw errorCheck;
     }
-
+    
     if (data.length > 0) return;
-
+    
     const { error } = await this.supabaseAdmin
-      .from('referral_buy_bonus')
-      .insert(payload);
-
+    .from('referral_buy_bonus')
+    .insert(payload);
+    
     if (error) {
+      console.error("Error when adding...")
       console.error(error);
       throw error;
     }
