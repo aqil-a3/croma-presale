@@ -1,7 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
-import { ReferralBuyBonusInsert, ReferralRewardsInsert } from 'src/app/referrals/referrals.interface';
-import { InvestmentDb, NowPaymentsWebhook } from 'src/app/investment/investment.interface';
+import {
+  ReferralBuyBonusInsert,
+  ReferralRewardsInsert,
+} from 'src/app/referrals/referrals.interface';
+import {
+  InvestmentDb,
+  NowPaymentsWebhook,
+} from 'src/app/investment/investment.interface';
 import { UserDb, UserReferralStatistic } from 'src/app/user/user.interface';
 
 @Injectable()
@@ -21,7 +27,9 @@ export class DbHelpersService {
       throw error;
     }
 
-    this.logger.debug(`Referral reward created successfully for ${payload.referral_id}`);
+    this.logger.debug(
+      `Referral reward created successfully for ${payload.referral_id}`,
+    );
   }
 
   async createNewReferralBuyBonusIfNoExist(payload: ReferralBuyBonusInsert) {
@@ -31,7 +39,10 @@ export class DbHelpersService {
       .eq('buyer_wallet', payload.buyer_wallet);
 
     if (errorCheck) {
-      this.logger.error('Error checking existing referral buy bonus', errorCheck);
+      this.logger.error(
+        'Error checking existing referral buy bonus',
+        errorCheck,
+      );
       throw errorCheck;
     }
 
@@ -97,14 +108,10 @@ export class DbHelpersService {
   ): Promise<ReferralBuyBonusInsert | null> {
     try {
       const { payment_id } = nowpaymentsData;
-      console.log(payment_id);
       const { crm_amount, wallet_address } =
-      await this.getInvestmentByOrderId(payment_id);
-      console.log(crm_amount);
-      console.log(wallet_address);
-      
+        await this.getInvestmentByOrderId(payment_id);
+
       const { referred_by } = await this.getUserByAddress(wallet_address);
-      console.log(referred_by);
       if (!referred_by) {
         this.logger.verbose(
           `Wallet ${wallet_address} has no referrer — no buy bonus created.`,
@@ -113,7 +120,6 @@ export class DbHelpersService {
       }
 
       const { referral_code } = await this.getUserById(referred_by);
-      console.log(referral_code);
 
       return {
         buyer_wallet: wallet_address.toLowerCase(),
@@ -135,7 +141,10 @@ export class DbHelpersService {
       .maybeSingle();
 
     if (error) {
-      this.logger.error(`Error fetching investment by order_id: ${order_id}`, error);
+      this.logger.error(
+        `Error fetching investment by order_id: ${order_id}`,
+        error,
+      );
       throw error;
     }
 
