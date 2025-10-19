@@ -97,10 +97,14 @@ export class DbHelpersService {
   ): Promise<ReferralBuyBonusInsert | null> {
     try {
       const { payment_id } = nowpaymentsData;
+      console.log(payment_id);
       const { crm_amount, wallet_address } =
-        await this.getInvestmentByOrderId(payment_id);
-
+      await this.getInvestmentByOrderId(payment_id);
+      console.log(crm_amount);
+      console.log(wallet_address);
+      
       const { referred_by } = await this.getUserByAddress(wallet_address);
+      console.log(referred_by);
       if (!referred_by) {
         this.logger.verbose(
           `Wallet ${wallet_address} has no referrer — no buy bonus created.`,
@@ -109,9 +113,10 @@ export class DbHelpersService {
       }
 
       const { referral_code } = await this.getUserById(referred_by);
+      console.log(referral_code);
 
       return {
-        buyer_wallet: wallet_address,
+        buyer_wallet: wallet_address.toLowerCase(),
         crm_bonus: crm_amount * 0.05,
         order_id: payment_id.toString(),
         referral_code,
