@@ -24,4 +24,22 @@ export interface ReferralRewardsDB {
   claimed: boolean;
 }
 
-export type ReferralRewardsInsert = Omit<ReferralRewardsDB, 'id' | 'created_at'>;
+export type ReferralRewardsInsert = Omit<
+ReferralRewardsDB,
+'id' | 'created_at'
+>;
+
+export interface ReferralBuyBonusDb {
+  id: number;
+  created_at: string;
+  buyer_wallet: string;
+  referral_code: string;
+  order_id: string;
+  crm_bonus: number;
+}
+
+
+export type ReferralBuyBonusInsert = Omit<
+  ReferralBuyBonusDb,
+  'id' | 'created_at'
+>;

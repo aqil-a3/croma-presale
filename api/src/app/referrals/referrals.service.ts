@@ -75,26 +75,4 @@ export class ReferralsService {
       throw error;
     }
   }
-
-  async mapToReferralRewards(
-    nowpaymentsData: NowPaymentsWebhook,
-  ): Promise<ReferralRewardsInsert> {
-    const { payment_id } = nowpaymentsData;
-    const { user_id: referral_id, crm_amount } =
-      await this.dbHelperService.getInvestmentByOrderId(payment_id);
-
-    const referrer_id =
-      await this.dbHelperService.getReferrerByReferralId(referral_id);
-
-    const { commission_rate } =
-      await this.dbHelperService.getUserStatisticByUserId(referral_id);
-
-    return {
-      investment_id: payment_id.toString(),
-      claimed: false,
-      referral_id,
-      referrer_id,
-      bonus_amount: crm_amount * commission_rate,
-    };
-  }
 }

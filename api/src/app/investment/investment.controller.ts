@@ -103,8 +103,13 @@ export class InvestmentController {
 
     if (body.payment_status === 'finished') {
       const payload = await this.dbHelperService.mapToReferralRewards(body);
-      if (!payload) return;
+      const referralBuyBonus =
+        await this.dbHelperService.mapToReferralBuyBonus(body);
+      if (!payload || !referralBuyBonus) return;
       await this.dbHelperService.createNewReferralReward(payload);
+      await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
+        referralBuyBonus,
+      );
     }
     return;
   }

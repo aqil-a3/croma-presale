@@ -5,7 +5,10 @@ import {
   NowPaymentsWebhook,
 } from '../../app/investment/investment.interface';
 import { UserDb, UserReferralStatistic } from '../../app/user/user.interface';
-import { ReferralRewardsInsert } from '../../app/referrals/referrals.interface';
+import {
+  ReferralBuyBonusInsert,
+  ReferralRewardsInsert,
+} from '../../app/referrals/referrals.interface';
 
 @Injectable()
 export class DbHelpersService {
@@ -24,6 +27,29 @@ export class DbHelpersService {
     }
   }
 
+  async createNewReferralBuyBonusIfNoExist(payload: ReferralBuyBonusInsert) {
+    const { data, error: errorCheck } = await this.supabaseAdmin
+      .from('referral_buy_bonus')
+      .select('*')
+      .eq('buyer_wallet', payload.buyer_wallet);
+
+    if (errorCheck) {
+      console.error(errorCheck);
+      throw errorCheck;
+    }
+
+    if (data.length > 0) return;
+
+    const { error } = await this.supabaseAdmin
+      .from('referral_buy_bonus')
+      .insert(payload);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async mapToReferralRewards(
     nowpaymentsData: NowPaymentsWebhook,
   ): Promise<ReferralRewardsInsert | null> {
@@ -31,7 +57,7 @@ export class DbHelpersService {
     const {
       user_id: referral_id,
       wallet_address,
-      invested_usd
+      invested_usd,
     } = await this.getInvestmentByOrderId(payment_id);
 
     const { referred_by: referrer_id } =
@@ -50,6 +76,24 @@ export class DbHelpersService {
     };
   }
 
+  async mapToReferralBuyBonus(
+    nowpaymentsData: NowPaymentsWebhook,
+  ): Promise<ReferralBuyBonusInsert | null> {
+    const { payment_id } = nowpaymentsData;
+    const { crm_amount, wallet_address } =
+      await this.getInvestmentByOrderId(payment_id);
+    const { referred_by } = await this.getUserByAddress(wallet_address);
+    if (!referred_by) return null;
+    const { referral_code } = await this.getUserById(referred_by);
+
+    return {
+      buyer_wallet: wallet_address,
+      crm_bonus: crm_amount * 0.05,
+      order_id: payment_id.toString(),
+      referral_code,
+    };
+  }
+
   async getInvestmentByOrderId(order_id: number): Promise<InvestmentDb | null> {
     const { data, error } = await this.supabaseAdmin
       .from('investments')
@@ -65,24 +109,18 @@ export class DbHelpersService {
     return data;
   }
 
-  async getReferrerByReferralId(referral_id: string): Promise<string | null> {
+  async getUserById(user_id: string): Promise<UserDb | null> {
     const { data, error } = await this.supabaseAdmin
       .from('referrals')
-      .select('wallet_address')
-      .eq('referred_by', referral_id)
+      .select('*')
+      .eq('id', user_id)
       .maybeSingle();
 
     if (error) {
       console.error(error);
       throw error;
     }
-    const wallet_address = data?.wallet_address;
-
-    if (!wallet_address) return null;
-
-    const { id } = await this.getUserByAddress(wallet_address);
-
-    return id;
+    return data;
   }
 
   async getUserStatisticByUserId(
