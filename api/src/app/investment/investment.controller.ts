@@ -120,6 +120,7 @@ export class InvestmentController {
       await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
         referralBuyBonus,
       );
+      await this.dbHelperService.patchReferralStatus("confirmed", referralBuyBonus.buyer_wallet)
     }
     return;
   }

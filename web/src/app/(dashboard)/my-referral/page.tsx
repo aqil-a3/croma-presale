@@ -16,13 +16,15 @@ export default async function MyReferralPage() {
   const { getReferralAverageBuyAmount } = apiSiteSettings;
   const { getNewestReferrals } = apiReferrals;
 
+  
   const [userData, referralBuyAverage, userStatistic, referrals] =
-    await Promise.all([
-      getUserByAddress(address.toLowerCase()),
-      getReferralAverageBuyAmount(),
-      getUserStatisticByAddress(address.toLowerCase()),
-      getNewestReferrals(),
-    ]);
+  await Promise.all([
+    getUserByAddress(address.toLowerCase()),
+    getReferralAverageBuyAmount(),
+    getUserStatisticByAddress(address.toLowerCase()),
+    getNewestReferrals(),
+  ]);
+  console.log(userStatistic)
 
   return (
     <MyReferralTemplate

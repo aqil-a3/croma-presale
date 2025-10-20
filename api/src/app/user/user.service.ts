@@ -113,12 +113,11 @@ export class UserService {
   async getUserStatisticByAddress(
     wallet_address: string,
   ): Promise<UserReferralStatistic | null> {
-    const { id } = await this.getUserByAddress(wallet_address);
 
     const { data, error } = await this.supabaseAdmin.rpc(
       'get_referral_statistics',
       {
-        p_user_id: id,
+        p_wallet_address : wallet_address,
       },
     );
 

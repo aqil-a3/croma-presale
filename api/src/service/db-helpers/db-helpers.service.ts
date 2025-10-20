@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
 import {
   ReferralBuyBonusInsert,
+  ReferralInsert,
   ReferralRewardsInsert,
 } from 'src/app/referrals/referrals.interface';
 import {
@@ -214,5 +215,23 @@ export class DbHelpersService {
     }
 
     return data;
+  }
+
+  async patchReferralStatus(
+    status: ReferralInsert['status'],
+    wallet_address: string,
+  ) {
+    const { error } = await this.supabaseAdmin
+      .from('referrals')
+      .update({ status })
+      .eq('wallet_address', wallet_address);
+
+      if (error) {
+      this.logger.error(
+        `Error patchReferralStatus: ${wallet_address}`,
+        error,
+      );
+      throw error;
+    }
   }
 }
