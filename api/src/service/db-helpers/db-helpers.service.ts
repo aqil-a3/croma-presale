@@ -89,14 +89,14 @@ export class DbHelpersService {
       }
 
       const { commission_rate } =
-        await this.getUserStatisticByUserId(referrer_id);
+        await this.getUserStatisticByUserId(wallet_address);
 
       return {
         investment_id: payment_id.toString(),
         claimed: false,
         referral_id,
         referrer_id,
-        bonus_amount: invested_usd * commission_rate,
+        bonus_amount: invested_usd * (commission_rate / 100),
       };
     } catch (error) {
       this.logger.error('Error mapping referral reward payload', error);
@@ -181,16 +181,16 @@ export class DbHelpersService {
   }
 
   async getUserStatisticByUserId(
-    user_id: string,
+    wallet_address: string,
   ): Promise<UserReferralStatistic | null> {
     const { data, error } = await this.supabaseAdmin.rpc(
       'get_referral_statistics',
-      { p_user_id: user_id },
+      { p_wallet_address: wallet_address },
     );
 
     if (error) {
       this.logger.error(
-        `Error fetching referral statistics for user_id: ${user_id}`,
+        `Error fetching referral statistics for user_id: ${wallet_address}`,
         error,
       );
       throw error;

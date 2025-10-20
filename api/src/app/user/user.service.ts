@@ -129,21 +129,4 @@ export class UserService {
     return data[0];
   }
 
-  async getUserStatisticByUserId(
-    user_id: string,
-  ): Promise<UserReferralStatistic | null> {
-    const { data, error } = await this.supabaseAdmin.rpc(
-      'get_referral_statistics',
-      {
-        p_user_id: user_id,
-      },
-    );
-
-    if (error) {
-      console.error(error);
-      throw error;
-    }
-
-    return data[0];
-  }
 }
