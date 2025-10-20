@@ -91,7 +91,6 @@ export class DbHelpersService {
       const { commission_rate } = await this.getUserStatistic(wallet_address);
 
       console.log(`Comission Rate ${commission_rate}`);
-      console.log(`Wallet Address ${commission_rate}`);
 
       return {
         investment_id: payment_id.toString(),
@@ -190,9 +189,11 @@ export class DbHelpersService {
       { p_wallet_address: wallet_address },
     );
 
+    this.logger.log(`getUserStatistic : ${wallet_address}`)
+
     if (error) {
       this.logger.error(
-        `Error fetching referral statistics for user_id: ${wallet_address}`,
+        `Error fetching referral statistics for wallet_address: ${wallet_address}`,
         error,
       );
       throw error;
