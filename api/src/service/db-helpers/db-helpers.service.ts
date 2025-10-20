@@ -103,7 +103,7 @@ export class DbHelpersService {
         claimed: false,
         referral_id,
         referrer_id,
-        bonus_amount: invested_usd * commission_rate,
+        bonus_amount: invested_usd * (commission_rate / 100),
       };
     } catch (error) {
       this.logger.error('Error mapping referral reward payload', error);
