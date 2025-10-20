@@ -88,17 +88,17 @@ export class DbHelpersService {
         return null;
       }
 
-      const { commission_rate } =
-        await this.getUserStatistic(wallet_address);
+      const { commission_rate } = await this.getUserStatistic(wallet_address);
 
-        console.log(commission_rate)
+      console.log(`Comission Rate ${commission_rate}`);
+      console.log(`Wallet Address ${commission_rate}`);
 
       return {
         investment_id: payment_id.toString(),
         claimed: false,
         referral_id,
         referrer_id,
-        bonus_amount: invested_usd * (commission_rate),
+        bonus_amount: invested_usd * commission_rate,
       };
     } catch (error) {
       this.logger.error('Error mapping referral reward payload', error);
@@ -228,11 +228,8 @@ export class DbHelpersService {
       .update({ status })
       .eq('wallet_address', wallet_address);
 
-      if (error) {
-      this.logger.error(
-        `Error patchReferralStatus: ${wallet_address}`,
-        error,
-      );
+    if (error) {
+      this.logger.error(`Error patchReferralStatus: ${wallet_address}`, error);
       throw error;
     }
   }
