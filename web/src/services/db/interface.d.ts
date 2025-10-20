@@ -5,7 +5,11 @@ import {
   InvestmentSummary,
 } from "@/@types/investment";
 import { FullMigrationData } from "@/@types/migration";
-import { ReferralDb, ReferralRewardsDB } from "@/@types/referrals";
+import {
+  ReferralBuyBonusDb,
+  ReferralDb,
+  ReferralRewardsDB,
+} from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserFrom, UserReferralStatistic } from "@/@types/user";
 import { FaqClient, FaqDb } from "@/featured/admin/faq/interface";
@@ -18,13 +22,13 @@ export interface FAQApiTypes {
 }
 
 export interface InvestmentApiTypes {
+  createNewInvestment(payload: InvestmentClient): Promise<void>;
+  getAllTransactions(config: AdminInvestmentQuery): Promise<InvestmentDb[]>;
+  getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
   getInvestmentSummary(wallet_address: string): Promise<InvestmentSummary>;
   getInvestmentLeaderboard(
     config: GetInvestmentLeaderboardRequest
   ): Promise<InvestmentLeaderboardItem[]>;
-  getAllTransactions(config:AdminInvestmentQuery): Promise<InvestmentDb[]>;
-  getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
-  createNewInvestment(payload: InvestmentClient): Promise<void>;
 }
 
 export interface PresaleApiTypes {
@@ -38,6 +42,9 @@ export interface PresaleApiTypes {
 export interface ReferralApiTypes {
   getNewestReferrals: () => Promise<ReferralDb[]>;
   getReferralRewardById: (referrer_id: string) => Promise<ReferralRewardsDB[]>;
+  getReferralBuyBonusByAddress(
+    wallet_address: string
+  ): Promise<ReferralBuyBonusDb[]>;
 }
 
 export interface SiteSettingApiTypes {

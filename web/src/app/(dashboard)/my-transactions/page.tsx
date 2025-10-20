@@ -1,6 +1,7 @@
 import MyTransactionTemplate from "@/components/templates/dashboard/MyTransactionTemplate";
 import { getWalletAuth } from "@/lib/auth/wallet";
-import { getAllTransactionByAddress } from "@/services/db/investment/getAllTransactionByAddress";
+import { apiInvestment } from "@/services/db/investment";
+import { apiReferrals } from "@/services/db/referrals";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,9 +10,17 @@ export const metadata: Metadata = {
 
 export default async function MyTransactionPage() {
   const { address } = await getWalletAuth();
-  const userTransactions = await getAllTransactionByAddress(
-    address.toLowerCase()
-  );
+  const { getReferralBuyBonusByAddress } = apiReferrals;
+  const { getAllTransactionByAddress } = apiInvestment;
+  const [userTransactions, referralBonus] = await Promise.all([
+    getAllTransactionByAddress(address.toLowerCase()),
+    getReferralBuyBonusByAddress(address.toLowerCase()),
+  ]);
 
-  return <MyTransactionTemplate userTransactions={userTransactions} />;
+  return (
+    <MyTransactionTemplate
+      userTransactions={userTransactions}
+      referralBonus={referralBonus}
+    />
+  );
 }

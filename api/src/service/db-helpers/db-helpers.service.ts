@@ -166,6 +166,19 @@ export class DbHelpersService {
     return data;
   }
 
+  async getReferralBuyBonusByAddress(wallet_address: string) {
+    const { data, error } = await this.supabaseAdmin
+      .from('referral_buy_bonus')
+      .select('*')
+      .eq('buyer_wallet', wallet_address);
+    if (error) {
+      this.logger.error('Error when get referral bonus');
+      throw error;
+    }
+
+    return data;
+  }
+
   async getUserStatisticByUserId(
     user_id: string,
   ): Promise<UserReferralStatistic | null> {

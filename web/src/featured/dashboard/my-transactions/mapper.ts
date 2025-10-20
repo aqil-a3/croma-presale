@@ -5,6 +5,7 @@ import { formatPostgresTimestampUTC } from "@/utils/formatPostgresTimestampUTC";
 export function mapToTransactionHistory(raw: InvestmentDb): TransactionHistory {
   const { date, time } = formatPostgresTimestampUTC(raw.created_at);
   return {
+    order_id: raw.order_id as string,
     batch: {
       phase: raw.phase,
       stage: raw.stage,

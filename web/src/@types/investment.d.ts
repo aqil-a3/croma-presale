@@ -1,4 +1,13 @@
-type InvestmentStatus = "waiting" | "success" | "failed" | "expired" | string;
+export type InvestmentPayStatus =
+  | 'waiting'
+  | 'confirming'
+  | 'confirmed'
+  | 'sending'
+  | 'partially_paid'
+  | 'finished'
+  | 'failed'
+  | 'refunded'
+  | 'expired';
 
 export interface InvestmentDb {
   id: string; // UUID

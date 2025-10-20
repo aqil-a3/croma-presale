@@ -17,3 +17,18 @@ export interface ReferralRewardsDB {
   bonus_amount: number;
   claimed: boolean;
 }
+
+export interface ReferralBuyBonusDb {
+  id: number;
+  created_at: string;
+  buyer_wallet: string;
+  referral_code: string;
+  order_id: string;
+  crm_bonus: number;
+}
+
+
+export type ReferralBuyBonusInsert = Omit<
+  ReferralBuyBonusDb,
+  'id' | 'created_at'
+>;

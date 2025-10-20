@@ -33,8 +33,6 @@ export default async function DashboardPage() {
     getReferralRewardById(address.toLowerCase()),
   ]);
 
-  console.log(investSummary)
-
   const paymentMethods = siteSettings.find(
     (setting) => setting.key === "payment_methods"
   ) as SettingAdminDb<PaymentSettingValue>;

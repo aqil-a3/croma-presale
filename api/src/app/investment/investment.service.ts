@@ -45,7 +45,8 @@ export class InvestmentService {
     const { data, error } = await this.supabaseAdmin
       .from(this.tableName)
       .select('*')
-      .eq('wallet_address', wallet_address);
+      .eq('wallet_address', wallet_address)
+      .order('created_at', { ascending: false });
 
     if (error) {
       console.error(error);
@@ -121,19 +122,15 @@ export class InvestmentService {
 
   async createNewPayments(payload: CreatePaymentRequest) {
     const sandboxApiKey = process.env.NOWPAYMENTS_SANDBOX_API_KEY;
-    const sandboxEndpoint = "https://api-sandbox.nowpayments.io/v1/payment";
+    const sandboxEndpoint = 'https://api-sandbox.nowpayments.io/v1/payment';
     const realApiKey = process.env.NOWPAYMENTS_API_KEY;
-    const realCaseEndpoint = "https://api.nowpayments.io/v1/payment";
+    const realCaseEndpoint = 'https://api.nowpayments.io/v1/payment';
 
     try {
-      const { data } = await axios.post(
-        sandboxEndpoint,
-        payload,
-        {
-          headers: { 'x-api-key': sandboxApiKey },
-          // headers: { 'x-api-key': realApiKey },
-        },
-      );
+      const { data } = await axios.post(sandboxEndpoint, payload, {
+        headers: { 'x-api-key': sandboxApiKey },
+        // headers: { 'x-api-key': realApiKey },
+      });
 
       return data;
     } catch (error: any) {

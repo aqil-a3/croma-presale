@@ -1,5 +1,6 @@
 "use client";
 import { InvestmentDb } from "@/@types/investment";
+import { ReferralBuyBonusDb } from "@/@types/referrals";
 import { Decor } from "@/components/atoms/Decor";
 import { HorizontalFireImage } from "@/components/atoms/image-decorations/HorizontalFireImage";
 import { Separator } from "@/components/ui/separator";
@@ -11,16 +12,29 @@ import { FilterButton } from "@/featured/dashboard/my-transactions/components/Fi
 import { SearchInput } from "@/featured/dashboard/my-transactions/components/SearchInput";
 import { mapToTransactionHistory } from "@/featured/dashboard/my-transactions/mapper";
 import { MyTransactionProvider } from "@/featured/dashboard/my-transactions/provider";
+import { useMemo } from "react";
 
 interface Props {
   userTransactions: InvestmentDb[];
+  referralBonus: ReferralBuyBonusDb[];
 }
 
-export default function MyTransactionTemplate({ userTransactions }: Props) {
-  const tableData = userTransactions.map(mapToTransactionHistory)
-  
+export default function MyTransactionTemplate({
+  userTransactions,
+  referralBonus,
+}: Props) {
+    const tableData = useMemo(
+    () => userTransactions.map(mapToTransactionHistory),
+    [userTransactions]
+  );
+
+  const columns = useMemo(() => myTransactionColumns, []);
+
   return (
-    <MyTransactionProvider userTransactions={userTransactions}>
+    <MyTransactionProvider
+      userTransactions={userTransactions}
+      referralBonus={referralBonus}
+    >
       <div className="space-y-4 relative px-2 lg:px-12 py-24 min-h-screen h-full bg-black text-white overflow-x-hidden">
         <Decor
           width={812}
@@ -48,7 +62,7 @@ export default function MyTransactionTemplate({ userTransactions }: Props) {
             <FilterButton />
             <SearchInput />
           </div>
-          <DataTable columns={myTransactionColumns} data={tableData} />
+          <DataTable columns={columns} data={tableData} />
         </div>
       </div>
     </MyTransactionProvider>

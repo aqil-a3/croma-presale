@@ -48,6 +48,16 @@ export class InvestmentController {
   }
 
   @UseGuards(SharedSecretGuard)
+  @Get('/user/:wallet_address/get-transaction/reward-buy-bonus')
+  async getReferralBuyBonusByAddress(
+    @Param('wallet_address') wallet_address: string,
+  ) {
+    return await this.dbHelperService.getReferralBuyBonusByAddress(
+      wallet_address,
+    );
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Get('/summary')
   async getInvestmentSummary(@Query('wallet_address') wallet_address: string) {
     return await this.investmentService.getInvestmentSummary(wallet_address);
