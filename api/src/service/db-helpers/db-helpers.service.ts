@@ -79,7 +79,7 @@ export class DbHelpersService {
         invested_usd,
       } = await this.getInvestmentByOrderId(payment_id);
 
-      const { referred_by: referrer_id, wallet_address:referrer_wallet } =
+      const { referred_by: referrer_id } =
         await this.getUserByAddress(wallet_address);
       if (!referrer_id) {
         this.logger.warn(
@@ -87,6 +87,9 @@ export class DbHelpersService {
         );
         return null;
       }
+
+      const { wallet_address: referrer_wallet } =
+        await this.getUserById(referral_id);
 
       const { commission_rate } = await this.getUserStatistic(referrer_wallet);
 
@@ -189,7 +192,7 @@ export class DbHelpersService {
       { p_wallet_address: wallet_address },
     );
 
-    this.logger.log(`getUserStatistic : ${wallet_address}`)
+    this.logger.log(`getUserStatistic : ${wallet_address}`);
 
     if (error) {
       this.logger.error(
