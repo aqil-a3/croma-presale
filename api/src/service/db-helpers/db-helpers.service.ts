@@ -91,9 +91,10 @@ export class DbHelpersService {
       const { wallet_address: referrer_wallet } =
         await this.getUserById(referral_id);
 
-      const { commission_rate } = await this.getUserStatistic(referrer_wallet);
+      const userStatistic = await this.getUserStatistic(referrer_wallet);
+      const {commission_rate} = userStatistic;
 
-      console.log(`Comission Rate ${commission_rate}`);
+      console.log(`User Statistic : ${userStatistic}`);
 
       return {
         investment_id: payment_id.toString(),
