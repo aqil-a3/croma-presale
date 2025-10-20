@@ -87,14 +87,16 @@ export class DbHelpersService {
         );
         return null;
       }
+      console.log(`referrer id`, referrer_id);
 
       const { wallet_address: referrer_wallet } =
-        await this.getUserById(referral_id);
+        await this.getUserById(referrer_id);
+        console.log(`Referrer Wallet`, referrer_wallet);
 
       const userStatistic = await this.getUserStatistic(referrer_wallet);
       const {commission_rate} = userStatistic;
 
-      console.log(`User Statistic : ${userStatistic}`);
+      console.log(`User Statistic`, userStatistic);
 
       return {
         investment_id: payment_id.toString(),
