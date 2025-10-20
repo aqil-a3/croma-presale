@@ -9,6 +9,7 @@ import {
   ReferralBuyBonusDb,
   ReferralDb,
   ReferralRewardsDB,
+  ReferralWithdrawRequestUser,
 } from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
 import { UserFrom, UserReferralStatistic } from "@/@types/user";
@@ -40,6 +41,9 @@ export interface PresaleApiTypes {
 }
 
 export interface ReferralApiTypes {
+  createNewReferralWithdrawRequest: (
+    payload: ReferralWithdrawRequestUser
+  ) => Promise<void>;
   getNewestReferrals: () => Promise<ReferralDb[]>;
   getReferralRewardById: (referrer_id: string) => Promise<ReferralRewardsDB[]>;
   getReferralBuyBonusByAddress(

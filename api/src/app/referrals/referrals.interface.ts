@@ -25,8 +25,8 @@ export interface ReferralRewardsDB {
 }
 
 export type ReferralRewardsInsert = Omit<
-ReferralRewardsDB,
-'id' | 'created_at'
+  ReferralRewardsDB,
+  'id' | 'created_at'
 >;
 
 export interface ReferralBuyBonusDb {
@@ -38,8 +38,31 @@ export interface ReferralBuyBonusDb {
   crm_bonus: number;
 }
 
-
 export type ReferralBuyBonusInsert = Omit<
   ReferralBuyBonusDb,
   'id' | 'created_at'
+>;
+
+export interface ReferralWithdrawRequestDb {
+  id: string;
+  user_id: string;
+  wallet_address: string;
+  amount: number;
+  status: 'pending' | 'success' | 'failed';
+  admin_id?: string;
+  reviewed_at?: string;
+  tx_hash?: string;
+  fail_reason?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ReferralWithdrawRequestUser = Pick<
+  ReferralWithdrawRequestDb,
+  'amount' | 'wallet_address'
+>;
+
+export type ReferralWithdrawRequestInsert = Omit<
+  ReferralWithdrawRequestDb,
+  'id'
 >;

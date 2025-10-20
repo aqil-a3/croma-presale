@@ -1,16 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
 import {
   ReferralInsert,
   ReferralRewardsDB,
   ReferralRewardsInsert,
+  ReferralWithdrawRequestInsert,
 } from './referrals.interface';
-import {
-  InvestmentDb,
-  NowPaymentsWebhook,
-} from '../investment/investment.interface';
-import { UserDb, UserReferralStatistic } from '../user/user.interface';
 import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
+import { DatabaseTable } from '../../common/constants/database-tables.enum';
 
 @Injectable()
 export class ReferralsService {
@@ -19,6 +16,7 @@ export class ReferralsService {
     private readonly dbHelperService: DbHelpersService,
   ) {}
 
+  private logger = new Logger(ReferralsService.name);
   private supabaseAdmin = this.supabaseService.getAdmin();
   private tableName = 'referrals';
 
@@ -67,11 +65,21 @@ export class ReferralsService {
 
   async createNewReferralReward(payload: ReferralRewardsInsert) {
     const { error } = await this.supabaseAdmin
-      .from('referral_rewards')
+      .from(DatabaseTable.REFERRAL_REWARDS)
       .insert(payload);
 
     if (error) {
       console.error(error);
+      throw error;
+    }
+  }
+
+  async createNewWithdrawRequest(payload: ReferralWithdrawRequestInsert) {
+    const { error } = await this.supabaseAdmin
+      .from(DatabaseTable.REFERRAL_WITHDRAW_REQUESTS)
+      .insert(payload);
+    if (error) {
+      this.logger.error('Error createNewWithdrawRequest', error.stack);
       throw error;
     }
   }

@@ -14,7 +14,7 @@ export function PannelContainer({
     <div
       style={{ background: PANEL_BG }}
       className={cn(
-        "relative rounded-2xl border border-orange-500 p-4 lg:p-8 space-y-4 z-10 backdrop-blur-2xl",
+        "relative rounded-2xl border border-orange-500 p-4 lg:p-8 space-y-4 z-10 backdrop-blur-2xl h-full",
         className
       )}
       {...props}

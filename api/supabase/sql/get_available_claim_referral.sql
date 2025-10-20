@@ -10,8 +10,19 @@ WITH base AS (
   WHERE wallet_address = lower(p_wallet_address)
 )
 SELECT
-  COALESCE(SUM(rrw.bonus_amount), 0) AS total_bonus
-FROM public.referral_rewards rrw
-JOIN base ON rrw.referrer_id = base.id
-WHERE rrw.claimed = false;
+  (
+    COALESCE(
+      (SELECT SUM(rrw.bonus_amount)
+       FROM public.referral_rewards rrw
+       JOIN base ON rrw.referrer_id = base.id),
+      0
+    )
+    -
+    COALESCE(
+      (SELECT SUM(rwr.amount)
+       FROM public.referral_withdraw_requests rwr
+       JOIN base ON rwr.user_id = base.id),
+      0
+    )
+  ) AS available_to_claim;
 $$;

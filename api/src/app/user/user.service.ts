@@ -121,6 +121,8 @@ export class UserService {
       },
     );
 
+    console.log(data)
+
     if (error) {
       console.error(error);
       throw error;

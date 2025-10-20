@@ -4,6 +4,8 @@ import {
   ReferralBuyBonusInsert,
   ReferralInsert,
   ReferralRewardsInsert,
+  ReferralWithdrawRequestInsert,
+  ReferralWithdrawRequestUser,
 } from 'src/app/referrals/referrals.interface';
 import {
   InvestmentDb,
@@ -135,6 +137,20 @@ export class DbHelpersService {
       this.logger.error('Error mapping referral buy bonus payload', error);
       throw error;
     }
+  }
+
+  async mapToReferralWithdrawRequestInsert(
+    raw: ReferralWithdrawRequestUser,
+  ): Promise<ReferralWithdrawRequestInsert> {
+    const { id } = await this.getUserByAddress(raw.wallet_address);
+    return {
+      amount: raw.amount,
+      wallet_address: raw.wallet_address,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      status: 'pending',
+      user_id: id,
+    };
   }
 
   async getInvestmentByOrderId(order_id: number): Promise<InvestmentDb | null> {
