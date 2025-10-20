@@ -6,4 +6,4 @@ export const serverEndpoint = isDevelopment
 
 export const baseUrl = isDevelopment
   ? "http://localhost:3000"
-  : "https://croma-presale.vercel.app";
+  : "https://presale.cromachain.com";
