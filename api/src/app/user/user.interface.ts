@@ -20,7 +20,7 @@ export interface UserReferralStatistic {
 
 export type UserFrom =
   | 'all'
-  | 'web'
+  | 'airdrop'
   | 'brand-ambassador'
   | 'croma-army'
   | 'give-away'

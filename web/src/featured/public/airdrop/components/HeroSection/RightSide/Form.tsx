@@ -25,7 +25,7 @@ import { SourceSelect } from "./SourceSelect";
 
 const formSchema = z.object({
   source: z.enum([
-    "web",
+    "airdrop",
     "brand-ambassador",
     "croma-army",
     "give-away",

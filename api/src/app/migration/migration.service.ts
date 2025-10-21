@@ -14,6 +14,7 @@ export class MigrationService {
   private readonly supabaseAdmin = this.supabaseService.getAdmin();
   private readonly tableName = 'migration_data';
   private readonly airdropApiKey = process.env.AIRDROP_SHARED_SECRET_KEY;
+  // private readonly airdropBaseUrl = 'http://localhost:3000';
   private readonly airdropBaseUrl = 'https://airdrop.cromachain.com';
 
   async createNewMigrationData(
@@ -43,6 +44,24 @@ export class MigrationService {
     }
 
     return data;
+  }
+
+  async getAirdropDataByAddress(wallet_address: string) {
+    try {
+      const { data } = await axios.get(
+        `${this.airdropBaseUrl}/api/migration/presale?wallet_address=${wallet_address}`,
+        {
+          headers: {
+            'x-api-key': this.airdropApiKey,
+          },
+        },
+      );
+
+      return data.finalData;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   async getCrossMigrationDataByAddress(

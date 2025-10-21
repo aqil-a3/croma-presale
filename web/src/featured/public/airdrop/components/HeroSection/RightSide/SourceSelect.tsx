@@ -18,8 +18,8 @@ const items: BasicItem[] = [
     label: "All",
   },
   {
-    value: "web",
-    label: "Web",
+    value: "airdrop",
+    label: "Airdrop",
   },
   {
     value: "brand-ambassador",

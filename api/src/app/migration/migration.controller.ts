@@ -20,6 +20,7 @@ export class MigrationController {
       points,
       source: 'all',
       wallet_address: address,
+      is_valid: true,
     };
 
     return result;
@@ -40,6 +41,8 @@ export class MigrationController {
   ) {
     if (source === 'all')
       return await this.getAllSourceMigrationDataByAddress(address);
+    if (source === 'airdrop')
+      return await this.migrationService.getAirdropDataByAddress(address);
 
     return await this.migrationService.getCrossMigrationDataByAddress(
       address,
@@ -58,8 +61,8 @@ export class MigrationController {
   //     wallet_address: data.wallet_address,
   //   }));
 
-  //   await this.migrationService.createNewMigrationData(payload)
+  //   // await this.migrationService.createNewMigrationData(payload)
 
-  //   return {message:"Migration Success"};
+  //   return {fullData};
   // }
 }
