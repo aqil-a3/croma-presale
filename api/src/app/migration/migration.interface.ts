@@ -4,7 +4,7 @@ export interface MigrationDb {
   wallet_address: string;
   source: string;
   points: number;
-  is_valid: boolean;
+  airdrop_nft_amounts: string[];
 }
 export type MigrationDbInsert = Omit<MigrationDb, 'id' | 'created_at'>;
 

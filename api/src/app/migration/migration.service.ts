@@ -89,7 +89,11 @@ export class MigrationService {
         },
       );
 
-      return data.finalData;
+      const finalData = data.finalData;
+
+      await this.createNewMigrationDataIfNotExist(finalData);
+
+      return finalData;
     } catch (error) {
       if (isAxiosError(error)) {
         if (error.status === 404)

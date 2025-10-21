@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { MigrationService } from './migration.service';
 import { UserFrom } from '../user/user.interface';
@@ -20,7 +28,7 @@ export class MigrationController {
       points,
       source: 'all',
       wallet_address: address,
-      is_valid: true,
+      airdrop_nft_amounts: [],
     };
 
     return result;
