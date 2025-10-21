@@ -28,6 +28,8 @@ export default function DashboardTemplate({
 }: Props) {
   const hasHydrated = useHasHydrated();
 
+  console.log(referralRewards)
+
   if (!hasHydrated) return <DashboardLoader />;
   return (
     <PublicPresaleProvider

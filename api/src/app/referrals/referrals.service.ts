@@ -38,6 +38,7 @@ export class ReferralsService {
     wallet_address: string,
   ): Promise<ReferralRewardsDB[]> {
     const { id } = await this.dbHelperService.getUserByAddress(wallet_address);
+    if (!id) return null;
     const { data, error } = await this.supabaseAdmin
       .from('referral_rewards')
       .select('*')
