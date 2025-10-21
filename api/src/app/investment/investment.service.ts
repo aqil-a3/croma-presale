@@ -127,9 +127,9 @@ export class InvestmentService {
     const realCaseEndpoint = 'https://api.nowpayments.io/v1/payment';
 
     try {
-      const { data } = await axios.post(sandboxEndpoint, payload, {
-        headers: { 'x-api-key': sandboxApiKey },
-        // headers: { 'x-api-key': realApiKey },
+      const { data } = await axios.post(realCaseEndpoint, payload, {
+        // headers: { 'x-api-key': sandboxApiKey },
+        headers: { 'x-api-key': realApiKey },
       });
 
       return data;

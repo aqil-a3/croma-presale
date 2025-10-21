@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     is_fixed_rate: false,
     ipn_callback_url: `https://croma-presale-131e.vercel.app/investment/payments/webhook`,
     // TESTING :
-    case: "success",
+    // case: "success",
   };
 
   try {
