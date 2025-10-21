@@ -88,22 +88,25 @@ export function Stats() {
           </PannelOrangeContainer>
         );
       })}
-      {userStatistic && (
-        <Button
-          onClick={withdrawHandler}
-          disabled={userStatistic.available_to_claim <= 50}
-          className="col-span-2 bg-orange-500 hover:bg-orange-500"
-        >
-          <Gift /> Withdraw{" "}
-          {userStatistic.available_to_claim <= 50 && "(Min. $50)"}
-        </Button>
+      {userStatistic && userData && (
+        <>
+          <Button
+            onClick={withdrawHandler}
+            disabled={userStatistic.available_to_claim <= 50}
+            className="col-span-2 bg-orange-500 hover:bg-orange-500"
+          >
+            <Gift /> Withdraw{" "}
+            {userStatistic.available_to_claim <= 50 && "(Min. $50)"}
+          </Button>
+
+          <WithdrawDialog
+            open={openDialog}
+            setOpen={setOpenDialog}
+            maxAmount={userStatistic.available_to_claim}
+            walletAddress={userData.wallet_address}
+          />
+        </>
       )}
-      <WithdrawDialog
-        open={openDialog}
-        setOpen={setOpenDialog}
-        maxAmount={userStatistic!.available_to_claim}
-        walletAddress={userData!.wallet_address}
-      />
     </div>
   );
 }

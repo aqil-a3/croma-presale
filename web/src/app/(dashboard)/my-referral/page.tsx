@@ -24,7 +24,6 @@ export default async function MyReferralPage() {
     getUserStatisticByAddress(address.toLowerCase()),
     getNewestReferrals(),
   ]);
-  console.log(userStatistic)
 
   return (
     <MyReferralTemplate
