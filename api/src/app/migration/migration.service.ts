@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import axios from 'axios';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import axios, { isAxiosError } from 'axios';
 import {
   FullMigrationData,
   MigrationDb,
@@ -27,6 +27,38 @@ export class MigrationService {
     if (error) {
       console.error(error);
       throw error;
+    }
+  }
+
+  async createNewMigrationDataIfNotExist(
+    payload: MigrationDbInsert | MigrationDbInsert[],
+  ) {
+    const items = Array.isArray(payload) ? payload : [payload];
+
+    for (const item of items) {
+      const existing = await this.getCrossMigrationDataByAddress(
+        item.wallet_address,
+        item.source,
+      );
+
+      if (!existing) {
+        const { error } = await this.supabaseAdmin
+          .from(this.tableName)
+          .insert(item);
+
+        if (error) {
+          console.error('Failed to insert migration data:', error);
+          throw error;
+        }
+
+        console.log(
+          `[Migration] ✅ New migration data inserted for ${item.wallet_address} (${item.source})`,
+        );
+      } else {
+        console.log(
+          `[Migration] ⚠️ Migration data already exists for ${item.wallet_address} (${item.source}), skipped.`,
+        );
+      }
     }
   }
 
@@ -59,7 +91,10 @@ export class MigrationService {
 
       return data.finalData;
     } catch (error) {
-      console.error(error);
+      if (isAxiosError(error)) {
+        if (error.status === 404)
+          return new NotFoundException('User Not Found');
+      }
       throw error;
     }
   }

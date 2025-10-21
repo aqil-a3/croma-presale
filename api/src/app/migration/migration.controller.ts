@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { MigrationService } from './migration.service';
 import { UserFrom } from '../user/user.interface';
@@ -48,6 +48,12 @@ export class MigrationController {
       address,
       source,
     );
+  }
+
+  @UseGuards(SharedSecretGuard)
+  @Post('/airdrop')
+  async createNewMigrationData(@Body() data: MigrationDb) {
+    return await this.migrationService.createNewMigrationDataIfNotExist(data);
   }
 
   // NOTE : INI JAGA JAGA KALO SEWAKTU-WAKTU PERLU MIGRASI LAGI
