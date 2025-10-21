@@ -44,5 +44,5 @@ export interface MigrationPresaleDb {
   wallet_address: string;
   source: string;
   points: number;
-  is_valid: boolean;
+  airdrop_nft_tasks: string[];
 }
