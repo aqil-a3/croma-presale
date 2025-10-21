@@ -20,8 +20,9 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import axios, { isAxiosError } from "axios";
-import { FullMigrationData } from "@/@types/migration";
+import { MigrationPresaleDb } from "@/@types/migration";
 import { SourceSelect } from "./SourceSelect";
+import { EligData } from "./EligData";
 
 const formSchema = z.object({
   source: z.enum([
@@ -49,7 +50,7 @@ export function FormCheckAirdrop() {
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<FullMigrationData | null>(null);
+  const [data, setData] = useState<MigrationPresaleDb | null>(null);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -121,16 +122,7 @@ export function FormCheckAirdrop() {
               </FormItem>
             )}
           />
-          {data && (
-            <div className="flex flex-col justify-center items-center">
-              <p>Your total points</p>
-              <p
-                className={`${fontOrbitron.className} text-green-500 font-bold text-xl lg:text-4xl`}
-              >
-                {data.points} CRM
-              </p>
-            </div>
-          )}
+          {data && <EligData data={data} />}
           <Button
             className={`w-full ${fontOrbitron.className} ${GRADIENT_MAIN_COLOR_TW} text-white font-bold text-base py-6`}
             type="submit"

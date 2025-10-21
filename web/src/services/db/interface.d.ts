@@ -4,7 +4,7 @@ import {
   InvestmentLeaderboardItem,
   InvestmentSummary,
 } from "@/@types/investment";
-import { FullMigrationData } from "@/@types/migration";
+import { MigrationPresaleDb } from "@/@types/migration";
 import {
   ReferralBuyBonusDb,
   ReferralDb,
@@ -73,5 +73,5 @@ export interface UserApiTypes {
   getMigrationDataByAddress: (
     wallet_address: string,
     source: UserFrom
-  ) => Promise<FullMigrationData | null>;
+  ) => Promise<MigrationPresaleDb | null>;
 }

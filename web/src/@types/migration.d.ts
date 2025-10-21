@@ -37,3 +37,12 @@ export interface FullMigrationData extends MigrationDataDB {
   };
   taskProgress: TaskUser[];
 }
+
+export interface MigrationPresaleDb {
+  id: number;
+  created_at: string;
+  wallet_address: string;
+  source: string;
+  points: number;
+  is_valid: boolean;
+}

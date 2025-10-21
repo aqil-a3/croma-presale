@@ -1,5 +1,6 @@
 import { UserFrom } from "@/@types/user";
 import { apiUser } from "@/services/db/users";
+import { isAxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -17,14 +18,21 @@ export async function GET(
       { status: 400 }
     );
 
-  const data = await getMigrationDataByAddress(address.toLowerCase(), source);
+  try {
+    const data = await getMigrationDataByAddress(address.toLowerCase(), source);
 
-  if (!data) {
-    return NextResponse.json(
-      { message: "Data not found! Have you updated your wallet?" },
-      { status: 404 }
-    );
+    if (!data || !data.source) {
+      return NextResponse.json(
+        { message: `Data not found from ${source} source! Try another source!` },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(data);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(error.status);
+      return NextResponse.json({ message: "User not Found!" }, { status: 404 });
+    }
   }
-
-  return NextResponse.json(data);
 }
