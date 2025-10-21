@@ -65,6 +65,7 @@ export interface UserApiTypes {
     wallet_address: string,
     referral_code: string
   ) => Promise<void>;
+  createNewMigrationData: (data: MigrationPresaleDb) => Promise<void>;
   getUserByAddress: (wallet_address?: string) => Promise<UserDb | null>;
   getUserByReferralCode: (referral_code?: string) => Promise<UserDb | null>;
   getUserStatisticByAddress: (

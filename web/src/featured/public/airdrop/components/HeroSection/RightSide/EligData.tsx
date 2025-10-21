@@ -2,7 +2,6 @@ import { MigrationPresaleDb } from "@/@types/migration";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { fontOrbitron } from "@/config/fonts";
 import { AlertCircleIcon, CheckCircle2Icon } from "lucide-react";
-import { useEffect } from "react";
 
 interface Props {
   data: MigrationPresaleDb;
@@ -11,10 +10,6 @@ interface Props {
 export function EligData({ data }: Props) {
   const isHaventBoughtCrm = data.source === "airdrop" && !data.is_valid;
 
-  useEffect(() => {
-    if (!data.is_valid) return;
-    alert("OK");
-  }, [data]);
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <p>Your total points</p>

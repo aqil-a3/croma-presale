@@ -40,6 +40,15 @@ const formSchema = z.object({
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
+const saveData = async (data: MigrationPresaleDb) => {
+  try {
+    await axios.post("/api/airdrop/create", data);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export function FormCheckAirdrop() {
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
@@ -61,6 +70,10 @@ export function FormCheckAirdrop() {
       );
       toast.success(`Your account found!`);
       setData(data);
+
+      const isHaventBoughtCrm = data.source === "airdrop" && !data.is_valid;
+      if (!isHaventBoughtCrm) return;
+      await saveData(data);
     } catch (error) {
       console.error(error);
       if (isAxiosError(error)) {
