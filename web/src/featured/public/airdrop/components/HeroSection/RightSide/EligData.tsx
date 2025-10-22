@@ -30,7 +30,7 @@ export function EligData({ data }: Props) {
   const minimumNftHave = 2;
   const isHaventBoughtCrm =
     data.source === "airdrop" &&
-    data.airdrop_nft_tasks.length <= minimumNftHave;
+    data.airdrop_nft_tasks.length < minimumNftHave;
 
   const notHaveNfts = data.airdrop_nft_tasks
     ? NFT_TASKS.filter((nft) => !data.airdrop_nft_tasks?.includes(nft))

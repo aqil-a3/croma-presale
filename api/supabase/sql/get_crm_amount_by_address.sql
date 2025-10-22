@@ -1,28 +1,30 @@
-create or replace function public.get_crm_amount_by_address(p_wallet_address text)
-returns numeric
-language sql
-stable 
-as $$
+CREATE OR REPLACE FUNCTION public.get_crm_amount_by_address(p_wallet_address text)
+RETURNS numeric
+LANGUAGE sql
+STABLE
+AS $$
 SELECT
-    coalesce(
-        -- Data dari table migrasi data
-        (
-            SELECT
-                coalesce(sum(md.points), 0)
-            FROM
-                public.migration_data md
-            WHERE
-                md.wallet_address = p_wallet_address
-        ) +
-        -- Data dari table investments
-        (
-            SELECT
-                coalesce(sum(inv.crm_amount), 0)
-            from
-                public.investments inv
-            WHERE
-                inv.wallet_address = p_wallet_address
-                and inv.status IN ('completed', 'paid', 'success', 'finished')
-        )
+  COALESCE(
+    -- ✅ Bagian dari migration_data (dengan filter tambahan)
+    (
+      SELECT COALESCE(SUM(md.points), 0)
+      FROM public.migration_data md
+      WHERE md.wallet_address = LOWER(p_wallet_address)
+      AND (
+        -- Jika source 'airdrop', hanya hitung jika jumlah NFT >= 2
+        (md.source = 'airdrop' AND jsonb_array_length(md.airdrop_nft_tasks) >= 2)
+        -- Jika source bukan 'airdrop', tetap hitung
+        OR (md.source IS DISTINCT FROM 'airdrop')
+      )
     )
-    $$;
+    +
+    -- ✅ Bagian dari investments
+    (
+      SELECT COALESCE(SUM(inv.crm_amount), 0)
+      FROM public.investments inv
+      WHERE inv.wallet_address = LOWER(p_wallet_address)
+      AND inv.status IN ('completed', 'paid', 'success', 'finished')
+    ),
+    0
+  )
+$$;
