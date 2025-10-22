@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -49,13 +50,35 @@ export class MigrationController {
   ) {
     if (source === 'all')
       return await this.getAllSourceMigrationDataByAddress(address);
-    if (source === 'airdrop')
-      return await this.migrationService.getAirdropDataByAddress(address);
+    if (source === 'airdrop') {
+      const existData =
+        await this.migrationService.getCrossMigrationDataByAddress(
+          address,
+          source,
+        );
+
+        console.log("Data sudah dimigrasi, langsung mengembalikan");
+        if (existData) return existData;
+        console.log("Data belum dimigrasi, Memproses...");
+        
+      const data = await this.migrationService.getAirdropDataByAddress(address);
+      await this.migrationService.createNewMigrationDataIfNotExist(data);
+
+      return data;
+    }
 
     return await this.migrationService.getCrossMigrationDataByAddress(
       address,
       source,
     );
+  }
+
+  @UseGuards(SharedSecretGuard)
+  @Patch('airdrop/:address')
+  async patchMigrationDataByAddress(@Param('address') address: string) {
+    const data = await this.migrationService.getAirdropDataByAddress(address);
+    await this.migrationService.updateMigrationDataByAddress(data, address);
+    return data;
   }
 
   @UseGuards(SharedSecretGuard)

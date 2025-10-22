@@ -1,11 +1,16 @@
 import { MigrationPresaleDb } from "@/@types/migration";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { fontOrbitron } from "@/config/fonts";
+import axios, { isAxiosError } from "axios";
 import { AlertCircleIcon, CheckCircle2Icon } from "lucide-react";
+import React, { useState } from "react";
+import { toast } from "sonner";
 
 interface Props {
   data: MigrationPresaleDb;
+  setData: React.Dispatch<React.SetStateAction<MigrationPresaleDb | null>>;
 }
 
 const NFT_TASKS = [
@@ -26,15 +31,38 @@ const NFT_TASKS_LINKS: Record<string, string> = {
     "https://opensea.io/item/base/0x1d53b6c882ac7fbd5ea0eeca00d59b843ef50525/10",
 };
 
-export function EligData({ data }: Props) {
+export function EligData({ data, setData }: Props) {
+  const [isChecking, setIsChecking] = useState<boolean>(false);
   const minimumNftHave = 2;
   const isHaventBoughtCrm =
-    data.source === "airdrop" &&
-    data.airdrop_nft_tasks.length < minimumNftHave;
+    data.source === "airdrop" && data.airdrop_nft_tasks.length < minimumNftHave;
 
   const notHaveNfts = data.airdrop_nft_tasks
     ? NFT_TASKS.filter((nft) => !data.airdrop_nft_tasks?.includes(nft))
     : [];
+
+  const updateHandler = async () => {
+    try {
+      setIsChecking(true);
+      const { data: apiData } = await axios.patch(
+        `/api/airdrop/update?address=${data.wallet_address}`
+      );
+      const migrationData: MigrationPresaleDb = apiData.data;
+      setData(migrationData);
+      toast.success("Update Success");
+    } catch (error) {
+      console.error(error);
+      if (isAxiosError(error)) {
+        const data = error.response?.data;
+
+        toast.error(data.message ?? "Something Error");
+        return;
+      }
+      toast.error("Somethng error");
+    } finally {
+      setIsChecking(false);
+    }
+  };
 
   return (
     <div className="flex flex-col justify-center items-center gap-4">
@@ -53,14 +81,28 @@ export function EligData({ data }: Props) {
             least 2 NFTs, CRM points will be automatically credited to your
             presale account. Nft you dont have:
             <div className="flex gap-4 mt-4">
-              {notHaveNfts.map((nft, i) => (
-                <a href={NFT_TASKS_LINKS[nft]} target="_blank" key={i}>
-                  <Badge key={i} className="text-yellow-400 border-yellow-400">
-                    NFT {i + 1}
-                  </Badge>
-                </a>
-              ))}
+              {notHaveNfts.map((nft, i) => {
+                const token = NFT_TASKS_LINKS[nft].split("/").at(-1);
+                return (
+                  <a href={NFT_TASKS_LINKS[nft]} target="_blank" key={i}>
+                    <Badge
+                      key={i}
+                      className="text-yellow-400 border-yellow-400"
+                    >
+                      Token {token}
+                    </Badge>
+                  </a>
+                );
+              })}
             </div>
+            <Button
+              className="block w-full bg-transparent text-yellow-400 border border-yellow-400 mt-4"
+              disabled={isChecking}
+              onClick={updateHandler}
+              type="button"
+            >
+              {isChecking ? "Checking..." : "I Have Buy 2 NFTs"}
+            </Button>
           </AlertDescription>
         </Alert>
       ) : (

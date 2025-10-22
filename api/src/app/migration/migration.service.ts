@@ -91,8 +91,6 @@ export class MigrationService {
 
       const finalData = data.finalData;
 
-      await this.createNewMigrationDataIfNotExist(finalData);
-
       return finalData;
     } catch (error) {
       if (isAxiosError(error)) {
@@ -146,5 +144,20 @@ export class MigrationService {
     );
 
     return selected;
+  }
+
+  async updateMigrationDataByAddress(
+    data: MigrationDbInsert,
+    wallet_address: string,
+  ) {
+    const { error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update(data)
+      .eq('wallet_address', wallet_address);
+
+    if (error) {
+      console.error('Error updateMigrationDataByAddress');
+      throw error;
+    }
   }
 }
