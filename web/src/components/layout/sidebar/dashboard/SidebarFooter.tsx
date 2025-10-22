@@ -15,17 +15,17 @@ interface ItemType {
 
 const items: ItemType[] = [
   {
-    href: "#",
+    href: "https://discord.com/invite/SWj8TWfu9k",
     Icon: DiscordIcon,
     label: "Join Discord",
   },
   {
-    href: "#",
+    href: "https://t.me/Cromaartofficial",
     Icon: Telegram,
     label: "Join Telegram",
   },
   {
-    href: "#",
+    href: "https://x.com/CromaChain",
     Icon: XIcon,
     label: "Join X",
   },

@@ -3,20 +3,16 @@ import Link from "next/link";
 
 const icons = [
   {
-    href: "#",
-    imageSrc: "/logo/twitter.svg",
+    href: "https://x.com/CromaChain",
+    imageSrc: "/logo/X.svg",
   },
   {
-    href: "#",
-    imageSrc: "/logo/instagram.svg",
+    href: "https://discord.com/invite/SWj8TWfu9k",
+    imageSrc: "/logo/discord.svg",
   },
   {
-    href: "#",
-    imageSrc: "/logo/facebook.svg",
-  },
-  {
-    href: "#",
-    imageSrc: "/logo/youtube.svg",
+    href: "https://t.me/Cromaartofficial",
+    imageSrc: "/logo/telegram.svg",
   },
 ];
 

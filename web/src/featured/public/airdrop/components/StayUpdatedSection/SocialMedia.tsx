@@ -12,7 +12,7 @@ interface ItemType {
 
 const items: ItemType[] = [
   {
-    href: "#",
+    href: "https://discord.com/invite/SWj8TWfu9k",
     icon: (
       <Image
         src={"/logo/discord.svg"}
@@ -24,7 +24,7 @@ const items: ItemType[] = [
     label: "Join Discord",
   },
   {
-    href: "#",
+    href: "https://t.me/Cromaartofficial",
     icon: (
       <Image
         src={"/logo/telegram.svg"}
@@ -36,7 +36,7 @@ const items: ItemType[] = [
     label: "Join Telegram",
   },
   {
-    href: "#",
+    href: "https://x.com/CromaChain",
     icon: <Image src={"/logo/X.svg"} width={30} height={30} alt="Logo X" />,
     label: "Join X",
   },
