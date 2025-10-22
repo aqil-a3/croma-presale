@@ -16,7 +16,7 @@ export function MobileCTAButton() {
       },
       onSuccess: async (data) => {
         const walletAddress = data.accounts[0] as string;
-        await axios.post("/api/auth/new-user", walletAddress)
+        await axios.post("/api/auth/new-user", { address: walletAddress });
 
         toast.success("Wallet Connected!");
         router.push("/dashboard");
