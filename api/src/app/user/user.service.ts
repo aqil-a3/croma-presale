@@ -113,15 +113,12 @@ export class UserService {
   async getUserStatisticByAddress(
     wallet_address: string,
   ): Promise<UserReferralStatistic | null> {
-
     const { data, error } = await this.supabaseAdmin.rpc(
       'get_referral_statistics',
       {
-        p_wallet_address : wallet_address,
+        p_wallet_address: wallet_address,
       },
     );
-
-    console.log(data)
 
     if (error) {
       console.error(error);
@@ -130,5 +127,4 @@ export class UserService {
 
     return data[0];
   }
-
 }

@@ -18,8 +18,9 @@ import { PresaleClient, PresaleDb } from "@/featured/admin/presale/interface";
 import { AdminInvestmentQuery } from "./investment/getTransactions";
 
 export interface FAQApiTypes {
-  getAllFAQ: () => Promise<FaqDb[]>;
   createNewFAQ: (data: FaqClient) => Promise<void>;
+  editFAQ: (data: FaqDb) => Promise<void>;
+  getAllFAQ: () => Promise<FaqDb[]>;
 }
 
 export interface InvestmentApiTypes {

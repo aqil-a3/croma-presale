@@ -51,11 +51,11 @@ export class MigrationService {
           throw error;
         }
 
-        console.log(
+        console.info(
           `[Migration] ✅ New migration data inserted for ${item.wallet_address} (${item.source})`,
         );
       } else {
-        console.log(
+        console.info(
           `[Migration] ⚠️ Migration data already exists for ${item.wallet_address} (${item.source}), skipped.`,
         );
       }

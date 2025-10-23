@@ -227,8 +227,6 @@ export class DbHelpersService {
       .eq('wallet_address', wallet_address)
       .maybeSingle();
 
-      console.log(data)
-
     if (error) {
       this.logger.error(
         `Error fetching user by wallet_address: ${wallet_address}`,

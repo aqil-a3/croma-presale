@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { FaqService } from './faq.service';
-import { FaqClient } from './faq.interface';
+import { FaqClient, FaqDb } from './faq.interface';
 import { BasicResponse } from '../../interface/http';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 
@@ -18,7 +18,7 @@ export class FaqController {
 
   @UseGuards(SharedSecretGuard)
   @Post()
-  async createNewPresale(@Body() data: FaqClient): Promise<BasicResponse> {
+  async createNewFaq(@Body() data: FaqClient): Promise<BasicResponse> {
     try {
       await this.faqService.createNewFaq(data);
       return { message: 'Add FAQ data success!', ok: true };
@@ -26,5 +26,11 @@ export class FaqController {
       console.error(error);
       return { message: error.message, ok: false };
     }
+  }
+
+  @UseGuards(SharedSecretGuard)
+  @Put()
+  async editFaq(@Body() data: FaqDb) {
+    return await this.faqService.editFaq(data);
   }
 }

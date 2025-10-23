@@ -57,9 +57,7 @@ export class MigrationController {
           source,
         );
 
-        console.log("Data sudah dimigrasi, langsung mengembalikan");
         if (existData) return existData;
-        console.log("Data belum dimigrasi, Memproses...");
         
       const data = await this.migrationService.getAirdropDataByAddress(address);
       await this.migrationService.createNewMigrationDataIfNotExist(data);
