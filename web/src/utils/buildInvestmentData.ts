@@ -15,6 +15,7 @@ export function buildInvestmentData(
     payment_id,
     payment_status,
     price_amount,
+    
   } = nowpayments;
 
   return {

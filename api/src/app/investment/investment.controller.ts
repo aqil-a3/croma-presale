@@ -78,6 +78,12 @@ export class InvestmentController {
   }
 
   @UseGuards(SharedSecretGuard)
+  @Get('/payments/id/:payment_id')
+  async getPaymentStatus(@Param('payment_id') payment_id: string) {
+    return await this.investmentService.getPaymentStatus(payment_id);
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Post('')
   async createNewInvestment(@Body() body: InvestmentClient) {
     return await this.investmentService.createNewInvestment(body);
@@ -119,9 +125,17 @@ export class InvestmentController {
     );
 
     if (body.payment_status === 'finished') {
+      const { payin_hash } = await this.investmentService.getPaymentStatus(
+        body.order_id,
+      );
       const payload = await this.dbHelperService.mapToReferralRewards(body);
       const referralBuyBonus =
         await this.dbHelperService.mapToReferralBuyBonus(body);
+
+      await this.investmentService.updateTxHash(
+        body.payment_id.toString(),
+        payin_hash,
+      );
       if (!payload || !referralBuyBonus) return;
       await this.dbHelperService.createNewReferralReward(payload);
       await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
@@ -132,6 +146,6 @@ export class InvestmentController {
         referralBuyBonus.buyer_wallet,
       );
     }
-    return;
+    return { status: 'ok' };
   }
 }

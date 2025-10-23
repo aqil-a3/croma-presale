@@ -4,6 +4,7 @@ import { createNewInvestment } from "./createNewInvestment";
 import { getAllTransactionByAddress } from "./getAllTransactionByAddress";
 import { getInvestmentLeaderboard } from "./getInvestmentLeaderboard";
 import { getAllTransactions } from "./getTransactions";
+import { getPaymentStatus } from "./getPaymentStatus";
 
 export const apiInvestment: InvestmentApiTypes = {
   getInvestmentSummary,
@@ -11,4 +12,5 @@ export const apiInvestment: InvestmentApiTypes = {
   getAllTransactionByAddress,
   getAllTransactions,
   getInvestmentLeaderboard,
+  getPaymentStatus,
 };

@@ -8,6 +8,7 @@ import {
   InvestmentDb,
   InvestmentLeaderboardItem,
   InvestmentSummary,
+  NowPaymentsPayment,
 } from './investment.interface';
 import axios from 'axios';
 import { UserService } from '../user/user.service';
@@ -124,8 +125,26 @@ export class InvestmentService {
     const realApiKey = process.env.NOWPAYMENTS_API_KEY;
 
     try {
-      const {data} = await axios.get(
+      const { data } = await axios.get(
         `https://api.nowpayments.io/v1/min-amount?currency_from=usd&currency_to=${currency}`,
+        {
+          headers: { 'x-api-key': realApiKey },
+        },
+      );
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async getPaymentStatus(payment_id: string): Promise<NowPaymentsPayment> {
+    const realApiKey = process.env.NOWPAYMENTS_API_KEY;
+
+    try {
+      const { data } = await axios.get(
+        `https://api.nowpayments.io/v1/payment/${payment_id}`,
         {
           headers: { 'x-api-key': realApiKey },
         },
@@ -149,6 +168,8 @@ export class InvestmentService {
         // headers: { 'x-api-key': sandboxApiKey },
         headers: { 'x-api-key': realApiKey },
       });
+
+      console.log(data);
 
       return data;
     } catch (error: any) {
@@ -201,6 +222,18 @@ export class InvestmentService {
     const { error } = await this.supabaseAdmin
       .from(this.tableName)
       .update({ status, updated_at: new Date().toISOString() })
+      .eq('order_id', order_id);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async updateTxHash(order_id: string, tx_hash: string) {
+    const { error } = await this.supabaseAdmin
+      .from(this.tableName)
+      .update({ tx_hash })
       .eq('order_id', order_id);
 
     if (error) {

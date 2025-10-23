@@ -133,6 +133,38 @@ export interface NowPaymentsWebhook {
   purchase_id: string;
 }
 
+export interface NowPaymentsPayment {
+  payment_id: number;
+  invoice_id: number | null;
+  payment_status:
+    | "waiting"
+    | "confirming"
+    | "confirmed"
+    | "finished"
+    | "failed"
+    | "expired";
+  pay_address: string;
+  payin_extra_id: string | null;
+  price_amount: number;
+  price_currency: string; // e.g. "usd"
+  pay_amount: number;
+  actually_paid: number;
+  pay_currency: string; // e.g. "trx", "eth", "btc"
+  order_id: string | null;
+  order_description: string | null;
+  purchase_id: number;
+  outcome_amount: number;
+  outcome_currency: string;
+  payout_hash: string | null;
+  payin_hash: string | null;
+  created_at: string; // ISO date string
+  updated_at: string; // ISO date string
+  burning_percent: string | null;
+  type: "crypto2crypto" | "fiat2crypto" | "crypto2fiat";
+  payment_extra_ids: number[] | null;
+}
+
+
 export interface GetInvestmentLeaderboardRequest {
   /**
    * Pilihan periode:

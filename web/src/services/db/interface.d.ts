@@ -3,6 +3,7 @@ import {
   GetInvestmentLeaderboardRequest,
   InvestmentLeaderboardItem,
   InvestmentSummary,
+  NowPaymentsPayment,
 } from "@/@types/investment";
 import { MigrationPresaleDb } from "@/@types/migration";
 import {
@@ -27,6 +28,7 @@ export interface InvestmentApiTypes {
   createNewInvestment(payload: InvestmentClient): Promise<void>;
   getAllTransactions(config: AdminInvestmentQuery): Promise<InvestmentDb[]>;
   getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
+  getPaymentStatus(payment_id: string): Promise<NowPaymentsPayment>;
   getInvestmentSummary(wallet_address: string): Promise<InvestmentSummary>;
   getInvestmentLeaderboard(
     config: GetInvestmentLeaderboardRequest
