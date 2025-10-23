@@ -52,7 +52,8 @@ export function DashboardSidebarFooter() {
           Social Media
         </h4>
         <Image
-          src={"/images/logo.png"}
+          // src={"/images/logo.png"}
+          src="/images/new-logo.png"
           alt="Logo Cromachain"
           height={44}
           width={36}

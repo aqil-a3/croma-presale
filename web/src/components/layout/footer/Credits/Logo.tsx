@@ -11,7 +11,8 @@ export function FooterLogo() {
       <Image
         className="relative aspect-[1.24] object-cover"
         alt="Image"
-        src="/images/logo.png"
+        // src="/images/logo.png"
+        src="/images/new-logo.png"
         width={44}
         height={35}
       />

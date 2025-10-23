@@ -12,7 +12,8 @@ export function HeaderLogo() {
       <Image
         className="relative aspect-[1.24] object-cover"
         alt="Image"
-        src="/images/logo.png"
+        // src="/images/logo.png"
+        src="/images/new-logo.png"
         sizes="(max-width: 640px) 28px, (max-width: 768px) 36px, 44px"
         width={44}
         height={35}

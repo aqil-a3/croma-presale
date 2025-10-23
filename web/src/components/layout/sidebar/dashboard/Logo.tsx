@@ -12,7 +12,8 @@ export function LogoSidebar({ open }: { open: boolean }) {
       )}
     >
       <Image
-        src={"/images/logo.png"}
+        // src={"/images/logo.png"}
+        src="/images/new-logo.png"
         alt="Logo Cromachain"
         height={64}
         width={52}
