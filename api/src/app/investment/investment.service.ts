@@ -120,6 +120,24 @@ export class InvestmentService {
     return data;
   }
 
+  async getMinAmountNowpayments(currency: string) {
+    const realApiKey = process.env.NOWPAYMENTS_API_KEY;
+
+    try {
+      const {data} = await axios.get(
+        `https://api.nowpayments.io/v1/min-amount?currency_from=usd&currency_to=${currency}`,
+        {
+          headers: { 'x-api-key': realApiKey },
+        },
+      );
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async createNewPayments(payload: CreatePaymentRequest) {
     const sandboxApiKey = process.env.NOWPAYMENTS_SANDBOX_API_KEY;
     const sandboxEndpoint = 'https://api-sandbox.nowpayments.io/v1/payment';

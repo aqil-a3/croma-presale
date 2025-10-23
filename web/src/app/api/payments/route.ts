@@ -7,14 +7,11 @@ export async function POST(req: NextRequest) {
   const { createNewPayment } = apiNowPayments;
   const body = await req.json();
 
-  const isSmall = Number(body.amountBuy) < 10;
-
   const payload: CreatePaymentRequest = {
     pay_currency: body.payCurrency,
     price_amount: body.amountBuy,
     price_currency: "usd",
     order_description: "Buy Cromachain Coin",
-    is_fixed_rate: !isSmall, // jika < $10 → pakai floating
     ipn_callback_url: `https://croma-presale-131e.vercel.app/investment/payments/webhook`,
   };
 
