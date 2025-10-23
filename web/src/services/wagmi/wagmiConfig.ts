@@ -1,11 +1,11 @@
 import { http, createConfig, createStorage, cookieStorage } from "wagmi";
-import { base, mainnet } from "wagmi/chains";
+import { base, bsc, mainnet, optimism, polygon } from "wagmi/chains";
 import { walletConnect, metaMask, injected } from "wagmi/connectors";
 
 const projectId = `${process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID}`;
 
 export const wagmiConfig = createConfig({
-  chains: [mainnet, base],
+  chains: [mainnet, bsc, base, optimism, polygon],
   ssr: true,
   storage: createStorage({
     storage: cookieStorage,
@@ -19,6 +19,9 @@ export const wagmiConfig = createConfig({
   ],
   transports: {
     [mainnet.id]: http(),
+    [bsc.id]: http(),
     [base.id]: http(),
+    [optimism.id]: http(),
+    [polygon.id]: http(),
   },
 });

@@ -86,6 +86,7 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
+    console.log(body);
     return await this.investmentService.createNewPayments(body);
   }
 
@@ -120,7 +121,10 @@ export class InvestmentController {
       await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
         referralBuyBonus,
       );
-      await this.dbHelperService.patchReferralStatus("confirmed", referralBuyBonus.buyer_wallet)
+      await this.dbHelperService.patchReferralStatus(
+        'confirmed',
+        referralBuyBonus.buyer_wallet,
+      );
     }
     return;
   }
