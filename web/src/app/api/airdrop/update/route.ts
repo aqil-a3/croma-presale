@@ -15,6 +15,6 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ message: "OK", data });
   } catch (error) {
     console.error(error);
-    return error;
+    throw error;
   }
 }
