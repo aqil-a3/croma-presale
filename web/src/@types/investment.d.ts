@@ -13,7 +13,7 @@ export interface InvestmentDb {
   id: string; // UUID
   user_id: string | null;
   order_id: string | null;
-  status: InvestmentStatus; 
+  status: InvestmentPayStatus; 
   invested_usd: number; // numeric(18,2)
   pay_currency: string
   pay_amount: number
