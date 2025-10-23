@@ -73,6 +73,7 @@ export function useRightSideCTAButton(amountBuy: number, payCurrency: string) {
       console.error(error);
       if (isAxiosError(error)) {
         const data = error.response?.data;
+        console.log(data)
         toast.error(data?.message ?? "Something went wrong");
       }
     } finally {
