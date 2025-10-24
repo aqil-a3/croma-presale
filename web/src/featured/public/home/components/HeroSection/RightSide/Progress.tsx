@@ -1,4 +1,3 @@
-import { Progress } from "@/components/ui/progress";
 import { fontPoppins } from "@/config/fonts";
 import { mainGradientFont } from "@/config/variables";
 import { usePublicPresaleContext } from "../../../provider";

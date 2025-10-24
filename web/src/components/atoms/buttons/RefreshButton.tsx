@@ -24,7 +24,7 @@ export function RefreshButton() {
       variant="outline"
       size="icon"
       onClick={handleRefresh}
-      className="border-orange-500/50 text-orange-500 hover:bg-orange-500 hover:text-white transition-colors"
+      className="bg-transparent text-white"
       disabled={isRefreshing}
     >
       <RotateCcw

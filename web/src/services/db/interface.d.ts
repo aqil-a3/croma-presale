@@ -28,6 +28,7 @@ export interface InvestmentApiTypes {
   createNewInvestment(payload: InvestmentClient): Promise<void>;
   getAllTransactions(config: AdminInvestmentQuery): Promise<InvestmentDb[]>;
   getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
+  getAllTransactionByOrderId(order_id: string): Promise<InvestmentDb[]>;
   getPaymentStatus(payment_id: string): Promise<NowPaymentsPayment>;
   getInvestmentSummary(wallet_address: string): Promise<InvestmentSummary>;
   getInvestmentLeaderboard(

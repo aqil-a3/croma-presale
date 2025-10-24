@@ -48,6 +48,12 @@ export class InvestmentController {
   }
 
   @UseGuards(SharedSecretGuard)
+  @Get('/order/:order_id')
+  async getAllTransactionByOrderId(@Param('order_id') order_id: number) {
+    return await this.investmentService.getInvestmentByOrderId(order_id);
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Get('/user/:wallet_address/get-transaction/reward-buy-bonus')
   async getReferralBuyBonusByAddress(
     @Param('wallet_address') wallet_address: string,
