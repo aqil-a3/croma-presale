@@ -26,8 +26,6 @@ export default async function Home() {
       getTotalRaised(),
     ]);
 
-  // TODO:Nanti terapin ini. Udah bentuk number dia
-  console.log(totalRaised);
   const paymentMethods = siteSettings.find(
     (setting) => setting.key === "payment_methods"
   ) as SettingAdminDb<PaymentSettingValue>;

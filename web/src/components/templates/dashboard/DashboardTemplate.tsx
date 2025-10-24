@@ -18,6 +18,7 @@ interface Props {
   investment: InvestmentSummary;
   paymentMethods: PaymentSettingValue;
   referralRewards: ReferralRewardsDB[];
+  totalRaised:number;
 }
 export default function DashboardTemplate({
   activePresale,
@@ -25,6 +26,7 @@ export default function DashboardTemplate({
   investment,
   paymentMethods,
   referralRewards,
+  totalRaised
 }: Props) {
   const hasHydrated = useHasHydrated();
 
@@ -36,6 +38,7 @@ export default function DashboardTemplate({
       activePresale={activePresale}
       cryptoPrice={cryptoPrice}
       paymentMethods={paymentMethods}
+      totalRaised={totalRaised}
     >
       <DashboardContainer className="space-y-4">
         <CurrenciesSection investment={investment} referralRewards={referralRewards} />

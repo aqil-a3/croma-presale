@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const { getActivePresale } = apiPresale;
-  const { getInvestmentSummary } = apiInvestment;
+  const { getInvestmentSummary, getTotalRaised } = apiInvestment;
   const { getReferralRewardById } = apiReferrals;
   const { getAllSiteSettings } = apiSiteSettings;
 
@@ -25,12 +25,14 @@ export default async function DashboardPage() {
     investSummary,
     siteSettings,
     referralReward,
+    totalRaised,
   ] = await Promise.all([
     getCryptoData(),
     getActivePresale(),
     getInvestmentSummary(address.toLowerCase()),
     getAllSiteSettings(),
     getReferralRewardById(address.toLowerCase()),
+    getTotalRaised(),
   ]);
 
   const paymentMethods = siteSettings.find(
@@ -44,6 +46,7 @@ export default async function DashboardPage() {
       investment={investSummary}
       paymentMethods={paymentMethods.value}
       referralRewards={referralReward}
+      totalRaised={totalRaised}
     />
   );
 }

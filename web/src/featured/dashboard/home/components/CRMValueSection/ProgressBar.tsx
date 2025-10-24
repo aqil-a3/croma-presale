@@ -46,8 +46,8 @@ const Title = () => {
 };
 
 const USDTRaised = () => {
-  const { activePresale } = usePublicPresaleContext();
-  const usdtData = activePresale.total_raised;
+  const { activePresale, totalRaised } = usePublicPresaleContext();
+  const usdtData = activePresale.current_price_usd * activePresale.total_raised + totalRaised;
   return (
     <div
       className={`${fontPoppins.className} flex justify-between items-center`}
