@@ -7,6 +7,7 @@ interface PublicPresaleContextType {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
   paymentMethods: PaymentSettingValue;
+  totalRaised:number;
   faqData?: FaqDb[];
 }
 
@@ -18,6 +19,7 @@ interface PublicPresaleProviderProps {
   children: React.ReactNode;
   activePresale: PresaleDb;
   paymentMethods: PaymentSettingValue;
+  totalRaised:number;
   faqData?: FaqDb[];
   cryptoPrice: Record<string, number>;
 }
@@ -26,6 +28,7 @@ export function PublicPresaleProvider({
   activePresale,
   cryptoPrice,
   faqData,
+  totalRaised,
   paymentMethods,
   children,
 }: PublicPresaleProviderProps) {
@@ -35,6 +38,7 @@ export function PublicPresaleProvider({
         activePresale,
         cryptoPrice,
         faqData,
+        totalRaised,
         paymentMethods,
       }}
     >

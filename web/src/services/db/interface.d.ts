@@ -30,6 +30,7 @@ export interface InvestmentApiTypes {
   getAllTransactionByAddress(wallet_address: string): Promise<InvestmentDb[]>;
   getAllTransactionByOrderId(order_id: string): Promise<InvestmentDb[]>;
   getPaymentStatus(payment_id: string): Promise<NowPaymentsPayment>;
+  getTotalRaised(): Promise<number>;
   getInvestmentSummary(wallet_address: string): Promise<InvestmentSummary>;
   getInvestmentLeaderboard(
     config: GetInvestmentLeaderboardRequest

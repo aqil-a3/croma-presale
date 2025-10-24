@@ -6,11 +6,12 @@ import { formatCurrencyWithDecimals } from "@/utils/formatCurrencyWithDecimals";
 import { motion } from "motion/react";
 
 export function RightSideProgress() {
-  const { activePresale } = usePublicPresaleContext();
+  const { activePresale, totalRaised: plusRaised } = usePublicPresaleContext();
 
-  const totalRaised = formatNumber(activePresale.total_raised);
+  const crmBuy = plusRaised / activePresale.current_price_usd;
+  const totalRaised = formatNumber(activePresale.total_raised + crmBuy);
   const raisedEqual = formatCurrencyWithDecimals(
-    activePresale.total_raised * activePresale.current_price_usd,
+    activePresale.total_raised * activePresale.current_price_usd + plusRaised,
     "USD",
     "en-US",
     2
@@ -58,7 +59,8 @@ const ProgressBar = () => {
           style={{
             width: `${value}%`,
             background: "linear-gradient(90deg,#ff6a00 0%,#ff4d00 100%)",
-            boxShadow: "0 0 16px rgba(255, 96, 0, .35) inset, 0 0 10px rgba(255,96,0,.25)" 
+            boxShadow:
+              "0 0 16px rgba(255, 96, 0, .35) inset, 0 0 10px rgba(255,96,0,.25)",
           }}
           layout
           transition={{ type: "spring", stiffness: 250, damping: 30 }}

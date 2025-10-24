@@ -14,37 +14,40 @@ import { PublicPresaleProvider } from "@/featured/public/home/provider";
 import { FaqDb } from "@/featured/admin/faq/interface";
 import { useHasHydrated } from "@/hooks/use-has-hydrated";
 import { PaymentSettingValue } from "@/@types/setting-admin";
-import {PoweredBy} from "@/featured/public/home/components/PoweredBySection";
+import { PoweredBy } from "@/featured/public/home/components/PoweredBySection";
 
 export default function HomeTemplate({
   activePresale,
   cryptoPrice,
   faqData,
-  paymentMethods
+  paymentMethods,
+  totalRaised,
 }: {
   activePresale: PresaleDb;
   cryptoPrice: Record<string, number>;
   faqData: FaqDb[];
-  paymentMethods: PaymentSettingValue
+  paymentMethods: PaymentSettingValue;
+  totalRaised: number;
 }) {
   const params = useSearchParams();
   const router = useRouter();
   const hasHydrated = useHasHydrated();
 
   const error = params.get("error");
-  
+
   useEffect(() => {
     if (error === "must-login") {
       toast.error("You must connect your wallet first");
-      
+
       router.replace("/home");
     }
   }, [error, router]);
-  
+
   if (!hasHydrated) return null;
-  
+
   return (
     <PublicPresaleProvider
+      totalRaised={totalRaised}
       activePresale={activePresale}
       cryptoPrice={cryptoPrice}
       faqData={faqData}

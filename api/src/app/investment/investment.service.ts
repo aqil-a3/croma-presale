@@ -157,6 +157,16 @@ export class InvestmentService {
     }
   }
 
+  async getTotalRaised() {
+    const { data, error } = await this.supabaseAdmin.rpc('get_total_raised');
+    if(error){
+      console.error("error getTotalRaised", error);
+      throw error;
+    }
+
+    return data;
+  }
+
   async createNewPayments(payload: CreatePaymentRequest) {
     const sandboxApiKey = process.env.NOWPAYMENTS_SANDBOX_API_KEY;
     const sandboxEndpoint = 'https://api-sandbox.nowpayments.io/v1/payment';

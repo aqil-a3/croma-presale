@@ -90,6 +90,12 @@ export class InvestmentController {
   }
 
   @UseGuards(SharedSecretGuard)
+  @Get('total-raised')
+  async getTotalRaised() {
+    return await this.investmentService.getTotalRaised();
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Post('')
   async createNewInvestment(@Body() body: InvestmentClient) {
     return await this.investmentService.createNewInvestment(body);

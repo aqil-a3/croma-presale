@@ -9,8 +9,9 @@ import { motion, animate } from "motion/react";
 import { usePublicPresaleContext } from "../../provider";
 
 export function ProgressBar() {
-  const { activePresale } = usePublicPresaleContext();
-  const currentValue = activePresale.total_raised;
+  const { activePresale, totalRaised } = usePublicPresaleContext();
+  const currentValue =
+    activePresale.total_raised * activePresale.current_price_usd + totalRaised;
   const targetValue = activePresale.target_raised;
   const targetPercent = Math.round((currentValue / targetValue) * 100);
 
