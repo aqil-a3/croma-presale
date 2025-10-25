@@ -14,6 +14,8 @@ export const TOKEN_CURRENCIES = [
   "usdterc20", // USDT di Ethereum
   "usdc",      // USDC di Ethereum
   "dai",       // DAI di Ethereum
+  "usdtbsc",   // USDT di BSC (BEP-20)
+  "usdcbase",  // USDC di Base (ERC-20)
 ];
 
 /**

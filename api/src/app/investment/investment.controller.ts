@@ -104,6 +104,7 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
+    console.log(body);
     const { min_amount } = await this.investmentService.getMinAmountNowpayments(
       body.pay_currency,
     );
