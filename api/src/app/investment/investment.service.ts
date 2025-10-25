@@ -179,8 +179,6 @@ export class InvestmentService {
         headers: { 'x-api-key': realApiKey },
       });
 
-      console.log(data);
-
       return data;
     } catch (error: any) {
       console.error(

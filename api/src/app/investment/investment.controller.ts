@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Headers,
+  Logger,
   Param,
   Post,
   Query,
@@ -23,6 +24,8 @@ import { Request } from 'express';
 
 @Controller('investment')
 export class InvestmentController {
+  private readonly logger = new Logger(InvestmentController.name);
+
   constructor(
     private readonly investmentService: InvestmentService,
     private readonly dbHelperService: DbHelpersService,
@@ -111,7 +114,6 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
-    console.log(body);
     const { min_amount } = await this.investmentService.getMinAmountNowpayments(
       body.pay_currency,
     );
@@ -122,13 +124,72 @@ export class InvestmentController {
     return await this.investmentService.createNewPayments(body);
   }
 
+  // @Post('/payments/webhook')
+  // async webhookNowPayments(@Req() req: Request) {
+  //   const signature = req.headers['x-nowpayments-sig'] as string;
+  //   const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
+  //   // const ipnSecret = process.env.NOWPAYMENTS_SANDBOX_IPN_SECRET!;
+  //   const rawBody = (req as any).rawBody || JSON.stringify(req.body);
+  //   const body: NowPaymentsWebhook = req.body;
+
+  //   const computed = crypto
+  //     .createHmac('sha512', ipnSecret)
+  //     .update(rawBody)
+  //     .digest('hex');
+
+  //   if (computed !== signature) {
+  //     throw new UnauthorizedException('Invalid IPN Signature');
+  //   }
+
+  //   await this.investmentService.updateStatusPayments(
+  //     body.payment_id.toString(),
+  //     body.payment_status,
+  //   );
+
+  //   if (body.payment_status === 'finished') {
+  //     // Cek transaksi dari order id webhook
+  //     const { payin_hash } = await this.investmentService.getPaymentStatus(
+  //       body.payment_id.toString(),
+  //     );
+
+  //     // Mapping referral reward agar bisa upload ke db
+  //     const referralRewardPayload =
+  //       await this.dbHelperService.mapToReferralRewards(body);
+
+  //     // Mapping bonus pembelian referral agar bisa upload ke db
+  //     const referralBuyBonus =
+  //       await this.dbHelperService.mapToReferralBuyBonus(body);
+
+  //     // Update txhash
+  //     await this.investmentService.updateTxHash(
+  //       body.payment_id.toString(),
+  //       payin_hash,
+  //     );
+
+  //     if (referralRewardPayload) {
+  //       await this.dbHelperService.createNewReferralReward(
+  //         referralRewardPayload,
+  //       );
+  //     }
+
+  //     if (referralBuyBonus) {
+  //       await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
+  //         referralBuyBonus,
+  //       );
+  //       await this.dbHelperService.patchReferralStatus(
+  //         'confirmed',
+  //         referralBuyBonus.buyer_wallet,
+  //       );
+  //     }
+  //   }
+  //   return { status: 'ok' };
+  // }
   @Post('/payments/webhook')
   async webhookNowPayments(@Req() req: Request) {
     const signature = req.headers['x-nowpayments-sig'] as string;
     const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
-    // const ipnSecret = process.env.NOWPAYMENTS_SANDBOX_IPN_SECRET!;
     const rawBody = (req as any).rawBody || JSON.stringify(req.body);
-    const body: NowPaymentsWebhook = req.body;
+    const body = req.body;
 
     const computed = crypto
       .createHmac('sha512', ipnSecret)
@@ -136,36 +197,69 @@ export class InvestmentController {
       .digest('hex');
 
     if (computed !== signature) {
+      this.logger.warn(`Invalid IPN Signature for payment ${body?.payment_id}`);
       throw new UnauthorizedException('Invalid IPN Signature');
     }
 
-    await this.investmentService.updateStatusPayments(
-      body.payment_id.toString(),
-      body.payment_status,
+    // Log penerimaan webhook
+    this.logger.log(
+      `Received NOWPayments webhook: ${body.payment_id} - ${body.payment_status}`,
     );
 
-    if (body.payment_status === 'finished') {
-      const { payin_hash } = await this.investmentService.getPaymentStatus(
-        body.order_id,
-      );
-      const payload = await this.dbHelperService.mapToReferralRewards(body);
-      const referralBuyBonus =
-        await this.dbHelperService.mapToReferralBuyBonus(body);
-
-      await this.investmentService.updateTxHash(
+    try {
+      await this.investmentService.updateStatusPayments(
         body.payment_id.toString(),
-        payin_hash,
+        body.payment_status,
       );
-      if (!payload || !referralBuyBonus) return;
-      await this.dbHelperService.createNewReferralReward(payload);
-      await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
-        referralBuyBonus,
+
+      if (body.payment_status === 'finished') {
+        this.logger.log(`Processing finished payment: ${body.payment_id}`);
+
+        const { payin_hash } = await this.investmentService.getPaymentStatus(
+          body.payment_id.toString(),
+        );
+
+        const referralRewardPayload =
+          await this.dbHelperService.mapToReferralRewards(body);
+        const referralBuyBonus =
+          await this.dbHelperService.mapToReferralBuyBonus(body);
+
+        await this.investmentService.updateTxHash(
+          body.payment_id.toString(),
+          payin_hash,
+        );
+
+        if (referralRewardPayload) {
+          await this.dbHelperService.createNewReferralReward(
+            referralRewardPayload,
+          );
+          this.logger.debug(
+            `Referral reward created for payment ${body.payment_id}`,
+          );
+        }
+
+        if (referralBuyBonus) {
+          await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
+            referralBuyBonus,
+          );
+          await this.dbHelperService.patchReferralStatus(
+            'confirmed',
+            referralBuyBonus.buyer_wallet,
+          );
+          this.logger.debug(
+            `Referral bonus confirmed for ${referralBuyBonus.buyer_wallet}`,
+          );
+        }
+      }
+
+      this.logger.log(`Webhook processing completed: ${body.payment_id}`);
+      return { status: 'ok' };
+    } catch (err) {
+      this.logger.error(
+        `Error processing webhook: ${body.payment_id}`,
+        err.stack,
       );
-      await this.dbHelperService.patchReferralStatus(
-        'confirmed',
-        referralBuyBonus.buyer_wallet,
-      );
+      throw err;
     }
-    return { status: 'ok' };
   }
 }
