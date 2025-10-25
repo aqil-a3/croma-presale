@@ -204,7 +204,10 @@ const PayComp: React.FC<PayCompProps> = ({
             groupSeparator=","
             value={usd}
             maxLength={10}
-            onValueChange={(value) => setUsd(value as unknown as number)}
+            onValueChange={(value) => {
+              if (!value) return setUsd(1);
+              setUsd(value as unknown as number);
+            }}
           />
 
           {/* Crypto Input */}
@@ -212,9 +215,11 @@ const PayComp: React.FC<PayCompProps> = ({
             className={`${fontPoppins.className} w-[200px] font-bold text-base text-gray-300 outline-none mt-1 border-none px-0`}
             type="number"
             value={cryptoAmount}
-            onChange={(e) =>
-              setCryptoAmount(e.target.valueAsNumber)
-            }
+            onChange={(e) => {
+              const value = e.target.valueAsNumber;
+              if (isNaN(value)) return setCryptoAmount(0);
+              setCryptoAmount(e.target.valueAsNumber);
+            }}
           />
           {/* <CurrencyInput
             className={`${fontPoppins.className} w-[200px] font-bold text-base text-gray-300 outline-none mt-1`}
