@@ -9,8 +9,9 @@ export function Title() {
         Stay Tuned
       </h3>
       <p className={`${fontPoppins.className} text-[#FFFFFFCC] text-lg`}>
-        Subscribe to receive updates on XVA presale and the latest news from
-        Nova.
+        Stay connected with <span className="text-orange-400 font-medium">CROMA OFFICIAL</span> 
+        — get the latest updates on our ecosystem and exclusive news powered by 
+        <span className="text-orange-400 font-medium"> TRIXNEWS</span>.
       </p>
     </>
   );

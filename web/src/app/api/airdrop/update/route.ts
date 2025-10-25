@@ -10,7 +10,6 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const { data } = await api.patch(`/migration/airdrop/${wallet_address}`);
-    console.log(data);
 
     return NextResponse.json({ message: "OK", data });
   } catch (error) {

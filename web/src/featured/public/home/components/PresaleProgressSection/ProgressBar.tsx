@@ -33,7 +33,7 @@ export function ProgressBar() {
 
         <div className={`${fontOrbitron.className} text-right`}>
           <p className="text-white text-base lg:text-xl font-medium">
-            Target Raise
+            Target Raised
           </p>
           <AnimatedCurrency
             value={targetValue}

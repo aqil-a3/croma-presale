@@ -1,12 +1,125 @@
+// import { AssetSelect } from "@/components/molecules/select/AssetSelect";
+// import { Button } from "@/components/ui/button";
+// import { fontPoppins } from "@/config/fonts";
+// import CurrencyInput from "react-currency-input-field";
+
+// import Image from "next/image";
+// import React from "react";
+// import { usePublicPresaleContext } from "../../../provider";
+// import { formatNumber } from "@/utils/formatNumber";
+
+// interface Props {
+//   usd: number;
+//   setUsd: React.Dispatch<React.SetStateAction<number>>;
+//   asset: string;
+//   setAsset: React.Dispatch<React.SetStateAction<string>>;
+// }
+
+// export function RightSidePayReceive({ setUsd, usd, asset, setAsset }: Props) {
+//   return (
+//     <div className="space-y-4">
+//       <PayComp setUsd={setUsd} usd={usd} asset={asset} setAsset={setAsset} />
+//       <RecComp usd={usd} />
+//     </div>
+//   );
+// }
+
+// const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
+//   const { cryptoPrice, paymentMethods } = usePublicPresaleContext();
+//   const cPrice = usd / cryptoPrice[asset];
+
+//   return (
+//     <div
+//       style={{
+//         background:
+//           "linear-gradient(88.3deg, rgba(255, 255, 255, 0.083) 0%, rgba(255, 255, 255, 0.044) 99.66%)",
+//         backdropFilter: "blur(64px)",
+//       }}
+//       className="h-28 w-full rounded-2xl opacity-90 p-2 lg:p-4"
+//     >
+//       <p
+//         className={`${fontPoppins.className} text-sm lg:text-base text-white font-medium`}
+//       >
+//         You Pay (USD)
+//       </p>
+//       <div className="flex justify-between items-center">
+//         <div className="flex flex-col items-start justify-center">
+//           <CurrencyInput
+//             className={`${fontPoppins.className} w-[200px] font-bold text-lg lg:text-2xl text-white outline-none`}
+//             prefix="$"
+//             allowDecimals={true}
+//             decimalSeparator="."
+//             groupSeparator=","
+//             value={usd}
+//             maxLength={10}
+//             onValueChange={(value) => {
+//               setUsd(value as unknown as number);
+//             }}
+//           />
+//           <p
+//             className={`${fontPoppins.className} text-[#79869B] text-sm lg:text-base font-medium`}
+//           >
+//             {formatNumber(cPrice)}
+//           </p>
+//         </div>
+
+//         <AssetSelect
+//           options={paymentMethods.value}
+//           value={asset}
+//           onChange={setAsset}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// const RecComp: React.FC<{ usd: number }> = ({ usd }) => {
+//   const { activePresale } = usePublicPresaleContext();
+//   const currPrice = activePresale.current_price_usd;
+//   const crmValue = usd / currPrice;
+
+//   return (
+//     <div
+//       style={{
+//         background:
+//           "linear-gradient(88.3deg, rgba(255, 255, 255, 0.083) 0%, rgba(255, 255, 255, 0.044) 99.66%)",
+//         backdropFilter: "blur(64px)",
+//       }}
+//       className="h-28 w-full rounded-2xl opacity-90 p-4"
+//     >
+//       <p className={`${fontPoppins.className} text-white font-medium`}>
+//         You Receive
+//       </p>
+//       <div className="flex justify-between items-center">
+//         <p className={`${fontPoppins.className} font-bold text-2xl text-white`}>
+//           {formatNumber(crmValue)}
+//         </p>
+
+//         <Button className="bg-[#FFFFFF12] w-[134px] h-12 rounded-2xl ">
+//           <Image
+//             width={24}
+//             height={24}
+//             alt="Croma Icon"
+//             src={"/logo/crm-coin.png"}
+//           />{" "}
+//           CRM
+//         </Button>
+//       </div>
+//     </div>
+//   );
+// };
+
+"use client";
+
 import { AssetSelect } from "@/components/molecules/select/AssetSelect";
 import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import CurrencyInput from "react-currency-input-field";
-
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePublicPresaleContext } from "../../../provider";
 import { formatNumber } from "@/utils/formatNumber";
+import { Input } from "@/components/ui/input";
 
 interface Props {
   usd: number;
@@ -16,53 +129,108 @@ interface Props {
 }
 
 export function RightSidePayReceive({ setUsd, usd, asset, setAsset }: Props) {
+  const { cryptoPrice } = usePublicPresaleContext();
+  const [cryptoAmount, setCryptoAmount] = useState<number>(0);
+
+  // 🧠 Sinkron otomatis ketika USD berubah
+  useEffect(() => {
+    if (cryptoPrice[asset]) {
+      setCryptoAmount(usd / cryptoPrice[asset]);
+    }
+  }, [usd, asset, cryptoPrice]);
+
+  // 🧠 Sinkron otomatis ketika crypto berubah
+  const handleCryptoChange = (value: number) => {
+    setCryptoAmount(value);
+    if (cryptoPrice[asset]) {
+      setUsd(value * cryptoPrice[asset]);
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <PayComp setUsd={setUsd} usd={usd} asset={asset} setAsset={setAsset} />
+      <PayComp
+        usd={usd}
+        setUsd={setUsd}
+        asset={asset}
+        setAsset={setAsset}
+        cryptoAmount={cryptoAmount}
+        setCryptoAmount={handleCryptoChange}
+      />
       <RecComp usd={usd} />
     </div>
   );
 }
 
-const PayComp: React.FC<Props> = ({ setUsd, usd, asset, setAsset }) => {
-  const { cryptoPrice, paymentMethods } = usePublicPresaleContext();
-  const cPrice = usd / cryptoPrice[asset];
+interface PayCompProps extends Props {
+  cryptoAmount: number;
+  setCryptoAmount: (val: number) => void;
+}
+
+const PayComp: React.FC<PayCompProps> = ({
+  setUsd,
+  usd,
+  asset,
+  setAsset,
+  cryptoAmount,
+  setCryptoAmount,
+}) => {
+  const { paymentMethods } = usePublicPresaleContext();
 
   return (
     <div
       style={{
         background:
-          "linear-gradient(88.3deg, rgba(255, 255, 255, 0.083) 0%, rgba(255, 255, 255, 0.044) 99.66%)",
+          "linear-gradient(88.3deg, rgba(255,255,255,0.083) 0%, rgba(255,255,255,0.044) 99.66%)",
         backdropFilter: "blur(64px)",
       }}
-      className="h-28 w-full rounded-2xl opacity-90 p-2 lg:p-4"
+      className="rounded-2xl opacity-90 p-2 lg:p-4 space-y-2"
     >
       <p
         className={`${fontPoppins.className} text-sm lg:text-base text-white font-medium`}
       >
-        You Pay (USD)
+        You Pay
       </p>
-      <div className="flex justify-between items-center">
+
+      {/* Input Row */}
+      <div className="flex justify-between items-center gap-2">
         <div className="flex flex-col items-start justify-center">
+          {/* USD Input */}
           <CurrencyInput
             className={`${fontPoppins.className} w-[200px] font-bold text-lg lg:text-2xl text-white outline-none`}
             prefix="$"
-            allowDecimals={true}
+            allowDecimals
             decimalSeparator="."
             groupSeparator=","
             value={usd}
             maxLength={10}
-            onValueChange={(value) => {
-              setUsd(value as unknown as number);
-            }}
+            onValueChange={(value) => setUsd(value as unknown as number)}
           />
-          <p
-            className={`${fontPoppins.className} text-[#79869B] text-sm lg:text-base font-medium`}
-          >
-            {formatNumber(cPrice)}
-          </p>
+
+          {/* Crypto Input */}
+          <Input
+            className={`${fontPoppins.className} w-[200px] font-bold text-base text-gray-300 outline-none mt-1 border-none px-0`}
+            type="number"
+            value={cryptoAmount}
+            onChange={(e) =>
+              setCryptoAmount(e.target.valueAsNumber)
+            }
+          />
+          {/* <CurrencyInput
+            className={`${fontPoppins.className} w-[200px] font-bold text-base text-gray-300 outline-none mt-1`}
+            suffix={` ${asset.toUpperCase()}`}
+            allowDecimals
+            decimalSeparator="."
+            groupSeparator=","
+            value={cryptoAmount}
+            maxLength={10}
+            onValueChange={(value) =>
+              setCryptoAmount(value as unknown as number)
+            }
+          /> */}
         </div>
 
+        {/* Token Selector */}
         <AssetSelect
           options={paymentMethods.value}
           value={asset}
@@ -82,7 +250,7 @@ const RecComp: React.FC<{ usd: number }> = ({ usd }) => {
     <div
       style={{
         background:
-          "linear-gradient(88.3deg, rgba(255, 255, 255, 0.083) 0%, rgba(255, 255, 255, 0.044) 99.66%)",
+          "linear-gradient(88.3deg, rgba(255,255,255,0.083) 0%, rgba(255,255,255,0.044) 99.66%)",
         backdropFilter: "blur(64px)",
       }}
       className="h-28 w-full rounded-2xl opacity-90 p-4"

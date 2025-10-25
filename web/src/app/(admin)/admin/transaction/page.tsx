@@ -21,8 +21,6 @@ export default async function AdminTransactionPage({ searchParams }: Props) {
     to: pageNumber * limit,
   };
 
-  console.log(query);
-
   const { getAllTransactions } = apiInvestment;
   const data = await getAllTransactions(query);
 

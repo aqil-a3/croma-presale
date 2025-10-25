@@ -12,6 +12,7 @@ import {
   NowPaymentsWebhook,
 } from 'src/app/investment/investment.interface';
 import { UserDb, UserReferralStatistic } from 'src/app/user/user.interface';
+import axios from 'axios';
 
 @Injectable()
 export class DbHelpersService {
@@ -151,6 +152,42 @@ export class DbHelpersService {
       status: 'pending',
       user_id: id,
     };
+  }
+
+  async getAllPaymentsMethod() {
+    const { data, error } = await this.supabaseAdmin
+      .from('site_settings')
+      .select('*')
+      .eq('key', 'payment_methods');
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    const values = data[0].value.value;
+    const methodCode = values.map((val) => val.currency);
+
+    return methodCode;
+  }
+
+  async getAllEstimatedPrice() {
+    const currencies: string[] = await this.getAllPaymentsMethod();
+    const estimatedCurrencies: Record<string, number> = {};
+
+    for (const currency of currencies) {
+      const endpoints = `https://api.nowpayments.io/v1/estimate?amount=1&currency_from=usd&currency_to=${currency}`;
+
+      const { data } = await axios.get(endpoints, {
+        headers: {
+          'x-api-key': process.env.NOWPAYMENTS_API_KEY,
+        },
+      });
+
+      estimatedCurrencies[currency] = 1 / Number(data.estimated_amount);
+    }
+
+    return estimatedCurrencies;
   }
 
   async getInvestmentByOrderId(order_id: number): Promise<InvestmentDb | null> {

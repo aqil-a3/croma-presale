@@ -96,6 +96,13 @@ export class InvestmentController {
   }
 
   @UseGuards(SharedSecretGuard)
+  @Get('estimated')
+  async getEstimatedPrice() {
+    const estimatedPrice = await this.dbHelperService.getAllEstimatedPrice();
+    return estimatedPrice;
+  }
+
+  @UseGuards(SharedSecretGuard)
   @Post('')
   async createNewInvestment(@Body() body: InvestmentClient) {
     return await this.investmentService.createNewInvestment(body);
