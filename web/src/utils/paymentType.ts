@@ -18,6 +18,12 @@ export const TOKEN_CURRENCIES = [
   "usdcbase",  // USDC di Base (ERC-20)
 ];
 
+export const NON_EVM_CURRENCIES =[
+  "sol",
+  "usdtsol",
+  "usdcsol"
+]
+
 /**
  * Cek apakah simbol pembayaran adalah native coin
  */
@@ -31,3 +37,11 @@ export function isNativeCurrency(symbol?: string): boolean {
 export function isTokenCurrency(symbol?: string): boolean {
   return !!symbol && TOKEN_CURRENCIES.includes(symbol.toLowerCase());
 }
+
+/**
+ * Cek apakah simbol pembayaran adalah token ERC20/BEP20
+ */
+export function isNonEVMCurrency(symbol?: string): boolean {
+  return !!symbol && NON_EVM_CURRENCIES.includes(symbol.toLowerCase());
+}
+
