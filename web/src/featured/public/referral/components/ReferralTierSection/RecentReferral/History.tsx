@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 export interface ReferralHistoryTypes {
   address: string;
-  status: "completed" | "pending" | "failed";
+  status: "confirmed" | "pending" | "failed";
   date: string;
 }
 
@@ -24,19 +24,19 @@ const mapper = (raw: ReferralDb): ReferralHistoryTypes => ({
 });
 
 const statusLabel: Record<ReferralHistoryTypes["status"], string> = {
-  completed: "Confirmed",
+  confirmed: "Confirmed",
   failed: "Failed",
   pending: "Pending",
 };
 
 const textColor: Record<ReferralHistoryTypes["status"], string> = {
-  completed: "text-green-500",
+  confirmed: "text-green-500",
   failed: "text-red-500",
   pending: "text-amber-500",
 };
 
 const borderColor: Record<ReferralHistoryTypes["status"], string> = {
-  completed: "border-green-500",
+  confirmed: "border-green-500",
   failed: "border-red-500",
   pending: "border-amber-500",
 };

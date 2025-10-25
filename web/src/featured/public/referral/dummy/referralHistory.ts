@@ -3,7 +3,7 @@ import { ReferralHistoryTypes } from "../components/ReferralTierSection/RecentRe
 export const dummyReferralHistories: ReferralHistoryTypes[] = [
   {
     address: "0xA1B2C3D4E5F678901234567890abcdef12345678",
-    status: "completed",
+    status: "confirmed",
     date: "2025-09-01T14:30:00Z",
   },
   {
@@ -18,7 +18,7 @@ export const dummyReferralHistories: ReferralHistoryTypes[] = [
   },
   {
     address: "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
-    status: "completed",
+    status: "confirmed",
     date: "2025-09-04T12:00:00Z",
   },
   {
@@ -28,7 +28,7 @@ export const dummyReferralHistories: ReferralHistoryTypes[] = [
   },
   {
     address: "0x2222222222222222222222222222222222222222",
-    status: "completed",
+    status: "confirmed",
     date: "2025-09-06T15:40:00Z",
   },
   {
@@ -38,7 +38,7 @@ export const dummyReferralHistories: ReferralHistoryTypes[] = [
   },
   {
     address: "0x4444444444444444444444444444444444444444",
-    status: "completed",
+    status: "confirmed",
     date: "2025-09-08T11:55:00Z",
   },
   {
@@ -48,7 +48,7 @@ export const dummyReferralHistories: ReferralHistoryTypes[] = [
   },
   {
     address: "0x6666666666666666666666666666666666666666",
-    status: "completed",
+    status: "confirmed",
     date: "2025-09-10T08:05:00Z",
   },
 ];

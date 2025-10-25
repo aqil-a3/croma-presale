@@ -18,7 +18,7 @@ export interface ReferralDb {
   updated_at: string;
   wallet_address: string;
   referred_by: string;
-  status: "completed" | "pending" | "failed";
+  status: "confirmed" | "pending" | "failed";
 }
 
 export interface ReferralRewardsDB {
