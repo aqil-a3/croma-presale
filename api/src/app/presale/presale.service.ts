@@ -50,6 +50,17 @@ export class PresaleService {
     return data as PresaleService;
   }
 
+  async getRemainingCRM() {
+    const { data, error } = await this.supabaseAdmin.rpc('get_remaining_crm');
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data;
+  }
+
   async getAllPresale() {
     const { data, error } = await this.supabaseAdmin
       .from(this.tableName)

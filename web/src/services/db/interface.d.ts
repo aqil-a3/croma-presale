@@ -41,6 +41,7 @@ export interface PresaleApiTypes {
   createNewPresale: (data: PresaleClient) => Promise<void>;
   editPresaleData: (data: PresaleClient, presaleId: number) => Promise<void>;
   getActivePresale: () => Promise<PresaleDb>;
+  getRemainingCRM: () => Promise<number>;
   getAllPresale: () => Promise<PresaleDb[]>;
   patchPresaleStatus: (presaleId: number) => Promise<void>;
 }

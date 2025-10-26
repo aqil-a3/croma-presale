@@ -13,7 +13,5 @@ export async function getCryptoData() {
 
   const data = await res.json();
 
-  console.log(data)
-
   return data;
 }

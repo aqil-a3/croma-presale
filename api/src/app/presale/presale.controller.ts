@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Patch, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { PresaleService } from './presale.service';
 import { PresaleClient } from './presale.interface';
 import { BasicResponse, ResponseWithData } from '../../interface/http';
@@ -32,6 +40,11 @@ export class PresaleController {
       message: 'Retreive success',
       ok: true,
     };
+  }
+
+  @Get('/active/remaining-crm')
+  async getRemainingCRM() {
+    return await this.presaleService.getRemainingCRM();
   }
 
   @UseGuards(SharedSecretGuard)
