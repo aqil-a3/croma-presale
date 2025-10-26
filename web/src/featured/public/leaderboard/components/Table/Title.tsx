@@ -24,10 +24,10 @@ export function TableTitle() {
         animate="visible"
         transition={{ duration: 0.4, delay: 0.8 }}
         viewport={{ once: true }}
-        className={`${fontPoppins.className} text-white font-medium text-base lg:text-xl text-center`}
+        className={`${fontPoppins.className} text-white font-medium text-base lg:text-xl text-center select-none`}
       >
         From{" "}
-        <span className={`${mainGradientFont} font-bold text-2xl lg:text-3xl`}>
+        <span className={`${mainGradientFont} font-bold text-2xl lg:text-3xl blur-md`}>
           {formatNumber(totalBuyers)}
         </span>{" "}
         All time Buyers

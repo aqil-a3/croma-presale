@@ -9,7 +9,7 @@ import { mapTopBuyersWithRanks } from "../../utils/mapTopBuyerWithRank";
 
 export function LeaderboardTable() {
   const { setTimeFilter, timeFilter, data } = useLeaderboardContext();
-  const topBuyerWithRanks = mapTopBuyersWithRanks(data);
+  const topBuyerWithRanks = mapTopBuyersWithRanks(data).slice(0, 50);
   return (
     <div
       style={{ background: PANEL_BG }}

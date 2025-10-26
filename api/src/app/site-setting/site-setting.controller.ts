@@ -54,8 +54,6 @@ export class SiteSettingController {
       value = paymentValues;
     }
 
-    console.log(key)
-
     if (!allowedKey.includes(key))
       throw new BadRequestException(`${key} is can't be edited`);
     return await this.siteSettingService.editSiteSetting(key, value);

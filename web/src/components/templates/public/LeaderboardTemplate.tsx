@@ -1,21 +1,18 @@
 "use client";
-import { InvestmentLeaderboardItem } from "@/@types/investment";
+import { TopBuyer } from "@/@types/user";
 import { Decor } from "@/components/atoms/Decor";
 import { TrophyImage } from "@/components/atoms/image-decorations/TrophyImage";
 import { TwoFireImage } from "@/components/atoms/image-decorations/TwoFireImage";
 import { MainContainer } from "@/components/layout/container/MainContainer";
 import { LeaderboardTable } from "@/featured/public/leaderboard/components/Table";
 import { Title } from "@/featured/public/leaderboard/components/Title";
-// import { dummyTopBuyers } from "@/featured/public/leaderboard/dummy";
-import { mapToTopBuyer } from "@/featured/public/leaderboard/mapper";
 import { LeaderboardProvider } from "@/featured/public/leaderboard/provider";
 
 interface Props {
-  data: InvestmentLeaderboardItem[];
+  topBuyers: TopBuyer[]
 }
 
-export default function LeaderboardTemplate({ data }: Props) {
-  const topBuyers = data.map(mapToTopBuyer);
+export default function LeaderboardTemplate({ topBuyers }: Props) {
   return (
     <LeaderboardProvider data={topBuyers}>
       <MainContainer className="relative min-h-screen bg-center bg-cover bg-[url(/images/background/dashboard/bg-01.png)] pt-40 pb-12 space-y-8 overflow-hidden">
