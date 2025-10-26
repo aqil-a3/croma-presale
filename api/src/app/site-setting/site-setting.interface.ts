@@ -1,6 +1,7 @@
 export type SettingAdminDbKey =
   | 'referral_average_buy_amount'
-  | 'payment_methods';
+  | 'payment_methods'
+  | 'fake_top_buyers';
 
 export interface SettingAdminDb<TValue = unknown> {
   id: number;

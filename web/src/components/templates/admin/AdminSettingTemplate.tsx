@@ -3,6 +3,7 @@ import { SettingAdminDb } from "@/@types/setting-admin";
 import { TitleAndSub } from "@/components/atoms/title/TitleAndSub";
 import { AdminContainer } from "@/components/layout/container/AdminContainer";
 import { PannelContainer } from "@/components/layout/container/PanelContainer";
+import { FakeTopBuyersSetting } from "@/featured/admin/site-setting/components/FakeTopBuyersSetting";
 import { NumberSetting } from "@/featured/admin/site-setting/components/NumberSetting";
 import { PaymentMethod } from "@/featured/admin/site-setting/components/PaymentMethodSetting";
 import { AdminSettingProvider } from "@/featured/admin/site-setting/provider";
@@ -23,6 +24,7 @@ export default function AdminSettingTemplate({ settings }: Props) {
         <PannelContainer>
           <NumberSetting settingKey="referral_average_buy_amount" />
           <PaymentMethod />
+          <FakeTopBuyersSetting />
         </PannelContainer>
       </AdminContainer>
     </AdminSettingProvider>

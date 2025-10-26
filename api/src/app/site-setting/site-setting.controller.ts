@@ -44,8 +44,8 @@ export class SiteSettingController {
     const allowedKey: SettingAdminDbKey[] = [
       'referral_average_buy_amount',
       'payment_methods',
+      'fake_top_buyers'
     ];
-
 
     if (key === 'payment_methods') {
       const paymentValues =
@@ -53,6 +53,8 @@ export class SiteSettingController {
 
       value = paymentValues;
     }
+
+    console.log(key)
 
     if (!allowedKey.includes(key))
       throw new BadRequestException(`${key} is can't be edited`);

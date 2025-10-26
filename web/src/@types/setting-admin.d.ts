@@ -8,7 +8,8 @@ export interface SettingAdminDb<TValue = unknown> {
 
 export type SettingAdminDbKey =
   | "referral_average_buy_amount"
-  | "payment_methods";
+  | "payment_methods"
+  | "fake_top_buyers";
 
 export type NumberSettingValue = number;
 

@@ -17,7 +17,7 @@ export function PaymentMethod() {
   return (
     <div className="space-y-4">
       <p className="font-semibold">{paymentSetting.label}</p>
-      <div className="flex gap-2">
+      <div className="flex gap-4 flex-wrap">
         {data.map((d) => (
           <div key={d.name} className="flex gap-1">
             <Image
