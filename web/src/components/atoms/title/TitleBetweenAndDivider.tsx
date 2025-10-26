@@ -5,18 +5,21 @@ import {
   mainGradientFont,
   PANEL_BG,
 } from "@/config/variables";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface Props {
   leftSideText?: string;
   rightSideText?: string;
   divider?: boolean;
+  isBlur?: boolean;
 }
 
 export function TitleBetweenAndDivider({
   divider,
   leftSideText,
   rightSideText,
+  isBlur
 }: Props) {
   return (
     <>
@@ -26,14 +29,14 @@ export function TitleBetweenAndDivider({
         >
           {leftSideText}
         </p>
-        {rightSideText && <RightSideTextComp text={rightSideText} />}
+        {rightSideText && <RightSideTextComp text={rightSideText} isBlur={isBlur} />}
       </div>
       {divider && <Separator className="bg-[#606060] my-4" />}
     </>
   );
 }
 
-const RightSideTextComp: React.FC<{ text: string }> = ({ text }) => {
+const RightSideTextComp: React.FC<{ text: string, isBlur?:boolean }> = ({ text, isBlur }) => {
   return (
     <div
       className="inline-flex items-center rounded-full py-1 px-4"
@@ -47,7 +50,10 @@ const RightSideTextComp: React.FC<{ text: string }> = ({ text }) => {
       }}
     >
       <span
-        className={`${fontPoppins.className} ${mainGradientFont} text-xs lg:text-base font-semibold text-transparent bg-clip-text`}
+        className={cn(
+          `${fontPoppins.className} ${mainGradientFont} text-xs lg:text-base font-semibold text-transparent bg-clip-text`,
+          isBlur && "blur-md"
+        )}
       >
         {text}
       </span>

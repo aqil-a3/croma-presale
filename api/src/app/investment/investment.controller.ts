@@ -124,66 +124,6 @@ export class InvestmentController {
     return await this.investmentService.createNewPayments(body);
   }
 
-  // @Post('/payments/webhook')
-  // async webhookNowPayments(@Req() req: Request) {
-  //   const signature = req.headers['x-nowpayments-sig'] as string;
-  //   const ipnSecret = process.env.NOWPAYMENTS_IPN_SECRET!;
-  //   // const ipnSecret = process.env.NOWPAYMENTS_SANDBOX_IPN_SECRET!;
-  //   const rawBody = (req as any).rawBody || JSON.stringify(req.body);
-  //   const body: NowPaymentsWebhook = req.body;
-
-  //   const computed = crypto
-  //     .createHmac('sha512', ipnSecret)
-  //     .update(rawBody)
-  //     .digest('hex');
-
-  //   if (computed !== signature) {
-  //     throw new UnauthorizedException('Invalid IPN Signature');
-  //   }
-
-  //   await this.investmentService.updateStatusPayments(
-  //     body.payment_id.toString(),
-  //     body.payment_status,
-  //   );
-
-  //   if (body.payment_status === 'finished') {
-  //     // Cek transaksi dari order id webhook
-  //     const { payin_hash } = await this.investmentService.getPaymentStatus(
-  //       body.payment_id.toString(),
-  //     );
-
-  //     // Mapping referral reward agar bisa upload ke db
-  //     const referralRewardPayload =
-  //       await this.dbHelperService.mapToReferralRewards(body);
-
-  //     // Mapping bonus pembelian referral agar bisa upload ke db
-  //     const referralBuyBonus =
-  //       await this.dbHelperService.mapToReferralBuyBonus(body);
-
-  //     // Update txhash
-  //     await this.investmentService.updateTxHash(
-  //       body.payment_id.toString(),
-  //       payin_hash,
-  //     );
-
-  //     if (referralRewardPayload) {
-  //       await this.dbHelperService.createNewReferralReward(
-  //         referralRewardPayload,
-  //       );
-  //     }
-
-  //     if (referralBuyBonus) {
-  //       await this.dbHelperService.createNewReferralBuyBonusIfNoExist(
-  //         referralBuyBonus,
-  //       );
-  //       await this.dbHelperService.patchReferralStatus(
-  //         'confirmed',
-  //         referralBuyBonus.buyer_wallet,
-  //       );
-  //     }
-  //   }
-  //   return { status: 'ok' };
-  // }
   @Post('/payments/webhook')
   async webhookNowPayments(@Req() req: Request) {
     const signature = req.headers['x-nowpayments-sig'] as string;

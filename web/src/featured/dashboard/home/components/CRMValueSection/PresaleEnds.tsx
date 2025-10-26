@@ -7,20 +7,30 @@ import { getCountdown } from "@/utils/getCountdown";
 import { useEffect, useState } from "react";
 
 export function PresaleEnds() {
-  const { activePresale } = usePublicPresaleContext();
+  const { activePresale, isLive, liveTime, setIsLive } = usePublicPresaleContext();
+
   const dateTime = activePresale.end_at;
 
   const [timeCd, setTimeCd] = useState<CountdownType[]>(() =>
-      getCountdown(dateTime)
-    );
-  
+    getCountdown(isLive ? dateTime : liveTime )
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeCd(getCountdown(isLive ? dateTime : liveTime));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [dateTime, liveTime, isLive]);
+
     useEffect(() => {
-      const timer = setInterval(() => {
-        setTimeCd(getCountdown(dateTime));
-      }, 1000);
+      const liveDate = new Date(liveTime);
+      const nowDate = new Date();
   
-      return () => clearInterval(timer);
-    }, [dateTime]);
+      if (liveDate < nowDate && !isLive) {
+        setIsLive(true);
+      }
+    }, [liveTime, isLive, setIsLive, timeCd]);
 
   return (
     <div className="flex flex-col lg:flex-row justify-between lg:items-center">
@@ -28,7 +38,7 @@ export function PresaleEnds() {
         className={`${fontPoppins.className} flex flex-row lg:flex-col justify-between mb-4 lg:mb-0`}
       >
         <p className="text-[#FFFFFF99] font-medium text-sm lg:text-xl">
-          Presale Ends In
+          {isLive ? "Presale Ends In" : "Presale Starts In"}
         </p>
         <p className={`${mainGradientFont} font-semibold text-xs lg:text-base`}>
           {formatDateTimeUTC(dateTime)}

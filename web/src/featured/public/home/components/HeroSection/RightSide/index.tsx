@@ -1,52 +1,3 @@
-// import { CSSProperties, useState } from "react";
-// import { RightSideCTAButton } from "./CTAButton";
-// import { RightSidePaymentMethod } from "./PaymentMethod";
-// import { RightSidePayReceive } from "./PayReceive";
-// import { RightSideProgress } from "./Progress";
-// import { RightSideTitle } from "./Title";
-// import { motion } from "motion/react";
-// import { fadeLeft } from "@/lib/variants";
-
-// const metrixBackground: CSSProperties = {
-//   background: `linear-gradient(0deg, rgba(40, 50, 65, 0), rgba(40, 50, 65, 0)),
-// linear-gradient(0deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34)),
-// linear-gradient(0deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.11))`,
-// };
-
-// const metrixBorder: CSSProperties = {
-//   border: "2px solid",
-//   borderImageSource:
-//     "linear-gradient(108.32deg, #FC6400 0%, rgba(255, 148, 77, 0.4) 3.95%, rgba(252, 100, 0, 0.03) 98.74%)",
-//   borderImageSlice: 1,
-//   overflow: "hidden",
-// };
-
-// export function RightSide() {
-//   const [asset, setAsset] = useState<string>("eth");
-//   const [usd, setUsd] = useState<number>(1);
-
-//   return (
-//     <motion.div
-//       variants={fadeLeft}
-//       initial="hidden"
-//       animate="visible"
-//       transition={{ duration: 0.6, ease: "easeInOut" }}
-//       style={{
-//         ...metrixBackground,
-//         ...metrixBorder,
-//         backdropFilter: "blur(50px)",
-//       }}
-//       className="w-full p-2 lg:p-4 space-y-4"
-//     >
-//       <RightSideTitle />
-//       <RightSideProgress />
-//       <RightSidePayReceive usd={usd} setUsd={setUsd} asset={asset} setAsset={setAsset} />
-//       <RightSidePaymentMethod />
-//       <RightSideCTAButton amountBuy={usd} payCurrency={asset} />
-//     </motion.div>
-//   );
-// }
-
 import { useState } from "react";
 import { RightSideCTAButton } from "./CTAButton";
 import { RightSidePaymentMethod } from "./PaymentMethod";
@@ -55,9 +6,12 @@ import { RightSideProgress } from "./Progress";
 import { RightSideTitle } from "./Title";
 import { motion } from "motion/react";
 import { fadeLeft } from "@/lib/variants";
-import "./style.css"
+import "./style.css";
+import { usePublicPresaleContext } from "../../../provider";
+import { Lock } from "lucide-react";
 
 export function RightSide() {
+  const { isLive } = usePublicPresaleContext();
   const [asset, setAsset] = useState<string>("eth");
   const [usd, setUsd] = useState<number>(1);
 
@@ -67,46 +21,37 @@ export function RightSide() {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.6, ease: "easeInOut" }}
-      className="w-full p-2 lg:p-4 space-y-4 card"
+      className="relative w-full p-2 lg:p-4 space-y-4 card overflow-hidden"
     >
       <div className="card-border" />
       <RightSideTitle />
       <RightSideProgress />
-      <RightSidePayReceive usd={usd} setUsd={setUsd} asset={asset} setAsset={setAsset} />
+      <RightSidePayReceive
+        usd={usd}
+        setUsd={setUsd}
+        asset={asset}
+        setAsset={setAsset}
+      />
       <RightSidePaymentMethod />
       <RightSideCTAButton amountBuy={usd} payCurrency={asset} />
+
+      {!isLive && <LockedOverlay /> }
     </motion.div>
   );
 }
 
-// import { CSSProperties, useState } from "react";
-// import { RightSideCTAButton } from "./CTAButton";
-// import { RightSidePaymentMethod } from "./PaymentMethod";
-// import { RightSidePayReceive } from "./PayReceive";
-// import { RightSideProgress } from "./Progress";
-// import { RightSideTitle } from "./Title";
-// import { motion } from "motion/react";
-// import { fadeLeft } from "@/lib/variants";
-// import "./style-1.css"
-
-// export function RightSide() {
-//   const [asset, setAsset] = useState<string>("eth");
-//   const [usd, setUsd] = useState<number>(1);
-
-//   return (
-//     <motion.div
-//       variants={fadeLeft}
-//       initial="hidden"
-//       animate="visible"
-//       transition={{ duration: 0.6, ease: "easeInOut" }}
-//       className="w-full p-2 lg:p-4 space-y-4 card"
-//     >
-//       <div className="loader" />
-//       <RightSideTitle />
-//       <RightSideProgress />
-//       <RightSidePayReceive usd={usd} setUsd={setUsd} asset={asset} setAsset={setAsset} />
-//       <RightSidePaymentMethod />
-//       <RightSideCTAButton amountBuy={usd} payCurrency={asset} />
-//     </motion.div>
-//   );
-// }
+const LockedOverlay = () => {
+  return (
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center backdrop-blur-md bg-black/40">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="bg-white/10 p-4 rounded-full border border-white/20">
+              <Lock size={40} className="text-white" />
+            </div>
+            <p className="text-white font-semibold text-lg">
+              Presale has not started yet
+            </p>
+            <p className="text-white/70 text-sm">Please wait until the live time</p>
+          </div>
+        </div>
+      )
+}

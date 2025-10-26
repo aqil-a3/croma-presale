@@ -16,7 +16,7 @@ export function LeftSideCountdown() {
 }
 
 const PresaleEndComp = () => {
-  const { activePresale } = usePublicPresaleContext();
+  const { activePresale, isLive, liveTime } = usePublicPresaleContext();
 
   const endAt = activePresale.end_at;
   return (
@@ -27,32 +27,42 @@ const PresaleEndComp = () => {
       <p
         className={`${fontPoppins.className} text-white text-base lg:text-2xl font-medium`}
       >
-        Presale Ends In
+        {isLive ? "Presale Ends In" : "Presale Starts In"}
       </p>
       <p
         className={`${mainGradientFont} ${fontPoppins.className} text-xs lg:text-lg font-semibold`}
       >
-        {formatDateTimeUTC(endAt)}
+        {formatDateTimeUTC(isLive ? endAt : liveTime)}
       </p>
     </div>
   );
 };
 
 const CountDownComp = () => {
-  const { activePresale } = usePublicPresaleContext();
+  const { activePresale, liveTime, isLive, setIsLive } =
+    usePublicPresaleContext();
   const endAt = activePresale.end_at;
 
   const [timeCd, setTimeCd] = useState<CountdownType[]>(() =>
-    getCountdown(endAt)
+    getCountdown(isLive ? endAt : liveTime)
   );
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeCd(getCountdown(endAt));
+      setTimeCd(getCountdown(isLive ? endAt : liveTime));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [endAt]);
+  }, [endAt, isLive, liveTime]);
+
+  useEffect(() => {
+    const liveDate = new Date(liveTime);
+    const nowDate = new Date();
+
+    if (liveDate < nowDate && !isLive) {
+      setIsLive(true);
+    }
+  }, [liveTime, isLive, setIsLive, timeCd]);
 
   return (
     <div className="grid grid-cols-4 gap-4">

@@ -26,8 +26,6 @@ export default async function Home() {
       getTotalRaised(),
     ]);
 
-    console.log(cryptoData);
-
   const paymentMethods = siteSettings.find(
     (setting) => setting.key === "payment_methods"
   ) as SettingAdminDb<PaymentSettingValue>;
