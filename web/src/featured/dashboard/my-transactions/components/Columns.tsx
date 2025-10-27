@@ -35,6 +35,10 @@ export const myTransactionColumns: ColumnDef<TransactionHistory>[] = [
     header: "Date",
   },
   {
+    accessorKey: "order_id",
+    header: "Order Id",
+  },
+  {
     accessorKey: "time",
     header: "Time",
   },
