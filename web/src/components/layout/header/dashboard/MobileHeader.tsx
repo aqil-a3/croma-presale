@@ -3,14 +3,26 @@ import { DropdownMenuMobile } from "./DropdownMobile";
 import { Button } from "@/components/ui/button";
 import { fontPoppins } from "@/config/fonts";
 import { shortenAddress } from "@/utils/shortenAddress";
-import { useAccount } from "wagmi";
-import { Bell, Copy, User } from "lucide-react";
+import { useAccount, useDisconnect } from "wagmi";
+import { Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 const dummyAddress = "0xc0ffee254729296a45a3885639AC7E10F9d54979"; // FOR DEV MODE
 
 export function MobileHeader() {
   const { address } = useAccount();
+  const { disconnect } = useDisconnect({
+    mutation: {
+      onError: (err) => {
+        console.error(err);
+        toast.error("Something wrong");
+      },
+      onSuccess: () =>
+        toast.success("Wallet Disconnected! Thanks for Using Cromachain"),
+    },
+  });
   const router = useRouter();
 
   return (
@@ -27,21 +39,15 @@ export function MobileHeader() {
         <Copy />
       </Button>
 
-      <div className="flex gap-2">
-        <Button
+      <Button
           size={"icon"}
           className="bg-white/10 border border-gray-600 rounded-xl"
-        >
-          <Bell />
-        </Button>
-        <Button
-          size={"icon"}
-          className="bg-white/10 border border-gray-600 rounded-xl"
-          onClick={() => router.push("/profile")}
-        >
-          <User />
-        </Button>
-      </div>
+          onClick={async () => {
+            disconnect();
+            await axios.post("/api/auth/logout");
+            router.replace("/home");
+          }}
+        ></Button>
     </header>
   );
 }

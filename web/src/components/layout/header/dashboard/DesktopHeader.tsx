@@ -6,7 +6,7 @@ import { PANEL_BG } from "@/config/variables";
 import { cn } from "@/lib/utils";
 import { shortenAddress } from "@/utils/shortenAddress";
 import axios from "axios";
-import { Bell, Copy, LogOut, Menu, User, Wallet } from "lucide-react";
+import { Copy, LogOut, Menu, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAccount, useDisconnect } from "wagmi";
@@ -64,20 +64,7 @@ export function DesktopDashboardHeader() {
         </Button>
         <Button
           size={"icon"}
-          className="bg-white/10 border border-gray-600 rounded-xl"
-        >
-          <Bell />
-        </Button>
-        <Button
-          size={"icon"}
-          className="bg-white/10 border border-gray-600 rounded-xl"
-          onClick={() => router.push("/profile")}
-        >
-          <User />
-        </Button>
-        <Button
-          size={"icon"}
-          className="bg-white/10 border border-gray-600 rounded-xl"
+          className="bg-white/10 border border-gray-600 rounded-xl text-white"
           onClick={async () => {
             disconnect();
             await axios.post("/api/auth/logout");
