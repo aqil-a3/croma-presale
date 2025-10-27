@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   },
   description:
     "The world's most advanced Layer 2 solution combining AI-powered development, quantum-resistant security, and lightning-fast performance.",
+  robots: {
+    index: false,
+  },
 };
 
 export default async function DashboardLayout({
@@ -36,4 +39,8 @@ export default async function DashboardLayout({
       </body>
     </html>
   );
+}
+
+{
+  /* <meta name="google-site-verification" content="v-sqWkBQvxRQsX2MZ_yrSFKwE5qKNr9sNDetWsdhVWg" /> */
 }

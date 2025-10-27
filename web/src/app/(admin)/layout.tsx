@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     template: "%s | Admin Croma Presale",
     default: "Admin Croma Presale",
   },
+  robots: {
+    index: false,
+  },
 };
 
 export const dynamic = "force-dynamic";

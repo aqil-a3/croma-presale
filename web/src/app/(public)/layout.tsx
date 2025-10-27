@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   },
   description:
     "The world's most advanced Layer 2 solution combining AI-powered development, quantum-resistant security, and lightning-fast performance.",
+  verification: {
+    google: "v-sqWkBQvxRQsX2MZ_yrSFKwE5qKNr9sNDetWsdhVWg",
+  },
+  robots: {
+    index: true,
+  },
 };
 
 export default function PublicLayout({
