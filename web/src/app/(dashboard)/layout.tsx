@@ -5,6 +5,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/layout/sidebar/dashboard";
 import { Toaster } from "@/components/ui/sonner";
 import { getWalletAuth } from "@/lib/auth/wallet";
+import { FloatingContact } from "@/components/layout/FloatingContact";
 
 export const metadata: Metadata = {
   title: {
@@ -35,12 +36,9 @@ export default async function DashboardLayout({
             {children}
           </main>
           <Toaster position="top-center" richColors={true} />
+          <FloatingContact />
         </SidebarProvider>
       </body>
     </html>
   );
-}
-
-{
-  /* <meta name="google-site-verification" content="v-sqWkBQvxRQsX2MZ_yrSFKwE5qKNr9sNDetWsdhVWg" /> */
 }
