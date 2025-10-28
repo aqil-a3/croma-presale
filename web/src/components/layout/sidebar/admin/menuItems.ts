@@ -16,6 +16,10 @@ export const menuItems = [
     label: "Transaction",
   },
   {
+    value: "/admin/referral-withdraw",
+    label: "Referral Withdraw",
+  },
+  {
     value: "/admin/settings",
     label: "Setting",
   },

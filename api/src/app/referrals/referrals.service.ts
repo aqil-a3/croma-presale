@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SupabaseService } from '../../service/supabase/supabase.service';
 import {
   ReferralInsert,
+  ReferralQueryParams,
   ReferralRewardsDB,
   ReferralRewardsInsert,
   ReferralWithdrawRequestInsert,
@@ -19,6 +20,20 @@ export class ReferralsService {
   private logger = new Logger(ReferralsService.name);
   private supabaseAdmin = this.supabaseService.getAdmin();
   private tableName = 'referrals';
+
+  async getAdminReferralWDRequest({ from, to }: ReferralQueryParams) {
+    const { data, error } = await this.supabaseAdmin
+      .from('referral_withdraw_requests')
+      .select('*')
+      .range(from, to);
+
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
+    return data;
+  }
 
   async getNewestReferrals() {
     const { data, error } = await this.supabaseAdmin

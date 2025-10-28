@@ -8,12 +8,13 @@ import { shortenAddress } from "@/utils/shortenAddress";
 import axios from "axios";
 import { Copy, LogOut, Menu, Wallet } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useDisconnect } from "wagmi";
 
 export function DesktopDashboardHeader() {
   const { toggleSidebar, open } = useSidebar();
-  const { disconnect } = useDisconnect({
+  const { disconnectAsync } = useDisconnect({
     mutation: {
       onError: (err) => {
         console.error(err);
@@ -30,6 +31,7 @@ export function DesktopDashboardHeader() {
     await navigator.clipboard.writeText(address!);
     toast.success("Your address have copied!");
   };
+  const [loading, setLoading] = useState(false);
 
   return (
     <header
@@ -66,9 +68,15 @@ export function DesktopDashboardHeader() {
           size={"icon"}
           className="bg-white/10 border border-gray-600 rounded-xl text-white"
           onClick={async () => {
-            disconnect();
-            await axios.post("/api/auth/logout");
-            router.replace("/home");
+            if (loading) return;
+            setLoading(true);
+            try {
+              await disconnectAsync();
+              await axios.post("/api/auth/logout");
+              router.replace("/home");
+            } finally {
+              setLoading(false);
+            }
           }}
         >
           <LogOut />

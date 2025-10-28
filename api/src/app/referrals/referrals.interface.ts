@@ -66,3 +66,8 @@ export type ReferralWithdrawRequestInsert = Omit<
   ReferralWithdrawRequestDb,
   'id'
 >;
+
+export interface ReferralQueryParams {
+  from: number;
+  to: number;
+}

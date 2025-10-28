@@ -10,6 +10,7 @@ import {
   ReferralBuyBonusDb,
   ReferralDb,
   ReferralRewardsDB,
+  ReferralWithdrawRequestDb,
   ReferralWithdrawRequestUser,
 } from "@/@types/referrals";
 import { SettingAdminDbKey } from "@/@types/setting-admin";
@@ -55,6 +56,13 @@ export interface ReferralApiTypes {
   getReferralBuyBonusByAddress(
     wallet_address: string
   ): Promise<ReferralBuyBonusDb[]>;
+  getAdminReferralWDRequest: ({
+    from,
+    to,
+  }: {
+    from: number;
+    to: number;
+  }) => Promise<ReferralWithdrawRequestDb[]>;
 }
 
 export interface SiteSettingApiTypes {

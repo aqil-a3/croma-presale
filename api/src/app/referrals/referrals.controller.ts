@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ReferralsService } from './referrals.service';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { ReferralWithdrawRequestUser } from './referrals.interface';
@@ -25,6 +33,15 @@ export class ReferralsController {
     return await this.referralsService.getReferralRewardByAddress(
       wallet_address,
     );
+  }
+
+  @UseGuards(SharedSecretGuard)
+  @Get('withdraw')
+  async getWithdrawReferralRequest(
+    @Query('from') from: number,
+    @Query('to') to: number,
+  ) {
+    return await this.referralsService.getAdminReferralWDRequest({ from, to });
   }
 
   @UseGuards(SharedSecretGuard)
