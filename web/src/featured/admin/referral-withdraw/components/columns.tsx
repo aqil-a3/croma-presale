@@ -12,6 +12,7 @@ import {
 import { Copy, EllipsisVertical, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 import { ReferralStatusCell } from "./ReferralStatusCell";
+import { ReferralDetailDialog } from "./ReferralDetailDialog";
 
 function formatDate(dateString?: string) {
   if (!dateString) return "-";
@@ -92,13 +93,15 @@ export const referralWithdrawColumns: ColumnDef<ReferralWithdrawRequestDb>[] = [
     ),
   },
   {
-    id: "actions",
-    header: "",
-    cell: ({ row }) => {
-      const txHash = row.original.tx_hash;
-      const address = row.original.wallet_address;
+  id: "actions",
+  header: "",
+  cell: ({ row }) => {
+    const txHash = row.original.tx_hash;
+    const address = row.original.wallet_address;
+    const withdraw = row.original;
 
-      return (
+    return (
+      <div className="flex items-center gap-1">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -131,7 +134,11 @@ export const referralWithdrawColumns: ColumnDef<ReferralWithdrawRequestDb>[] = [
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-      );
-    },
+
+        <ReferralDetailDialog withdraw={withdraw} />
+      </div>
+    );
   },
+},
+
 ];
