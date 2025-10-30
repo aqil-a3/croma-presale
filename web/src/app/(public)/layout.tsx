@@ -4,6 +4,8 @@ import Header from "@/components/layout/header/public";
 import Footer from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { FloatingContact } from "@/components/layout/FloatingContact";
+import { Maintenance } from "@/components/maintenance";
+import { isMaintenance } from "@/constant/variables";
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +27,16 @@ export default function PublicLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (isMaintenance) {
+      return (
+        <html lang="en">
+          <body>
+            <Maintenance />
+          </body>
+        </html>
+      );
+    }
+
   return (
     <html lang="en">
       <body className={`antialiased bg-black`}>

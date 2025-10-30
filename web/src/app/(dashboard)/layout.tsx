@@ -6,6 +6,8 @@ import { DashboardSidebar } from "@/components/layout/sidebar/dashboard";
 import { Toaster } from "@/components/ui/sonner";
 import { getWalletAuth } from "@/lib/auth/wallet";
 import { FloatingContact } from "@/components/layout/FloatingContact";
+import { Maintenance } from "@/components/maintenance";
+import { isMaintenance } from "@/constant/variables";
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +27,16 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const { isAdmin } = await getWalletAuth({ requireAuth: true });
+
+  if (isMaintenance) {
+    return (
+      <html lang="en">
+        <body>
+          <Maintenance />
+        </body>
+      </html>
+    );
+  }
 
   return (
     <html lang="en">
