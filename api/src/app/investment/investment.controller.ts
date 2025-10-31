@@ -2,12 +2,12 @@ import {
   Body,
   Controller,
   Get,
-  Headers,
   Logger,
   Param,
   Post,
   Query,
   Req,
+  ServiceUnavailableException,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -15,12 +15,12 @@ import { InvestmentService } from './investment.service';
 import {
   CreatePaymentRequest,
   InvestmentClient,
-  NowPaymentsWebhook,
 } from './investment.interface';
 import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
 import crypto from 'crypto';
 import { Request } from 'express';
+import { isCanBuy } from 'src/constants/variables';
 
 @Controller('investment')
 export class InvestmentController {
@@ -108,12 +108,20 @@ export class InvestmentController {
   @UseGuards(SharedSecretGuard)
   @Post('')
   async createNewInvestment(@Body() body: InvestmentClient) {
+    if (!isCanBuy)
+      return new ServiceUnavailableException(
+        '🛠️ Purchases are temporarily disabled. You can still connect and view your balance.',
+      );
     return await this.investmentService.createNewInvestment(body);
   }
 
   @UseGuards(SharedSecretGuard)
   @Post('/payments')
   async createNewPayments(@Body() body: CreatePaymentRequest) {
+    if (!isCanBuy)
+      return new ServiceUnavailableException(
+        '🛠️ Purchases are temporarily disabled. You can still connect and view your balance.',
+      );
     const { min_amount } = await this.investmentService.getMinAmountNowpayments(
       body.pay_currency,
     );

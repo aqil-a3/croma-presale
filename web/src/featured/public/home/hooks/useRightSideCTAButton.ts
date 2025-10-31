@@ -51,6 +51,8 @@ export function useRightSideCTAButton(amountBuy: number, payCurrency: string) {
         payCurrency,
         amountBuy,
       });
+     if(data.status === 503)
+      return toast.error(data.message)
       const investmentData = buildInvestmentData(address, activePresale, data);
       await axios.post("/api/investment", investmentData);
 

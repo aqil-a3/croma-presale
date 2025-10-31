@@ -35,6 +35,8 @@ export async function POST(req: NextRequest) {
     if (isAxiosError(error)) {
       const data = error.response?.data.data;
 
+      console.log(data)
+
       return NextResponse.json(
         { message: data.message ?? "Something error" },
         { status: data.statusCode }
