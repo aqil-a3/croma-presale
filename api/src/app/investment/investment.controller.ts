@@ -20,7 +20,7 @@ import { SharedSecretGuard } from '../../guards/shared-secret.guard';
 import { DbHelpersService } from '../../service/db-helpers/db-helpers.service';
 import crypto from 'crypto';
 import { Request } from 'express';
-import { isCanBuy } from 'src/constants/variables';
+import { isCanBuy } from '../../constants/variables';
 
 @Controller('investment')
 export class InvestmentController {
