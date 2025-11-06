@@ -15,6 +15,7 @@ import { FaqDb } from "@/featured/admin/faq/interface";
 import { useHasHydrated } from "@/hooks/use-has-hydrated";
 import { PaymentSettingValue } from "@/@types/setting-admin";
 import { PoweredBy } from "@/featured/public/home/components/PoweredBySection";
+import { AutoConnectPresale } from "@/featured/public/home/AutoConnectPresale";
 
 export default function HomeTemplate({
   activePresale,
@@ -59,6 +60,7 @@ export default function HomeTemplate({
           <Background />
         </>
 
+        <AutoConnectPresale />
         <HeroSection />
         <PoweredBy />
         <PresaleProgressSection />
